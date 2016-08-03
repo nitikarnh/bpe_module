@@ -340,8 +340,9 @@ class account_voucher(osv.osv):
         ctx = context.copy()
         ctx.update({'date': date})
         #read the voucher rate with the right date in the context
+        move_line_ids = []
         for data in self.browse(cr, uid, ids):
-            move_line_ids = []
+
             for line in data.line_ids:
                 move_line_ids.append(line.move_line_id.id)
         if move_line_ids:
