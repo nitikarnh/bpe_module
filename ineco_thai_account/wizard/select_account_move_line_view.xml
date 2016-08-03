@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+        <record id="wizard_select_account_move_line_form" model="ir.ui.view">
+            <field name="name">wizard.select.account.move.line.form</field>
+            <field name="model">wizard.select.account.move.line</field>
+            <field name="arch" type="xml">
+                <form string="Set to Invoiced" version="7.0">
+                	<group>
+                        <group>
+                            <field name="date_from" on_change="on_change_dateformto(date_from, date_to, context)"/>
+                        </group>
+                        <group>
+                            <field name="date_to" on_change="on_change_dateformto(date_from, date_to, context)"/>
+                        </group>
+                        <group colspan="4">
+                            <field name="move_line_ids" nolabel="1" colspan="4">
+                                <tree string="Move Line">
+                                    <field name="move_id" />
+                                    <field name="partner_id" />
+                                    <field name="date" />
+                                    <field name="date_maturity" />
+                                    <field name="debit" />
+                                    <field name="credit" />
+                                </tree>
+                            </field>
+                        </group>
+                	</group>
+                    <p class="oe_grey">
+                    </p>
+                    <footer>
+                        <button string="Select" name="update_data" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_select_account_move_line" model="ir.actions.act_window">
+            <field name="name">Select Move Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.select.account.move.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="view_ineco_select_receipt_voucher_cancel_form" model="ir.ui.view">
+            <field name="name">select.receipt.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <button name="action_cancel_draft" position="after">
+                    <button name="%(action_select_account_move_line)d" string="Select More" type="action" class="oe_edit_only" />
+                    <button name="button_clear_line" string="Clear Lines" type="object" class="oe_edit_only" />
+                </button>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

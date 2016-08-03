@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_ineco_billing_partner_form">
+            <field name="name">ineco.billing.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='accounting']" position="after">
+                    <page string="More Information">
+                        <group>
+                            <group>
+                                <field name="pid" required="1"/>
+                                <field name="tax_detail"/>
+                                <field name="with_holding_type"/>
+                            </group>
+                            <group>
+                                <field name="billing_payment_id" domain="[('billing_term','=',True)]"/>
+                                <field name="cheque_payment_id"/>
+                                <field name="note_cheque" invisible="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <field name="property_payment_term" position="after">
+                </field>
+                <field name="website" position="before">
+                    <field name="name_short"/>
+                    <field name="name2" placeholder="Secondary Name"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_ineco_account_partner_tree" model="ir.ui.view">
+            <field name="name">res.ineco.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="display_name" position="after">
+                    <field name="ref" />
+                    <field name="street"/>
+                    <field name="street2"/>
+                    <field name="city"/>
+                    <field name="state_id" invisible="1"/>
+                    <field name="zip"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_ineco_res_partner_filter" model="ir.ui.view">
+            <field name="name">ineco.res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                 <field name="name" position="after">
+                     <field name="ref" />
+                     <field name="pid" string="Tax ID" />
+                 </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ineco_res_partner_kanban_view">
+            <field name="name">ineco.res.partner.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="ref" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

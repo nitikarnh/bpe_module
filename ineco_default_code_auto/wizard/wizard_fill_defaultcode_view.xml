@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_wizard_ineco_fill_defaultcode_form" model="ir.ui.view">
+            <field name="name">wizard.ineco.fill.defaultcode.form</field>
+            <field name="model">wizard.ineco.fill.defaultcode</field>
+            <field name="arch" type="xml">
+                <form string="Fill Default Code">
+                    <footer>
+                        <button name="action_apply" string="Apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+         <act_window name="Fill Default Code"
+            res_model="wizard.ineco.fill.defaultcode"
+            src_model="product.template"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            multi="False"
+            id="action_wizard_ineco_fill_defaultcode"/>
+
+    </data>
+</openerp>

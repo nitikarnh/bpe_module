@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_breakdown_sale_order_form">
+	      	<field name="name">breakdown.sale.form</field>
+	      	<field name="model">sale.order</field>
+	      	<field name="inherit_id" ref="sale.view_order_form"/>
+	      	<field name="arch" type="xml">
+
+                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/field[@name='name']" position="after">
+                    <field name="breakdown_ids" colspan="4" context="{'lines': breakdown_ids}" >
+                        <tree string="Breakdown">
+                            <field name="no" />
+                            <field name="breakdown_id" />
+                            <field name="price_unit" />
+                            <field name="name" />
+                        </tree>
+                        <form string="Breakdown">
+                            <group>
+                                <group>
+                                    <field name="sequence" invisible="1" />
+                                    <field name="no" />
+                                    <field name="breakdown_id" domain="[('usage','=','normal')]"/>
+                                </group>
+                                <group>
+                                    <field name="price_unit" />
+                                    <field name="name" />
+                                </group>
+                                <field name="estimate_ids" context="{'lines': estimate_ids}" colspan="4">
+                                    <tree string="Estimate" >
+                                        <field name="sequence" />
+                                        <field name="product_id" />
+                                        <field name="supplier_id" invisible="1" />
+                                        <field name="name" />
+                                        <field name="categ_id" />
+                                        <field name="uom_id" />
+                                        <field name="cost" />
+                                        <field name="days" />
+                                        <field name="quantity" />
+                                        <field name="total_cost" />
+                                        <field name="ref_no" />
+                                    </tree>
+                                    <form string="Estimate">
+                                        <group>
+                                            <group string="Estimate">
+                                                <field name="sequence" />
+                                                <field name="product_id" on_change="onchange_product_id(product_id, name, supplier_id)" />
+                                                <field name="supplier_id" domain="[('supplier','=',True)]" on_change="onchange_supplier_id(product_id, supplier_id)" />
+                                                <field name="name" />
+                                                <field name="uom_id" />
+                                                <field name="quantity" on_change="onchange_price(cost,cost_rate,quantity,mod_demod,days,days2)" />
+                                                <field name="cost" on_change="onchange_price(cost,cost_rate,quantity,mod_demod,days,days2)"/>
+                                                <field name="cost_rate" on_change="onchange_price(cost,cost_rate,quantity,mod_demod,days,days2)"/>
+                                                <field name="days" on_change="onchange_price(cost,cost_rate,quantity,mod_demod,days,days2)" />
+                                                <field name="days2" on_change="onchange_price(cost,cost_rate,quantity,mod_demod,days,days2)" />
+                                            </group>
+                                            <group string="Summary">
+                                                <field name="mod_demod" on_change="onchange_price(cost,cost_rate,quantity,mod_demod,days,days2)"/>
+                                                <field name="cost_plus" />
+                                                <field name="unit_price" />
+                                                <field name="estimate_cost" />
+                                                <field name="total_cost" />
+                                                <field name="extra_cost" />
+                                                <field name="standby_cost" />
+                                            </group>
+                                            <group string="Time">
+                                                <field name="ref_no" />
+                                                <field name="estimate_time" invisible="1" />
+                                                <field name="propose_time" invisible="1" />
+                                                <field name="delivery_time" />
+                                                <field name="remark" />
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+
+                            </group>
+                        </form>
+                    </field>
+                </xpath>
+
+                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']//field[@name='price_unit']" position="before">
+                    <field name="cost_breakdown" />
+                </xpath>
+
+                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='price_unit']" position="after">
+                    <field name="cost_breakdown" />
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

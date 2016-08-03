@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record model="ir.module.category" id="module_category_ineco">
+            <field name="name">INECO</field>
+            <field name="parent_id" ref="base.module_category_sales_management"/>
+            <field name="sequence">100</field>
+        </record>
+
+        <record id="ineco_thai_account.group_tax_modify" model="res.groups">
+            <field name="name">Tax Modify</field>
+            <field name="category_id" ref="module_category_ineco"/>
+        </record>
+
+        <record id="ineco_thai_account.group_individual_taxinvoice" model="res.groups">
+            <field name="name">Receipt No by Invoice</field>
+            <field name="category_id" ref="module_category_ineco"/>
+        </record>
+
+        <record id="ineco_thai_account.group_receipt_taxinvoice" model="res.groups">
+            <field name="name">Receipt No by Billing </field>
+            <field name="category_id" ref="module_category_ineco"/>
+        </record>
+
+
+        <record id="ineco_thai_account.group_account_commission" model="res.groups">
+            <field name="name">Accountant with Commission</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+        </record>
+
+        <record id="ineco_thai_account.group_account_cancel" model="res.groups">
+            <field name="name">Accountant Cancel</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+        </record>
+
+        <record id="ineco_thai_account.group_multiple_check" model="res.groups">
+            <field name="name">Multiple Check</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+        </record>
+
+        <record id="ineco_thai_account.group_account_special_amount" model="res.groups">
+            <field name="name">Special Amount</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+        </record>
+
+        <record id="secure_ineco_wht" model="ir.model.access">
+            <field name="name">Employees</field>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="model_id" ref="model_ineco_wht"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="secure_ineco_wht_line" model="ir.model.access">
+            <field name="name">Employees</field>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="model_id" ref="model_ineco_wht_line"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="secure_account_voucher_addline" model="ir.model.access">
+            <field name="name">Employees</field>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="model_id" ref="model_account_voucher_addline"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="secure_ineco_cheque" model="ir.model.access">
+            <field name="name">Employees</field>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="model_id" ref="model_ineco_cheque"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="secure_ineco_wht_pnd" model="ir.model.access">
+            <field name="name">Employees</field>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="model_id" ref="model_ineco_wht_pnd"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+    </data>
+</openerp>

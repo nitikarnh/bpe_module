@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="base.menu_ineco_sale" name="Other Configuration" 
+        	parent="base.menu_base_partner" sequence="100" />
+        	
+        <record id="view_ineco_sale_shop_tree" model="ir.ui.view">
+            <field name="name">ineco.sale.shop.tree</field>
+            <field name="model">ineco.sale.shop</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Shop" fonts="bold:message_unread==True" >
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name" />
+                    <field name="sequence_id" />
+                    <field name="company_id" />
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_ineco_sale_shop_form" model="ir.ui.view">
+            <field name="name">ineco.sale.shop.form</field>
+            <field name="model">ineco.sale.shop</field>
+            <field name="arch" type="xml">
+            	<form string="Sale Shop" version="7.0">
+            		<header></header>
+            		<sheet>
+            			<group>
+            				<group>
+			                    <field name="name" />
+			                    <field name="company_id" readonly="1" />
+            				</group>
+            				<group>
+			                    <field name="sequence_id" />
+            				</group>
+            			</group>
+            		</sheet>
+	                <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+            	</form>
+            </field>
+        </record>
+    
+        <record id="view_ineco_sale_shop_search" model="ir.ui.view">
+            <field name="name">ineco.sale.shop.search</field>
+            <field name="model">ineco.sale.shop</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <search string="Sale Shop" >
+                    <field name="name" />
+                    <field name="sequence_id" />
+                    <field name="company_id" />
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ineco_sale_shop" model="ir.actions.act_window">
+            <field name="name">Shops</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ineco.sale.shop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_ineco_sale_shop_search"/>
+            <field name="context">{}
+            </field>
+            <field name="domain"></field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a shop that can be converted into a sales
+                    order.
+                </p><p>
+                    Odoo will help you efficiently handle the complete sales flow:
+                    quotation, sales order, delivery, invoicing and payment.
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="action_ineco_sale_shop" id="menu_ineco_shop" 
+        	parent="base.menu_ineco_sale" sequence="10" groups="base.group_sale_salesman,base.group_sale_manager"/>
+
+        <record id="view_ineco_sale_shop_inherit_form" model="ir.ui.view">
+            <field name="name">ineco.saleorder.shop.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	<field name="client_order_ref" position="before">
+            		<field name="ineco_shop_id" attrs="{'readonly':[('name','!=','/')]}" />
+            	</field>
+            </field>
+        </record>
+    
+    </data>
+</openerp>

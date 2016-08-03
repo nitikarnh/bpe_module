@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="0">
+	
+	    <record id="secure_ineco_stock_receive" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_ineco_stock_receive" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="0"/>
+	        <field name="perm_create" eval="0"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+	
+	    <record id="secure_ineco_stock_sale" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_ineco_stock_sale" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="0"/>
+	        <field name="perm_create" eval="0"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+	
+	    <record id="secure_ineco_pos_transaction" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_ineco_pos_transaction" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="0"/>
+	        <field name="perm_create" eval="0"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+
+	    <record id="secure_ineco_pos_summary" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_ineco_pos_summary" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="0"/>
+	        <field name="perm_create" eval="0"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+	    
+	</data>
+</openerp>

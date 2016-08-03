@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="ineco_paper_voucher" model="report.paperformat">
+            <field name="name">Voucher</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">55</field>
+            <field name="margin_bottom">45</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">50</field>
+            <field name="dpi">300</field>
+        </record>
+
+        <template id="ineco_voucher_external_layout">
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <t t-call="ineco_thai_account.ineco_voucher_external_layout_header"/>
+            <t t-raw="0"/>
+            <t t-call="ineco_thai_account.ineco_voucher_external_layout_footer"/>
+        </template>
+
+        <template id="ineco_voucher_external_layout_header">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <img t-if="company.logo"
+                             t-att-src="'data:image/png;base64,%s' % company.logo"
+                             align="left"
+                             style="max-height: 70px;max-width: 160px;"/>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="row" style="font-size: 18px">
+                            <strong>
+                                <span t-field="company.name"/>
+                            </strong>
+                        </div>
+                        <div class="row" style="font-size: 11px">
+                            <span t-field="company.partner_id.street"/>
+                            <span t-field="company.partner_id.street2"/>
+                            <span t-field="company.partner_id.city"/>
+                            <span t-field="company.partner_id.zip"/>
+                        </div>
+                        <div class="row" style="font-size: 11px">
+                            โทร.
+                            <span t-field="company.partner_id.phone"/>
+                            แฟ็กซ์.
+                            <span t-field="company.partner_id.fax"/>
+                            อีเมล์.
+                            <span t-field="company.partner_id.email"/>
+                        </div>
+                        <div t-if="company.partner_id.vat" class="row" style="font-size: 11px">
+                            เลขประจำตัวผู้เสียภาษี
+                            <span t-field="company.partner_id.vat"/>
+                        </div>
+                        <p/>
+                    </div>
+                    <div class="col-xs-3 pull-right">
+                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)"
+                             style="width:240px;height:40px;"/>
+                    </div>
+                </div>
+                <p/>
+                <div class="row">
+                    <div class="col-xs-2">
+
+                    </div>
+                    <div class="col-xs-8" style="font-size: 18px;text-align:center">
+                        <strong t-if="o.journal_id.type in ('sale','sale_refund')">ใบสำคัญขาย / Sale Voucher</strong>
+                        <strong t-if="o.journal_id.type in ('purchase','purchase_refund')">ใบสำคัญซื้อ / Purchase
+                            Voucher
+                        </strong>
+                        <strong t-if="o.journal_id.customer">ใบสำคัญรับ / Receivable Voucher</strong>
+                        <strong t-if="o.journal_id.supplier">ใบสำคัญจ่าย / Payable Voucher</strong>
+                        <strong t-if="o.journal_id.type in ('general')">ใบสำคัญทั่วไป / General Voucher</strong>
+                    </div>
+                    <div class="col-xs-2" style="text-align:right;font-size: 10px">
+                        <span class="page"/>
+                        /
+                        <span class="topage"/>
+                    </div>
+                    <p/>
+                </div>
+                <!--
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)" style="width:240px;height:40px;"/>
+                    </div>
+                </div>
+                -->
+                <div class="row" style="font-size: 11px;padding: 0px;">
+                    <p/>
+                    <div class="col-xs-6">
+                        <strong t-if="o.journal_id.type in ('sale','sale_refund') or o.journal_id.customer">ลูกค้า
+                        </strong>
+                        <strong t-if="o.journal_id.type in ('purchase','purchase_refund') or o.journal_id.supplier">
+                            ผู้จำหน่าย
+                        </strong>
+                        <p t-if="o.partner_id.parent_id">
+                            <span t-field="o.partner_id.parent_id.name"/>
+                        </p>
+                        <p t-if="not o.partner_id.parent_id">
+                            <span t-field="o.partner_id.name"/>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>เลขที่เอกสาร</strong>
+                        <p>
+                            <span t-field="o.name"/>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>วันที่เอกสาร</strong>
+                        <p>
+                            <span t-field="o.date" t-field-options='{"format": "dd/MM/yyyy"}'/>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style="font-size: 11px;padding: 0px;">
+                    <p/>
+                    <div class="col-xs-6">
+                        <strong>สมุดบัญชี</strong>
+                        <p>
+                            <span t-field="o.journal_id.name"/>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>งวดบัญชี</strong>
+                        <p>
+                            <span t-field="o.period_id.name"/>
+                        </p>
+                    </div>
+                    <div class="col-xs-3">
+                        <strong>เลขอ้างอิง</strong>
+                        <p>
+                            <span t-field="o.ref"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="row"/>
+            </div>
+        </template>
+
+        <template id="ineco_voucher_external_layout_footer">
+            <div class="footer">
+                <table style="font-size: 11px; width: 100%; max-width: 100%;">
+                    <thead>
+                        <th style="width: 15mm;"></th>
+                        <th style="width: 100mm;"></th>
+                        <th style="width: 20mm;"></th>
+                        <th class="text-right" style="width: 20mm;"></th>
+                        <th class="text-right" style="width: 20mm;"></th>
+                    </thead>
+                    <tbody>
+                        <tr style="padding: 8px; line-height: 1.42857143;vertical-align: top;">
+                            <td colspan="5">
+                                <strong>หมายเหตุ</strong>
+                                <span t-field="o.narration"/>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <div class="row" style="font-size: 11px;text-align:center;">
+                    <div class="col-xs-3" style="line-height: 60px">
+                        <strong>ผู้จัดทำ</strong>
+                    </div>
+                    <div class="col-xs-3" style="line-height: 60px">
+                        <strong>ผู้ตรวจ</strong>
+                    </div>
+                    <div class="col-xs-3" style="line-height: 60px">
+                        <strong>ผู้บันทึก</strong>
+                    </div>
+                    <div class="col-xs-3" style="line-height: 60px">
+                        <strong>ผู้อนุมัติ</strong>
+                    </div>
+                </div>
+                <div class="row" style="font-size: 11px;text-align:center;">
+                    <div class="col-xs-3">
+                        ..........................................
+                    </div>
+                    <div class="col-xs-3">
+                        ..........................................
+                    </div>
+                    <div class="col-xs-3">
+                        ..........................................
+                    </div>
+                    <div class="col-xs-3">
+                        ..........................................
+                    </div>
+                </div>
+                <div class="row" style="font-size: 11px;text-align:center;">
+                    <div class="col-xs-3">
+                        ........../........./...........
+                    </div>
+                    <div class="col-xs-3">
+                        ........../........./...........
+                    </div>
+                    <div class="col-xs-3">
+                        ........../........./...........
+                    </div>
+                    <div class="col-xs-3">
+                        ........../........./...........
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+                <div class="row" style="font-size: 10px;text-align:left;">
+                    <div class="col-xs-6">
+                        <p style="line-height: 30px;"/>
+                        <t t-set="current_time" t-value="datetime.datetime.today() + datetime.timedelta(hours=7)"/>
+                        Printed :
+                        <span t-esc="current_time"/>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p style="line-height: 30px;"/>
+                        <t t-set="user_name" t-value="user.name"/>
+                        Printed By :
+                        <span t-esc="user_name"/>
+                    </div>
+                </div>
+
+            </div>
+        </template>
+
+        <template id="ineco_report_voucher_document">
+            <t t-call="ineco_thai_account.ineco_voucher_external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <table class="table table-condensed" style="font-size: 11px;">
+                        <thead>
+                            <th style="width: 20mm;">รหัสบัญชี</th>
+                            <th style="width: 100mm;">ชื่อบัญชี</th>
+                            <th style="width: 110mm;">อ้างถึง</th>
+                            <th style="width: 110mm;">โครงการ</th>
+                            <th style="width: 20mm; text-align: right;">เดบิต</th>
+                            <th style="width: 20mm; text-align: right;">เครดิต</th>
+                        </thead>
+                        <tbody>
+                            <t t-set="line_no" t-value="1"/>
+                            <t t-set="debits" t-value="0"/>
+                            <t t-set="credits" t-value="0"/>
+                            <tr t-foreach="o.line_id" t-as="line">
+                                <td style="text-align:left;">
+                                    <span t-field="line.account_id.code"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.account_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.analytic_account_id.name"/>
+                                </td>
+                                <td style="border-bottom: dashed; border-bottom-width: 1px; padding-right: 2px; text-align: right;">
+                                    <span t-field="line.debit"/>
+                                </td>
+                                <td style="border-bottom: dashed; border-bottom-width: 1px; padding-right: 2px; text-align: right;">
+                                    <span t-field="line.credit"/>
+                                </td>
+                                <t t-set="line_no" t-value="line_no + 1"/>
+                                <t t-set="debits" t-value="debits + line.debit"/>
+                                <t t-set="credits" t-value="credits + line.credit"/>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                                <td style="border-bottom: dashed; border-bottom-width: 1px; padding-right: 2px; text-align: right;">
+                                    <span t-esc="'{0:,.2f}'.format(debits)"/>
+                                </td>
+                                <td style="border-bottom: dashed; border-bottom-width: 1px; padding-right: 2px; text-align: right;">
+                                    <span t-esc="'{0:,.2f}'.format(credits)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table t-if="o.journal_id.customer or o.journal_id.supplier" class="table table-condensed"
+                           style="font-size: 11px;">
+                        <thead>
+                            <th style="width: 30mm;">เลขที่เช็ค</th>
+                            <th style="width: 20mm;">ลงวันที่</th>
+                            <th style="width: 310mm;">ธนาคาร</th>
+                            <th style="width: 110mm; text-align: right;">ยอดเงิน</th>
+                        </thead>
+                        <tbody>
+                            <t t-set="checks" t-value="0"/>
+                            <div t-foreach="o.voucher_ids" t-as="voucher">
+                                <tr t-foreach="voucher.cheque_ids" t-as="check">
+                                    <td style="text-align:left;">
+                                        <span t-field="check.name"/>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <span t-field="check.cheque_date"/>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <span t-field="check.bank.name"/>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span t-field="check.amount"/>
+                                    </td>
+                                    <t t-set="checks" t-value="checks + check.amount"/>
+                                </tr>
+                            </div>
+                            <tr>
+                                <td style="text-align:left;">
+
+                                </td>
+                                <td style="text-align:left;">
+
+                                </td>
+                                <td style="text-align:left;">
+
+                                </td>
+                                <td style="text-align:right;">
+                                    <span t-esc="'{0:,.2f}'.format(checks)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                    <table t-if="o.journal_id.customer or o.journal_id.supplier" class="table table-condensed"
+                           style="font-size: 11px;">
+                        <thead>
+                            <th style="width: 30mm;">เลขที่</th>
+                            <th style="width: 20mm;">ลงวันที่</th>
+                            <th style="width: 210mm;">ลูกค้า</th>
+                            <th style="width: 30mm;">ประเภท</th>
+                            <th style="width: 30mm;text-align: right;">ฐานภาษี</th>
+                            <th style="width: 30mm;text-align: right;">ภาษี</th>
+                        </thead>
+                        <tbody>
+                            <div t-foreach="o.voucher_ids" t-as="voucher">
+                                <tr t-foreach="voucher.wht_ids" t-as="data">
+                                    <td style="text-align:left;">
+                                        <span t-field="data.name"/>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <span t-field="data.date_doc"/>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <span t-field="data.partner_id.name"/>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <span t-field="data.wht_kind"/>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span t-field="data.base_amount"/>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span t-field="data.tax"/>
+                                    </td>
+                                </tr>
+                            </div>
+                        </tbody>
+                    </table>
+
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+
+        <template id="ineco_report_voucher_template">
+            <t t-call="ineco_thai_account.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'ineco_thai_account.ineco_report_voucher_document')"/>
+                </t>
+            </t>
+        </template>
+
+        <report
+                string="INECO - VOUCHER"
+                id="ineco_report_voucher"
+                model="account.move"
+                report_type="qweb-pdf"
+                name="ineco_thai_account.ineco_report_voucher_template"
+
+
+                />
+
+        <record id="ineco_report_voucher" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="ineco_thai_account.ineco_paper_voucher"/>
+        </record>
+
+    </data>
+</openerp>

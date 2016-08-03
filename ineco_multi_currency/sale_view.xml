@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_ineco_sale_order_currency_form">
+	      	<field name="name">ineco.sale.currency.form</field>
+	      	<field name="model">sale.order</field>
+	      	<field name="inherit_id" ref="sale.view_order_form"/>
+	      	<field name="arch" type="xml">
+
+                <!--
+                <field name="pricelist_id" position="replace">
+                    <field name="pricelist_id" invisible="1" />
+                </field>
+                -->
+
+                <xpath expr="//page[@string='Order Lines']" position="after">
+                    <page string="Currency">
+                        <group>
+                            <group>
+                                <field name="ineco_currency_id" />
+                            </group>
+                            <group>
+                                <field name="exchange_date" />
+                                <field name="exchange_rate" />
+                                <!--
+                                <field name="pricelist_id" string="Price list &amp; Currency" domain="[('type','=','sale')]"
+                                       on_change="onchange_pricelist_id(pricelist_id,order_line)" />
+                                -->
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <!--
+
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="replace">
+                    <field name="product_id"
+                           context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom,'exchange_rate': parent.exchange_rate}"
+                           groups="base.group_user"
+                           on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name,
+									   	parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_uom_qty']" position="replace">
+                    <field context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'exchange_rate': parent.exchange_rate}"
+                           name="product_uom_qty" class="oe_inline"
+                           on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id,
+										   		False, False, parent.date_order, False, parent.fiscal_position, True, context)"/>
+                </xpath>
+
+                -->
+
+            </field>
+
+        </record>
+
+
+    </data>
+</openerp>

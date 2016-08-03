@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_wizard_ineco_fill_ena13_form" model="ir.ui.view">
+            <field name="name">wizard.ineco.fill.ean13.form</field>
+            <field name="model">wizard.ineco.fill.ean13</field>
+            <field name="arch" type="xml">
+                <form string="Fill EAN13">
+                    <footer>
+                        <button name="action_apply" string="Apply" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+	<!-- 
+        <record id="action_wizard_ineco_fill_ena13" model="ir.actions.act_window">
+            <field name="name">Fill Ean13</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.ineco.fill.ean13</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    -->
+
+         <act_window name="Fill EAN13"
+            res_model="wizard.ineco.fill.ean13"
+            src_model="product.template"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            multi="False"
+            id="action_wizard_ineco_fill_ena13"/>
+
+<!-- 
+        <record model="ir.values" id="action_wizard_ineco_fill_ean13_value">
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="name">Fill EAN13</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_wizard_ineco_fill_ena13'))" />
+            <field name="key">action</field>
+            <field name="model">product.product</field>
+        </record>
+ -->
+    </data>
+</openerp>

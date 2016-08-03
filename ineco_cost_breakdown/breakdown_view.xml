@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="view_ineco_breakdown_category_form" model="ir.ui.view">
+            <field name="name">ineco.breakdown.category.form</field>
+            <field name="model">ineco.breakdown.category</field>
+            <field name="arch" type="xml">
+                <form string="Breakdown" version="7.0">
+                    <header>
+                    </header>
+                    <sheet>
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <label for="breakdown_id" class="oe_edit_only"/>
+                        <h2>
+                            <field name="breakdown_id" domain="[('usage','=','view')]"/>
+                        </h2>
+                        <group>
+                            <group string="Detail">
+                                <field name="usage"/>
+                                <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                                <field name="active"/>
+                            </group>
+                            <group string="Other">
+                                <field name="sequence" />
+                            </group>
+                        </group>
+                        <separator string="Additional Information"/>
+                        <field name="comment"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_breakdown_category_search" model="ir.ui.view">
+            <field name="name">ineco.breakdown.category.search</field>
+            <field name="model">ineco.breakdown.category</field>
+            <field name="arch" type="xml">
+                <search string="Breakdown">
+                    <field name="name" string="Breakdown Category"/>
+                    <field name="breakdown_id" string="Parent Breakdown"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="view_ineco_breakdown_category_tree" model="ir.ui.view">
+            <field name="name">ineco.breakdown.category.tree</field>
+            <field name="model">ineco.breakdown.category</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <tree string="Brakdown" colors="blue:usage=='view';darkred:usage=='normal'">
+                    <field name="sequence" invisible="1" />
+                    <field name="complete_name"/>
+                    <field name="usage"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_ineco_breakdown_category" model="ir.actions.act_window">
+            <field name="name">Breakdown Category</field>
+            <field name="res_model">ineco.breakdown.category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_ineco_breakdown_category_tree"/>
+            <field name="search_view_id" ref="view_ineco_breakdown_category_search"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a breakdown category.
+              </p><p>
+
+              </p><p>
+              </p>
+            </field>
+        </record>
+
+        <menuitem action="action_ineco_breakdown_category"
+                  id="menu_ineco_breakdown_category"
+                  parent="base.menu_base_config"
+                  sequence="130"/>
+
+    </data>
+</openerp>

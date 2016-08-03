@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+
+        <menuitem name="POS Query" id="menu_point_of_sale_stock" parent="point_of_sale.menu_point_root" sequence="30"/>
+
+        <!-- Receive Tree -->
+       <record model="ir.ui.view" id="view_ineco_stock_receive_tree">
+            <field name="name">ineco.stock.receive.tree</field>
+            <field name="model">ineco.stock.receive</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Receive">
+                	<field name="picking_id" />
+                	<field name="document_date" />
+                	<field name="origin" invisible="1" />
+                	<field name="day" invisible="1" />
+                	<field name="warehouse_id" />
+                	<field name="user_id" />
+                	<field name="default_code" />
+                	<field name="product_id" />
+                	<field name="uom_id" />
+                	<field name="product_uom_qty" sum="Total" />
+              	</tree>
+            </field>
+        </record>
+
+       <record model="ir.ui.view" id="view_ineco_stock_receive_search">
+            <field name="name">ineco.stock.receive.search</field>
+            <field name="model">ineco.stock.receive</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Stock Receive">
+                	<field name="picking_id" />
+                	<field name="document_date" />
+                	<field name="day" />
+                	<field name="warehouse_id" />
+                	<field name="user_id" />
+                	<field name="default_code" />
+                	<field name="product_id" />
+                	<field name="uom_id" />
+                	<field name="product_uom_qty" />
+	               <group expand="0" string="Group By...">
+	                   <filter string="Date" icon="terp-partner" domain="[]" context="{'group_by':'document_date'}"/>
+	                   <filter string="Warehouse" icon="terp-partner" domain="[]" context="{'group_by':'warehouse_id'}"/>
+	                   <filter string="Product" icon="terp-partner" domain="[]" context="{'group_by':'product_id'}"/>
+	                   <filter string="Picking" icon="terp-partner" domain="[]" context="{'group_by':'picking_id'}"/>
+	                   <filter string="User" icon="terp-partner" domain="[]" context="{'group_by':'user_id'}"/>
+	                   <filter string="Day" domain="[]" context="{'group_by':'day'}"/>
+	               </group>
+              	</search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_ineco_stock_receive">
+            <field name="name">Stock Receive</field>
+            <field name="res_model">ineco.stock.receive</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Stock Receive"
+            id="menu_ineco_stock_receive"
+            sequence="10"
+            parent="menu_point_of_sale_stock" 
+            action="action_ineco_stock_receive" />
+
+        <!-- Sale Tree -->
+       <record model="ir.ui.view" id="view_ineco_stock_sale_tree">
+            <field name="name">ineco.stock.sale.tree</field>
+            <field name="model">ineco.stock.sale</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Sale">
+                	<field name="picking_id" />
+                	<field name="document_date" />
+                	<field name="origin" />
+                	<field name="warehouse_id" invisible="1" />
+                	<field name="day" invisible="1" />
+                	<field name="user_id" />
+                	<field name="default_code" />
+                	<field name="product_id" />
+                	<field name="uom_id" />
+                	<field name="product_uom_qty" sum="Total" />
+              	</tree>
+            </field>
+        </record>
+
+       <record model="ir.ui.view" id="view_ineco_stock_sale_search">
+            <field name="name">ineco.stock.sale.search</field>
+            <field name="model">ineco.stock.sale</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Stock Sale">
+                	<field name="picking_id" />
+                	<field name="document_date" />
+                	<field name="day" />
+                	<field name="warehouse_id" />
+                	<field name="user_id" />
+                	<field name="default_code" />
+                	<field name="product_id" />
+                	<field name="uom_id" />
+                	<field name="product_uom_qty"/>
+	               <group expand="0" string="Group By...">
+	                   <filter string="Date" icon="terp-partner" domain="[]" context="{'group_by':'document_date'}"/>
+	                   <filter string="Day" domain="[]" context="{'group_by':'day'}"/>
+	                   <filter string="Warehouse" icon="terp-partner" domain="[]" context="{'group_by':'warehouse_id'}"/>
+	                   <filter string="Product" icon="terp-partner" domain="[]" context="{'group_by':'product_id'}"/>
+	                   <filter string="Picking" icon="terp-partner" domain="[]" context="{'group_by':'picking_id'}"/>
+	                   <filter string="User" icon="terp-partner" domain="[]" context="{'group_by':'user_id'}"/>              
+	               </group>
+              	</search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_ineco_stock_sale">
+            <field name="name">Stock Sale</field>
+            <field name="res_model">ineco.stock.sale</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Stock Sale"
+            id="menu_ineco_stock_sale"
+            sequence="20"
+            parent="menu_point_of_sale_stock" 
+            action="action_ineco_stock_sale" />
+
+        <!-- Pos Transaction Tree -->
+       <record model="ir.ui.view" id="view_ineco_pos_transaction_tree">
+            <field name="name">ineco.pos.transaction.tree</field>
+            <field name="model">ineco.pos.transaction</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="POS Transaction">
+        			<field name="name" />
+        			<field name="pos_reference" />
+        			<field name="date_order" invisible="1"/>
+        			<field name="day" invisible="1" />
+        			<field name="datetime_order" />
+        			<field name="user_id" />
+        			<field name="start_at" />
+        			<field name="stop_at" />
+        			<field name="default_code" />
+        			<field name="product_id" />
+					<field name="price_unit" />
+					<field name="discount" />
+					<field name="qty" sum="Quantity" />
+					<field name="amount_untaxed" invisible="1" />
+					<field name="amount_total" sum="Total" />
+              	</tree>
+            </field>
+        </record>
+
+       <record model="ir.ui.view" id="view_ineco_pos_transaction_search">
+            <field name="name">ineco.pos.transaction.search</field>
+            <field name="model">ineco.pos.transaction</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="POS Transaction">
+        			<field name="name" />
+        			<field name="pos_reference" />
+        			<field name="date_order" />
+        			<field name="day" />
+        			<field name="user_id" />
+        			<field name="start_at" />
+        			<field name="stop_at" />
+        			<field name="default_code" />
+        			<field name="product_id" />
+	               <group expand="0" string="Group By...">
+	                   <filter string="Product" icon="terp-partner" domain="[]" context="{'group_by':'product_id'}"/>
+	                   <filter string="User" icon="terp-partner" domain="[]" context="{'group_by':'user_id'}"/>
+	                   <filter string="Date Order" domain="[]" context="{'group_by':'date_order'}" />
+	                   <filter string="Day" domain="[]" context="{'group_by':'day'}"/>
+	               </group>
+              	</search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_ineco_pos_transaction">
+            <field name="name">POS Transaction</field>
+            <field name="res_model">ineco.pos.transaction</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="POS Transaction"
+            id="menu_ineco_pos_transaction"
+            sequence="30"
+            parent="menu_point_of_sale_stock" 
+            action="action_ineco_pos_transaction" />
+
+        <!-- Pos Summary Tree -->
+       <record model="ir.ui.view" id="view_ineco_pos_summary_tree">
+            <field name="name">ineco.pos.summary.tree</field>
+            <field name="model">ineco.pos.summary</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="POS Summary">
+                	<field name="date_order" />
+                	<field name="day" invisible="1" />
+                	<field name="user_id" />
+                	<field name="transaction_count" sum="Count" />
+                	<field name="amount_total" sum="Total" />
+              	</tree>
+            </field>
+        </record>
+
+       <record model="ir.ui.view" id="view_ineco_pos_summary_search">
+            <field name="name">ineco.pos.summary.search</field>
+            <field name="model">ineco.pos.summary</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="POS Summary">
+                	<field name="date_order" />
+                	<field name="day" />
+                	<field name="user_id" />
+	               <group expand="0" string="Group By...">
+	                   <filter string="User" icon="terp-partner" domain="[]" context="{'group_by':'user_id'}"/>
+	                   <filter string="Date Order" domain="[]" context="{'group_by':'date_order'}" />
+	                   <filter string="Day" domain="[]" context="{'group_by':'day'}" />
+	               </group>
+              	</search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_ineco_pos_summary">
+            <field name="name">POS Summary</field>
+            <field name="res_model">ineco.pos.summary</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="POS Summary"
+            id="menu_ineco_pos_summary"
+            sequence="40"
+            parent="menu_point_of_sale_stock" 
+            action="action_ineco_pos_summary" />
+	
+	</data>
+</openerp>
