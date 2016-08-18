@@ -10,15 +10,12 @@
                         <group string="HRnameENG">
                             <field name="name"/>
                             <field name="birthday"/>
-
                         </group>
                         <group></group>
                         <group>
                             <field name="name_thai" placeholder="ชื่อ-นามสกุลภภาษาไทย"/>
                         </group>
                     </group>
-
-
                 </form>
             </field>
         </record>
@@ -41,7 +38,6 @@
                 <tree string="Employee">
                     <field name="name"/>
                     <field name="name_thai"/>
-
                 </tree>
             </field>
         </record>
@@ -52,7 +48,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_gar_module_employee_tree"/>
-
         </record>
 
         <menuitem action="action_gar_module_employee" id="menu_gar_module_employee" sequence="3"
