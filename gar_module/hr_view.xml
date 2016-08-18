@@ -10,16 +10,24 @@
                         <group string="HRnameENG">
                             <field name="name"/>
                             <field name="birthday"/>
-
                         </group>
                         <group></group>
                         <group>
                             <field name="name_thai" placeholder="ชื่อ-นามสกุลภภาษาไทย"/>
                         </group>
                     </group>
-
-
                 </form>
+            </field>
+        </record>
+
+        <record id="view_bpe_employee_filter" model="ir.ui.view">
+            <field name="name">bpe.employee.search</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <field name="department_id" position="after" >
+                    <field name="name_thai" />
+                </field>
             </field>
         </record>
 
@@ -30,7 +38,6 @@
                 <tree string="Employee">
                     <field name="name"/>
                     <field name="name_thai"/>
-
                 </tree>
             </field>
         </record>
@@ -41,7 +48,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_gar_module_employee_tree"/>
-
         </record>
 
         <menuitem action="action_gar_module_employee" id="menu_gar_module_employee" sequence="3"
