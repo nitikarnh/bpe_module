@@ -36,6 +36,16 @@ class hr_employee(osv.osv):
     _inherit = 'hr.employee'
 
     _columns = {
-        'name_thai': fields.char(string='Name thai',size=256,required=True,help='Please insert thai name'), #'ชื่อฟิลด์':fields.ประเภทฟิลด์('ชื่อที่โชว์ในERP')
+        'bpe_name_thai': fields.char(string='Name thai',size=256,required=True,help='Please insert thai name'), #'ชื่อฟิลด์':fields.ประเภทฟิลด์('ชื่อที่โชว์ในERP')
+        'bpe_name_eng':fields.char(string='Name Eng',size=256,required=True,help='Please insert Eng name'),
+        'bpe_jobtitle':fields.char(string='ตำแหน่ง',size=100,required=True,help='Please insert Job Title'),
+        'bpe_Department':fields.char(string='สังกัด',size=100,required=True,help='Insert Department'),
+        'bpe_date_of_birth':fields.char(string='ว/ด/ป เกิด',size=20,required=True,help='ตย.31/04/2534'),
+        'bpe_age':fields.char(string='อายุ',size=2,required=True),
+        'bpe_weight':fields.char(string='น้ำหนัก',size=3),
+        'bpe_height':fields.char(string='ส่วนสูง',size=3),
+        'bpe_blood':fields.char(string='กรุ๊ปเลือด',size=5,required=True,help='กรุ๊ปเลือก'),
+        'bpe_id':fields.char(string='เลขที่บัตร ปชช',size=5,required=True,help='กรุ๊ปเลือก'),
+        'bpe_addresscard':fields.char(string='ที่อยู่ตามบัตรประชาชน',help='ที่อยู่ตามบัตรประชาชน'),
 
-    }
+        }
