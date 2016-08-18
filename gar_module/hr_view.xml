@@ -13,7 +13,7 @@
                         </group>
                         <group></group>
                         <group>
-                            <field name="name_thai" placeholder="ชื่อ-นามสกุลภภาษาไทย"/>
+                            <field name="bpe_name_thai" placeholder="ชื่อ-นามสกุลภภาษาไทย"/>
                         </group>
                     </group>
                 </form>
@@ -26,7 +26,7 @@
             <field name="inherit_id" ref="hr.view_employee_filter"/>
             <field name="arch" type="xml">
                 <field name="department_id" position="after" >
-                    <field name="name_thai" />
+                    <field name="bpe_name_thai" />
                 </field>
             </field>
         </record>
@@ -37,7 +37,7 @@
             <field name="arch" type="xml">
                 <tree string="Employee">
                     <field name="name"/>
-                    <field name="name_thai"/>
+                    <field name="bpe_name_thai"/>
                 </tree>
             </field>
         </record>
