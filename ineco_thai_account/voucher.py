@@ -553,7 +553,12 @@ class account_voucher(osv.osv):
     
     def first_move_line_get(self, cr, uid, voucher_id, move_id, company_currency, current_currency, context=None):
         voucher_brw = self.pool.get('account.voucher').browse(cr,uid,voucher_id,context)
-        account_id = voucher_brw.account_id.id
+        #account_id = voucher_brw.account_id.id
+        #Define default account_id value
+        if voucher_brw.journal_id.default_debit_account_id:
+            account_id = voucher_brw.journal_id.default_debit_account_id.id
+        elif voucher_brw.journal_id.default_credit_account_id:
+            account_id = voucher_brw.journal_id.default_credit_account_id.id
         debit = credit = 0.0
         if voucher_brw.type in ('purchase', 'payment'):
             credit = voucher_brw.paid_amount_in_company_currency
