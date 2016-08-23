@@ -7,13 +7,51 @@
             <field name="arch" type="xml">
                 <form string="Employee">
                     <group>
-                        <group string="HRnameENG">
+                        <group string="HRname">
                             <field name="name"/>
-                            <field name="birthday"/>
+                            <field name="bpe_name_eng"/>
+                            <field name="bpe_jobtitle"/>
+                            <field name="bpe_department"/>
+                            <field name="bpe_date_of_birth"/>
+                            <field name="bpe_age"/>
+                            <field name="bpe_weight"/>
+                            <field name="bpe_height"/>
+                            <field name="bpe_blood"/>
+                            <field name="bpe_id"/>
+                            <field name="bpe_addresscard"/>
+                            <field name="bpe_addressnow"/>
+                            <field name="bpe_phone"/>
+                            <field name="bpe_email"/>
+                            <field name="bpe_emergency_contact1"/>
+                            <field name="bpe_emergency_relation1"/>
+                            <field name="bpe_emergency_phone1"/>
+                            <field name="bpe_emergency_contact2"/>
+                            <field name="bpe_emergency_relation2"/>
+                            <field name="bpe_emergency_phone2"/>
+                            <field name="bpe_marital_status"/>
+                            <field name="bpe_name_spouse"/>
+                            <field name="bpe_age_spouse"/>
+                            <field name="bpe_job_spouse"/>
+                            <field name="bpe_phone_spouse"/>
+                            <field name="bpe_email_spouse"/>
+                            <field name="bpe_number_child"/>
+                            <field name="bpe_name_child1"/>
+                            <field name="bpe_name_dad"/>
+                            <field name="bpe_age_dad"/>
+                            <field name="bpe_job_dad"/>
+                            <field name="bpe_phone_dad"/>
+                            <field name="bpe_name_mom"/>
+                            <field name="bpe_age_mom"/>
+                            <field name="bpe_job_mom"/>
+                            <field name="bpe_phone_mom"/>
+                            <field name="bpe_madical_history"/>
+                            <field name="bpe_disease"/>
+
                         </group>
                         <group></group>
                         <group>
                             <field name="bpe_name_thai" placeholder="ชื่อ-นามสกุลภภาษาไทย"/>
+
                         </group>
                     </group>
                 </form>
