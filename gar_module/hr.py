@@ -101,7 +101,7 @@ class hr_employee(osv.osv):
         'bpe_position': fields.text(string='ตำแหน่ง', size=256),
         'bpe_depart':fields.text(string='สังกัด',size=100),
         'bpe_project':fields.text(string='โครงการที่ทำงานด้วย',size=256),
-        'bpe_customerproject':fields.text(string='ลูกค้าที่ทำงานด้วย',size=256),
+        'bpe_customerproject':fields.text(string='ลูกค้าที่ทำงานด้วย',size=256),#ชื่อลูกค้างานที่ทำ
         'bpe_startwork': fields.date(string='วันเริ่มงาน'),
         'bpe_endwork': fields.date(string='สิ้นสุดการทำงาน'),
         'bpe_workdue':fields.integer(string='อายุงานในตำแหน่งนี้',size=3),
