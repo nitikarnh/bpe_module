@@ -36,23 +36,31 @@
                             <field name="bpe_email_spouse"/>
                             <field name="bpe_number_child"/>
                             <field name="bpe_name_child1"/>
-                            <field name="bpe_name_dad"/>
-                            <field name="bpe_age_dad"/>
-                            <field name="bpe_job_dad"/>
-                            <field name="bpe_phone_dad"/>
-                            <field name="bpe_name_mom"/>
-                            <field name="bpe_age_mom"/>
-                            <field name="bpe_job_mom"/>
-                            <field name="bpe_phone_mom"/>
-                            <field name="bpe_madical_history"/>
-                            <field name="bpe_disease"/>
-
                         </group>
                         <group></group>
                         <group>
                             <field name="bpe_name_thai" placeholder="ชื่อ-นามสกุลภภาษาไทย"/>
-
                         </group>
+                        <notebook colspan="4">
+                            <page string="S1">
+                                <group string="บิดา">
+                                    <field name="bpe_name_dad"/>
+                                    <field name="bpe_age_dad"/>
+                                    <field name="bpe_job_dad"/>
+                                    <field name="bpe_phone_dad"/>
+                                </group>
+                            </page>
+                            <page string="S2">
+                                <group string="มารดา">
+                                    <field name="bpe_name_mom"/>
+                                    <field name="bpe_age_mom"/>
+                                    <field name="bpe_job_mom"/>
+                                    <field name="bpe_phone_mom"/>
+                                    <field name="bpe_madical_history"/>
+                                    <field name="bpe_disease"/>
+                                </group>
+                            </page>
+                        </notebook>
                     </group>
                 </form>
             </field>
