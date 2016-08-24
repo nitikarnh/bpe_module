@@ -113,5 +113,42 @@ class hr_employee(osv.osv):
         'bpe_institution': fields.text(string='สถาบัน', size=256),
         'bpe_costtrain':fields.integer(string='ค่าใช้จ่าย',size=10),
         'bpe_expcert':fields.date(string='วันหมดอายุCertificate',),
-
+        #many2one
+        'bpe_education_ids': fields.one2many('bpe.hr.employee.education','employee_id',string='Educations'),
     }
+
+
+class bpe_hr_education_level(osv.osv):
+    _name = 'bpe.hr.education.level'
+    _description = 'Education Level'
+    _columns = {
+        'name': fields.char('Education Level Name', size=64, required=True),
+    }
+
+
+class bpe_hr_education_institute(osv.osv):
+    _name = 'bpe.hr.education.institute'
+    _description = 'Education Institute'
+    _columns = {
+        'name': fields.char('Education Institute Name', size=256, required=True),
+    }
+
+
+class bpe_hr_employee_education(osv.osv):
+    _name = 'bpe.hr.employee.education'
+    _description = 'Employee Education'
+    _columns = {
+        'name': fields.char('Employee Education Name', size=128,),
+        'employee_id': fields.many2one('hr.employee', string='Employee'),
+        'education_level_id': fields.many2one('bpe.hr.education.level',string='Education Level', requried=True),
+        'education_stitute_id': fields.many2one('bpe.hr.education.institute',string='Institute', requried=True),
+        'year': fields.integer('Year', required=True),
+        'grade': fields.float('Grade', required=True),
+        'branch': fields.char('สาขาวิชา', size=128),
+        #Sorting Column by User Field
+        'sequence': fields.integer('Sequence')
+    }
+    _defaults = {
+        'sequence': 10,
+    }
+    _order = 'employee_id, sequence'

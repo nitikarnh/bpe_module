@@ -60,6 +60,30 @@
                                     <field name="bpe_disease"/>
                                 </group>
                             </page>
+                            <page string="Educations">
+                                <!--one2many-->
+                                <field name="bpe_education_ids" >
+                                    <tree editable="top">
+                                        <!--Sorting By User-->
+                                        <field name="sequence" widget="handle" />
+
+                                        <field name="education_level_id" string="ระดับการศึกษา"/>
+                                        <field name="education_stitute_id" string="สถานบันการศึกษา" />
+                                        <field name="branch" string="สาขาวิชา"/>
+                                        <field name="year" string="ปีที่จบ"/>
+                                        <field name="grade" string="เกรด" />
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="education_level_id" string="ระดับการศึกษา"/>
+                                            <field name="education_stitute_id" string="สถานบันการศึกษา" />
+                                            <field name="branch" string="สาขาวิชา"/>
+                                            <field name="year" string="ปีที่จบ"/>
+                                            <field name="grade" string="เกรด" />
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
                         </notebook>
                     </group>
                 </form>
