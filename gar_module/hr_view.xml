@@ -7,11 +7,15 @@
             <field name="arch" type="xml">
                 <form string="Employee">
                     <group>
-                        <group string="HRname">
-                            <field name="name"/>
+                        <group string="ฺHR Employee">
+                            <field name="bpe_name_thai"/>
                             <field name="bpe_name_eng"/>
-                            <field name="bpe_jobtitle"/>
-                            <field name="bpe_department"/>
+                        </group>
+                        <group string="Position">
+                            <field name="job_id"/>
+                            <field name="department_id"/>
+                        </group>
+                        <group string="Personal Information">
                             <field name="bpe_date_of_birth"/>
                             <field name="bpe_age"/>
                             <field name="bpe_weight"/>
@@ -22,70 +26,85 @@
                             <field name="bpe_addressnow"/>
                             <field name="bpe_phone"/>
                             <field name="bpe_email"/>
-                            <field name="bpe_emergency_contact1"/>
-                            <field name="bpe_emergency_relation1"/>
-                            <field name="bpe_emergency_phone1"/>
-                            <field name="bpe_emergency_contact2"/>
-                            <field name="bpe_emergency_relation2"/>
-                            <field name="bpe_emergency_phone2"/>
-                            <field name="bpe_marital_status"/>
-                            <field name="bpe_name_spouse"/>
-                            <field name="bpe_age_spouse"/>
-                            <field name="bpe_job_spouse"/>
-                            <field name="bpe_phone_spouse"/>
-                            <field name="bpe_email_spouse"/>
-                            <field name="bpe_number_child"/>
-                            <field name="bpe_name_child1"/>
                         </group>
-                        <group></group>
-                        <group>
-                            <field name="bpe_name_thai" placeholder="ชื่อ-นามสกุลภภาษาไทย"/>
+                        <group string="Status">
+                            <field name="bpe_sex"/>
+                            <field name="bpe_marital"/>
                         </group>
-                        <notebook colspan="4">
-                            <page string="S1">
-                                <group string="บิดา">
-                                    <field name="bpe_name_dad"/>
-                                    <field name="bpe_age_dad"/>
-                                    <field name="bpe_job_dad"/>
-                                    <field name="bpe_phone_dad"/>
-                                </group>
-                            </page>
-                            <page string="S2">
-                                <group string="มารดา">
-                                    <field name="bpe_name_mom"/>
-                                    <field name="bpe_age_mom"/>
-                                    <field name="bpe_job_mom"/>
-                                    <field name="bpe_phone_mom"/>
-                                    <field name="bpe_madical_history"/>
-                                    <field name="bpe_disease"/>
-                                </group>
-                            </page>
-                            <page string="Educations">
-                                <!--one2many-->
-                                <field name="bpe_education_ids" >
-                                    <tree editable="top">
-                                        <!--Sorting By User-->
-                                        <field name="sequence" widget="handle" />
+                    </group>
 
+                    <!--ตัวอย่างการแบ่งเป็นTabต่างๆ-->
+                    <notebook colspan="4">
+                        <page string="Emergency Contact">
+                            <group string="บุคคลที่ติดต่อได้ฉุกเฉิน">
+                                <field name="bpe_emergency_contact1"/>
+                                <field name="bpe_emergency_relation1"/>
+                                <field name="bpe_emergency_phone1"/>
+                                <field name="bpe_emergency_contact2"/>
+                                <field name="bpe_emergency_relation2"/>
+                                <field name="bpe_emergency_phone2"/>
+                            </group>
+                        </page>
+
+                        <page string="คู่สมรส">
+                            <group>
+                                <field name="bpe_marital_status"/>
+                                <field name="bpe_name_spouse"/>
+                                <field name="bpe_age_spouse"/>
+                                <field name="bpe_job_spouse"/>
+                                <field name="bpe_phone_spouse"/>
+                                <field name="bpe_email_spouse"/>
+                                <field name="bpe_number_child"/>
+                                <field name="bpe_name_child1"/>
+                            </group>
+
+                        </page>
+                        <page string="ข้อมูลบิดา"><!--ชื่อTabที่โชว์ในหน้าจอ-->
+                            <group string="บิดา"><!--ชื่อหัวข้อหลัก-->
+                                <field name="bpe_name_dad"/>
+                                <field name="bpe_age_dad"/>
+                                <field name="bpe_job_dad"/>
+                                <field name="bpe_phone_dad"/>
+                            </group>
+                        </page>
+                        <page string="ข้อมูลมารดา">
+                            <group string="มารดา">
+                                <field name="bpe_name_mom"/>
+                                <field name="bpe_age_mom"/>
+                                <field name="bpe_job_mom"/>
+                                <field name="bpe_phone_mom"/>
+                                <field name="bpe_madical_history"/>
+                                <field name="bpe_disease"/>
+                            </group>
+                        </page>
+                        <page>
+                            <field name=""
+                        </page>
+                        <page string="Educations">
+                            <!--one2many-->
+                            <field name="bpe_education_ids">
+                                <tree editable="top">
+                                    <!--Sorting By User-->
+                                    <field name="sequence" widget="handle"/>
+
+                                    <field name="education_level_id" string="ระดับการศึกษา"/>
+                                    <field name="education_stitute_id" string="สถานบันการศึกษา"/>
+                                    <field name="branch" string="สาขาวิชา"/>
+                                    <field name="year" string="ปีที่จบ"/>
+                                    <field name="grade" string="เกรด"/>
+                                </tree>
+                                <form>
+                                    <group>
                                         <field name="education_level_id" string="ระดับการศึกษา"/>
-                                        <field name="education_stitute_id" string="สถานบันการศึกษา" />
+                                        <field name="education_stitute_id" string="สถานบันการศึกษา"/>
                                         <field name="branch" string="สาขาวิชา"/>
                                         <field name="year" string="ปีที่จบ"/>
-                                        <field name="grade" string="เกรด" />
-                                    </tree>
-                                    <form>
-                                        <group>
-                                            <field name="education_level_id" string="ระดับการศึกษา"/>
-                                            <field name="education_stitute_id" string="สถานบันการศึกษา" />
-                                            <field name="branch" string="สาขาวิชา"/>
-                                            <field name="year" string="ปีที่จบ"/>
-                                            <field name="grade" string="เกรด" />
-                                        </group>
-                                    </form>
-                                </field>
-                            </page>
-                        </notebook>
-                    </group>
+                                        <field name="grade" string="เกรด"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
                 </form>
             </field>
         </record>
@@ -95,8 +114,9 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_filter"/>
             <field name="arch" type="xml">
-                <field name="department_id" position="after" >
-                    <field name="bpe_name_thai" />
+                <field name="department_id" position="after">
+                    <field name="bpe_name_thai"/>
+                    <field name="bpe_sex"/>
                 </field>
             </field>
         </record>

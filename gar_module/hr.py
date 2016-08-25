@@ -36,21 +36,22 @@ class hr_employee(osv.osv):
     _inherit = 'hr.employee'
 
     _columns = {
-        'bpe_name_thai': fields.char(string='Name thai',size=256,required=True,help='Please insert thai name'), #'ชื่อฟิลด์':fields.ประเภทฟิลด์('ชื่อที่โชว์ในERP')
-        'bpe_name_eng':fields.char(string='Name Eng',size=256,required=True,help='Please insert Eng name'),
-        'bpe_jobtitle':fields.char(string='ตำแหน่ง',size=100,required=True,help='Please insert Job Title'),
-        'bpe_department':fields.char(string='สังกัด',size=100,required=True,help='Insert Department'),
-        'bpe_date_of_birth':fields.char(string='ว/ด/ป เกิด',size=20,required=True,help='ตย.31/04/2534'),
-        'bpe_age':fields.integer(string='อายุ',size=2,required=True),
+        'bpe_name_thai': fields.char(string='Name Thai',size=256,help='Please insert thai name'), #'ชื่อฟิลด์':fields.ประเภทฟิลด์('ชื่อที่โชว์ในERP')
+        'bpe_name_eng':fields.char(string='Name Eng',size=256,help='Please insert Eng name'),
+        'bpe_jobtitle':fields.char(string='ตำแหน่ง',size=100,help='Please insert Job Title'),
+        'bpe_department':fields.char(string='สังกัด',size=100,help='Insert Department'),
+        'bpe_date_of_birth':fields.char(string='ว/ด/ป เกิด',size=20,help='ตย.31/04/2534'),
+        'bpe_age':fields.integer(string='อายุ',size=2),
+        'bpe_sex':fields.selection([('f','ชาย'), ('m','หญิง')], 'เพศ',),
+        'bpe_marital': fields.selection([('y', 'ผ่านการเกณฑ์'), ('n', 'ยังไม่ผ่านการเกณฑ์')], 'สถานภาพทางทหาร', ),
         'bpe_weight':fields.integer(string='น้ำหนัก',size=3),
         'bpe_height':fields.integer(string='ส่วนสูง',size=3),
-        'bpe_blood':fields.char(string='กรุ๊ปเลือด',size=5,required=True,help='กรุ๊ปเลือก'),
-        'bpe_id':fields.integer(string='เลขที่บัตร ปชช',size=5,required=True,help='กรุ๊ปเลือก'),
+        'bpe_blood':fields.char(string='กรุ๊ปเลือด',size=5,help='กรุ๊ปเลือก'),
+        'bpe_id':fields.integer(string='เลขที่บัตร ปชช',size=5,help='กรุ๊ปเลือก'),
         'bpe_addresscard':fields.char(string='ที่อยู่ตามบัตรประชาชน',size=256,help='ที่อยู่ตามบัตรประชาชน'),
         'bpe_addressnow': fields.char(string='ที่อยู่ปัจจุบัน',size=256, help='อยู่ปัจจุบัน'),
         'bpe_phone': fields.integer(string='โทรศัพท์ที่ติดต่อได้',size=15, help='โทรศัพท์ที่ติดต่อได้'),
         'bpe_email':fields.char(string='อีเมล์(ส่วนตัว)',size=50,help='ตย.address@gmail.com'),
-        'bpe_military':fields.char(string='สถานภาพทางทหาร',size=10,help='ผ่านการเกณฑ์,ยังไม่ผ่านการเกณฑ์'),
         'bpe_emergency_contact1':fields.char(string='บุคคลที่ติดต่อได้ฉุกเฉิน(1)',size=70),
         'bpe_emergency_relation1':fields.char(string='ความสัมพันธ์',size=30),
         'bpe_emergency_phone1':fields.integer(string='โทรศัพท์ที่ติดต่อได้',size=15),
@@ -113,16 +114,16 @@ class hr_employee(osv.osv):
         'bpe_institution': fields.text(string='สถาบัน', size=256),
         'bpe_costtrain':fields.integer(string='ค่าใช้จ่าย',size=10),
         'bpe_expcert':fields.date(string='วันหมดอายุCertificate',),
-        #many2one
+        #many2one ด้านหลังฟิลด์จะใส่เป็น_ids
         'bpe_education_ids': fields.one2many('bpe.hr.employee.education','employee_id',string='Educations'),
     }
 
-
-class bpe_hr_education_level(osv.osv):
-    _name = 'bpe.hr.education.level'
+#Create Table master automatic สำหรับทำ Selection
+class bpe_hr_education_level(osv.osv):#Name Table
+    _name = 'bpe.hr.education.level'#field join
     _description = 'Education Level'
     _columns = {
-        'name': fields.char('Education Level Name', size=64, required=True),
+        'name': fields.char('Education Level Name', size=64, required=True),#ฟิลด์บังคับ ไม่ต้องใช้ก็ได้
     }
 
 
@@ -134,7 +135,7 @@ class bpe_hr_education_institute(osv.osv):
     }
 
 
-class bpe_hr_employee_education(osv.osv):
+class bpe_hr_employee_education(osv.osv):#Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
     _name = 'bpe.hr.employee.education'
     _description = 'Employee Education'
     _columns = {
@@ -148,7 +149,9 @@ class bpe_hr_employee_education(osv.osv):
         #Sorting Column by User Field
         'sequence': fields.integer('Sequence')
     }
+    #Set Default fields ไม่ได้error
     _defaults = {
         'sequence': 10,
     }
+    #กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
     _order = 'employee_id, sequence'
