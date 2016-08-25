@@ -77,9 +77,6 @@
                                 <field name="bpe_disease"/>
                             </group>
                         </page>
-                        <page>
-                            <field name=""
-                        </page>
                         <page string="Educations">
                             <!--one2many-->
                             <field name="bpe_education_ids">
