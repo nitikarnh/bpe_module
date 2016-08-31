@@ -199,7 +199,7 @@ class bpe_hr_employee_education(
             _name = 'bpe.hr.cert.course'  # field join
             _description = 'Course Certificate'
             _columns = {
-                'name': fields.char('Certificate Name', size=64, required=True),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้
+                'name': fields.char('Certificate Name', size=64, required=True),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
             }
 
         class bpe_hr_cert_institute(osv.osv):
