@@ -5,7 +5,7 @@
             <field name="name">gar_module.hr.employee.form</field>
             <field name="model">hr.employee</field>
             <field name="arch" type="xml">
-                <form string="Employee">
+                <form string="Employee" colspan="3">
                     <group>
                         <group string="ฺHR Employee">
                             <field name="bpe_name_thai"/>
@@ -35,6 +35,34 @@
 
                     <!--ตัวอย่างการแบ่งเป็นTabต่างๆ-->
                     <notebook colspan="4">
+                        <page string="Family">
+                            <group>
+                                <group string="คู่สมรส">
+                                    <field name="bpe_marital_status"/>
+                                    <field name="bpe_name_spouse"/>
+                                    <field name="bpe_age_spouse"/>
+                                    <field name="bpe_job_spouse"/>
+                                    <field name="bpe_phone_spouse"/>
+                                    <field name="bpe_email_spouse"/>
+                                    <field name="bpe_number_child"/>
+                                    <field name="bpe_name_child1"/>
+                                </group>
+                                <group></group>
+                                <group string="บิดา"><!--ชื่อหัวข้อหลัก-->
+                                    <field name="bpe_name_dad"/>
+                                    <field name="bpe_age_dad"/>
+                                    <field name="bpe_job_dad"/>
+                                    <field name="bpe_phone_dad"/>
+                                </group>
+                                <group></group>
+                                <group string="มารดา">
+                                <field name="bpe_name_mom"/>
+                                <field name="bpe_age_mom"/>
+                                <field name="bpe_job_mom"/>
+                                <field name="bpe_phone_mom"/>
+                            </group>
+                            </group>
+                        </page>
                         <page string="Emergency Contact">
                             <group string="บุคคลที่ติดต่อได้ฉุกเฉิน">
                                 <field name="bpe_emergency_contact1"/>
@@ -46,37 +74,8 @@
                             </group>
                         </page>
 
-                        <page string="คู่สมรส">
-                            <group>
-                                <field name="bpe_marital_status"/>
-                                <field name="bpe_name_spouse"/>
-                                <field name="bpe_age_spouse"/>
-                                <field name="bpe_job_spouse"/>
-                                <field name="bpe_phone_spouse"/>
-                                <field name="bpe_email_spouse"/>
-                                <field name="bpe_number_child"/>
-                                <field name="bpe_name_child1"/>
-                            </group>
-
-                        </page>
-                        <page string="ข้อมูลบิดา"><!--ชื่อTabที่โชว์ในหน้าจอ-->
-                            <group string="บิดา"><!--ชื่อหัวข้อหลัก-->
-                                <field name="bpe_name_dad"/>
-                                <field name="bpe_age_dad"/>
-                                <field name="bpe_job_dad"/>
-                                <field name="bpe_phone_dad"/>
-                            </group>
-                        </page>
-                        <page string="ข้อมูลมารดา">
-                            <group string="มารดา">
-                                <field name="bpe_name_mom"/>
-                                <field name="bpe_age_mom"/>
-                                <field name="bpe_job_mom"/>
-                                <field name="bpe_phone_mom"/>
-                            </group>
-                        </page>
-                        <Page string="Medical History">
-                            <group string="ประวัติการรักษาพยาบาล">
+                        <Page string="Medical History"><!--ชื่อTabที่โชว์ในหน้าจอ-->
+                            <group string="ประวัติการรักษาพยาบาล"><!--ชื่อหัวข้อหลัก-->
                                 <field name="bpe_disease"/>
                                 <field name="bpe_drug"/>
                                 <field name="bpe_drugno"/>
@@ -109,6 +108,32 @@
                                 </form>
                             </field>
                         </page>
+                        <page string="Training Course">
+                            <!--one2many-->
+                            <field name="bpe_course_ids">
+                                <tree editable="top">
+                                    <!--Sorting By User-->
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="course_id" string="หลักสูตร"/>
+                                    <field name="course_institute_id" string="สถาบัน"/>
+                                    <field name="course_start" string="เริ่มหลักสูตร"/>
+                                    <field name="course_end" string="จบหลักสูตร"/>
+                                    <field name="course_price" string="ค่าอบรม"/>
+                                    <field name="course_expcert" string="วันหมดอายุCert"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="course_id" string="หลักสูตร"/>
+                                        <field name="course_institute_id" string="สถาบัน"/>
+                                        <field name="course_start" string="เริ่มหลักสูตร"/>
+                                        <field name="course_end" string="จบหลักสูตร"/>
+                                        <field name="course_price" string="ค่าอบรม"/>
+                                        <field name="course_expcert" string="วันหมดอายุCert"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
                         <page string="Certificate">
                             <!--one2many-->
                             <field name="bpe_certificate_ids">
@@ -117,20 +142,18 @@
                                     <field name="sequence" widget="handle"/>
                                     <field name="cert_course_id" string="หลักสูตร"/>
                                     <field name="cert_institute_id" string="สถาบัน"/>
-                                    <field name="start_course" string="เริ่มหลักสูตร"/>
-                                    <field name="end_course" string="จบหลักสูตร"/>
-                                    <field name="price_course" string="ค่าอบรม"/>
-                                    <field name="expire_cert" string="วันหมดอายุCert"/>
+                                    <field name="cert_start" string="เริ่มหลักสูตร"/>
+                                    <field name="cert_end" string="จบหลักสูตร"/>
+                                    <field name="cert_expire" string="วันหมดอายุCert"/>
                                 </tree>
                                 <form>
                                     <group>
                                         <field name="sequence" widget="handle"/>
                                         <field name="cert_course_id" string="หลักสูตร"/>
                                         <field name="cert_institute_id" string="สถาบัน"/>
-                                        <field name="start_course" string="เริ่มหลักสูตร"/>
-                                        <field name="end_course" string="จบหลักสูตร"/>
-                                        <field name="price_course" string="ค่าอบรม"/>
-                                        <field name="expire_cert" string="วันหมดอายุCert"/>
+                                        <field name="cert_start" string="เริ่มหลักสูตร"/>
+                                        <field name="cert_end" string="จบหลักสูตร"/>
+                                        <field name="cert_expire" string="วันหมดอายุCert"/>
                                     </group>
                                 </form>
                             </field>
