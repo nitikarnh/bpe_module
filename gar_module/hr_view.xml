@@ -108,7 +108,7 @@
                                 </form>
                             </field>
                         </page>
-                        <page string="Work Experience">
+                        <page string="Work Experience"> <!--Tab Work Experience-->
                             <!--one2many-->
                             <field name="bpe_work_experience_ids">
                                 <tree editable="top">
