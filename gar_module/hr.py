@@ -114,6 +114,7 @@ class hr_employee(osv.osv):
         'bpe_education_ids': fields.one2many('bpe.hr.employee.education', 'employee_id', string='Educations'),
         'bpe_course_ids': fields.one2many('bpe.hr.employee.course', 'employee_id', string='Certificate'),
         'bpe_certificate_ids': fields.one2many('bpe.hr.employee.cert', 'employee_id', string='Certificate'),
+        'bpe_work_experience_ids': fields.one2many('bpe.hr.employee.work.experience', 'employee_id', string='Work Experience'),
     }
 
 
@@ -230,4 +231,44 @@ class bpe_hr_employee_education(
             }
             # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
             _order = 'employee_id, sequence'
+
+            # Tab Work Experience
+            class bpe_hr_business_type(osv.osv):  # Name Table
+                _name = 'bpe.hr.business.type'  # field join
+                _description = 'Business type'
+                _columns = {
+                    'name': fields.char('Business type Name', size=64, required=True),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
+                }
+
+            class bpe_hr_work_position(osv.osv):
+                _name = 'bpe.hr.work.position'
+                _description = 'Work Position'
+                _columns = {
+                    'name': fields.char('Position Name', size=100, required=True),
+                }
+
+            class bpe_hr_employee_work_experience(
+                osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
+                _name = 'bpe.hr.employee.work.experience'
+                _description = 'Employee Work Expirence Position'
+                _columns = {
+                    'name': fields.char('Work Experience Name', size=128, ),
+                    'employee_id': fields.many2one('hr.employee', string='Employee'),
+                    'business_type_id': fields.many2one('bpe.hr.business.type', string='Business Type', requried=True),
+                    'work_position_id': fields.many2one('bpe.hr.work.position', string='Position',requried=True),
+                    'work_company_name': fields.char('Company Name'),
+                    'work_experience_start': fields.date('Start', required=True),
+                    'work_experience_end': fields.date('End', required=True),
+                    'work_responsibility': fields.char('Responsibility', required=True),
+                    'work_salary':fields.integer('Salary'),
+                    # Sorting Column by User Field
+                    'sequence': fields.integer('Sequence')
+                }
+                # Set Default fields ไม่ได้error
+                _defaults = {
+                    'sequence': 10,
+                }
+                # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
+                _order = 'employee_id, sequence'
+
 

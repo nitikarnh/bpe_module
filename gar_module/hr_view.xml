@@ -56,11 +56,11 @@
                                 </group>
                                 <group></group>
                                 <group string="มารดา">
-                                <field name="bpe_name_mom"/>
-                                <field name="bpe_age_mom"/>
-                                <field name="bpe_job_mom"/>
-                                <field name="bpe_phone_mom"/>
-                            </group>
+                                    <field name="bpe_name_mom"/>
+                                    <field name="bpe_age_mom"/>
+                                    <field name="bpe_job_mom"/>
+                                    <field name="bpe_phone_mom"/>
+                                </group>
                             </group>
                         </page>
                         <page string="Emergency Contact">
@@ -104,6 +104,34 @@
                                         <field name="branch" string="สาขาวิชา"/>
                                         <field name="year" string="ปีที่จบ"/>
                                         <field name="grade" string="เกรด"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Work Experience">
+                            <!--one2many-->
+                            <field name="bpe_work_experience_ids">
+                                <tree editable="top">
+                                    <!--Sorting By User-->
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="work_experience_start" string="Start"/>
+                                    <field name="work_experience_end" string="End"/>
+                                    <field name="work_company_name" string="Company Name"/>
+                                    <field name="business_type_id" string="Business Type"/>
+                                    <field name="work_position_id" string="Position"/>
+                                    <field name="work_responsibility" string="Responsibility"/>
+                                    <field name="work_salary" string="Salary"/>
+
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="work_experience_start" string="Start"/>
+                                        <field name="work_experience_end" string="End"/>
+                                        <field name="name" string="Company Name"/>
+                                        <field name="business_type_id" string="Business Type"/>
+                                        <field name="work_position_id" string="Position"/>
+                                        <field name="work_responsibility" string="Responsibility"/>
+                                        <field name="work_salary" string="Salary"/>
                                     </group>
                                 </form>
                             </field>
