@@ -5,152 +5,155 @@
             <field name="name">gar_module.hr.employee.form</field>
             <field name="model">hr.employee</field>
             <field name="arch" type="xml">
-                <form string="Employee" colspan="3">
-                    <group>
-                        <group string="ฺHR Employee">
-                            <field name="bpe_name_thai"/>
-                            <field name="bpe_name_eng"/>
+                <form string="Employee" colspan="3" version="7">
+                    <sheet>
+                        <field name="image_medium" widget='image' class="oe_left oe_avatar"/>
+                        <group>
+                            <group string="ฺHR Employee">
+                                <field name="bpe_employee_id"/>
+                                <field name="name" string="Name Thai"/>
+                                <!--<field name="bpe_name_thai"/>-->
+                                <field name="bpe_name_eng"/>
+                            </group>
+                            <group string="Position">
+                                <field name="job_id"/>
+                                <field name="department_id"/>
+                            </group>
                         </group>
-                        <group string="Position">
-                            <field name="job_id"/>
-                            <field name="department_id"/>
-                        </group>
-                        <group string="Personal Information">
-                            <field name="bpe_date_of_birth"/>
-                            <field name="bpe_age"/>
-                            <field name="bpe_weight"/>
-                            <field name="bpe_height"/>
-                            <field name="bpe_blood"/>
-                            <field name="bpe_id"/>
-                            <field name="bpe_addresscard"/>
-                            <field name="bpe_addressnow"/>
-                            <field name="bpe_phone"/>
-                            <field name="bpe_email"/>
-                        </group>
-                        <group string="Status">
-                            <field name="bpe_sex"/>
-                            <field name="bpe_marital"/>
-                        </group>
-                    </group>
+                        <notebook colspan="4">
+                            <page string="Personal Information">
+                                <group colspan="4" cols="3">
+                                    <group string="Personal Information">
+                                        <field name="bpe_date_of_birth"/>
+                                        <field name="bpe_age"/>
+                                        <field name="bpe_weight"/>
+                                        <field name="bpe_height"/>
+                                        <field name="bpe_blood"/>
+                                        <field name="bpe_idcard"/>
+                                    </group>
+                                    <group string="Status">
+                                        <field name="bpe_sex"/>
+                                        <field name="bpe_marital"/>
+                                    </group>
 
-                    <!--ตัวอย่างการแบ่งเป็นTabต่างๆ-->
-                    <notebook colspan="4">
-                        <page string="Family">
-                            <group>
-                                <group string="คู่สมรส">
-                                    <field name="bpe_marital_status"/>
-                                    <field name="bpe_name_spouse"/>
-                                    <field name="bpe_age_spouse"/>
-                                    <field name="bpe_job_spouse"/>
-                                    <field name="bpe_phone_spouse"/>
-                                    <field name="bpe_email_spouse"/>
-                                    <field name="bpe_number_child"/>
-                                    <field name="bpe_name_child1"/>
                                 </group>
-                                <group></group>
-                                <group string="บิดา"><!--ชื่อหัวข้อหลัก-->
-                                    <field name="bpe_name_dad"/>
-                                    <field name="bpe_age_dad"/>
-                                    <field name="bpe_job_dad"/>
-                                    <field name="bpe_phone_dad"/>
+                                <group string="Contact Address">
+                                    <field name="bpe_addresscard"/>
+                                    <field name="bpe_addressnow"/>
+                                    <field name="bpe_phone"/>
+                                    <field name="bpe_email"/>
                                 </group>
-                                <group></group>
-                                <group string="มารดา">
-                                    <field name="bpe_name_mom"/>
-                                    <field name="bpe_age_mom"/>
-                                    <field name="bpe_job_mom"/>
-                                    <field name="bpe_phone_mom"/>
-                                </group>
-                            </group>
-                        </page>
-                        <page string="Emergency Contact">
-                            <group string="บุคคลที่ติดต่อได้ฉุกเฉิน">
-                                <field name="bpe_emergency_contact1"/>
-                                <field name="bpe_emergency_relation1"/>
-                                <field name="bpe_emergency_phone1"/>
-                                <field name="bpe_emergency_contact2"/>
-                                <field name="bpe_emergency_relation2"/>
-                                <field name="bpe_emergency_phone2"/>
-                            </group>
-                        </page>
+                            </page>
+                        </notebook>
 
-                        <Page string="Medical History"><!--ชื่อTabที่โชว์ในหน้าจอ-->
-                            <group string="ประวัติการรักษาพยาบาล"><!--ชื่อหัวข้อหลัก-->
-                                <field name="bpe_disease"/>
-                                <field name="bpe_drug"/>
-                                <field name="bpe_drugno"/>
-                                <field name="bpe_operation"/>
-                                <field name="bpe_operation_stell"/>
-                                <field name="bpe_operation_stell_des1"/>
-                                <field name="bpe_operation_stell_des2"/>
-                            </group>
-                        </Page>
-                        <page string="Educations">
-                            <!--one2many-->
-                            <field name="bpe_education_ids">
-                                <tree editable="top">
-                                    <!--Sorting By User-->
-                                    <field name="sequence" widget="handle"/>
-                                    <field name="education_level_id" string="ระดับการศึกษา"/>
-                                    <field name="education_stitute_id" string="สถาบันการศึกษา"/>
-                                    <field name="branch" string="สาขาวิชา"/>
-                                    <field name="year" string="ปีที่จบ"/>
-                                    <field name="grade" string="เกรด"/>
-                                </tree>
-                                <form>
-                                    <group>
+                        <!--ตัวอย่างการแบ่งเป็นTabต่างๆ-->
+                        <notebook colspan="4">
+                            <page string="Family">
+                                <group>
+                                    <group string="คู่สมรส">
+                                        <field name="bpe_marital_status"/>
+                                        <field name="bpe_name_spouse"/>
+                                        <field name="bpe_age_spouse"/>
+                                        <field name="bpe_job_spouse"/>
+                                        <field name="bpe_phone_spouse"/>
+                                        <field name="bpe_email_spouse"/>
+                                        <field name="bpe_number_child"/>
+                                        <field name="bpe_name_child1"/>
+                                    </group>
+                                    <group></group>
+                                    <group string="บิดา"><!--ชื่อหัวข้อหลัก-->
+                                        <field name="bpe_name_dad"/>
+                                        <field name="bpe_age_dad"/>
+                                        <field name="bpe_job_dad"/>
+                                        <field name="bpe_phone_dad"/>
+                                    </group>
+                                    <group></group>
+                                    <group string="มารดา">
+                                        <field name="bpe_name_mom"/>
+                                        <field name="bpe_age_mom"/>
+                                        <field name="bpe_job_mom"/>
+                                        <field name="bpe_phone_mom"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Emergency Contact">
+                                <group string="บุคคลที่ติดต่อได้ฉุกเฉิน">
+                                    <field name="bpe_emergency_contact1"/>
+                                    <field name="bpe_emergency_relation1"/>
+                                    <field name="bpe_emergency_phone1"/>
+                                    <field name="bpe_emergency_contact2"/>
+                                    <field name="bpe_emergency_relation2"/>
+                                    <field name="bpe_emergency_phone2"/>
+                                </group>
+                            </page>
+
+                            <Page string="Medical History"><!--ชื่อTabที่โชว์ในหน้าจอ-->
+                                <group string="ประวัติการรักษาพยาบาล"><!--ชื่อหัวข้อหลัก-->
+                                    <field name="bpe_disease"/>
+                                    <field name="bpe_drug"/>
+                                    <field name="bpe_drugno"/>
+                                    <field name="bpe_operation"/>
+                                    <field name="bpe_operation_stell"/>
+                                    <field name="bpe_operation_stell_des1"/>
+                                    <field name="bpe_operation_stell_des2"/>
+                                </group>
+                            </Page>
+                            <page string="Educations">
+                                <!--one2many-->
+                                <field name="bpe_education_ids">
+                                    <tree editable="top">
+                                        <!--Sorting By User-->
+                                        <field name="sequence" widget="handle"/>
                                         <field name="education_level_id" string="ระดับการศึกษา"/>
                                         <field name="education_stitute_id" string="สถาบันการศึกษา"/>
                                         <field name="branch" string="สาขาวิชา"/>
-                                        <field name="year" string="ปีที่จบ"/>
+                                        <field name="year" string="ปี พ.ศ.ที่จบ"/>
                                         <field name="grade" string="เกรด"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </page>
-                        <page string="Work Experience"> <!--Tab Work Experience-->
-                            <!--one2many-->
-                            <field name="bpe_work_experience_ids">
-                                <tree editable="top">
-                                    <!--Sorting By User-->
-                                    <field name="sequence" widget="handle"/>
-                                    <field name="work_experience_start" string="Start"/>
-                                    <field name="work_experience_end" string="End"/>
-                                    <field name="work_company_name" string="Company Name"/>
-                                    <field name="business_type_id" string="Business Type"/>
-                                    <field name="work_position_id" string="Position"/>
-                                    <field name="work_responsibility" string="Responsibility"/>
-                                    <field name="work_salary" string="Salary"/>
-
-                                </tree>
-                                <form>
-                                    <group>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="education_level_id" string="ระดับการศึกษา"/>
+                                            <field name="education_stitute_id" string="สถาบันการศึกษา"/>
+                                            <field name="branch" string="สาขาวิชา"/>
+                                            <field name="year" string="ปีที่จบ"/>
+                                            <field name="grade" string="เกรด"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Work Experience"> <!--Tab Work Experience-->
+                                <!--one2many-->
+                                <field name="bpe_work_experience_ids">
+                                    <tree editable="top">
+                                        <!--Sorting By User-->
+                                        <field name="sequence" widget="handle"/>
                                         <field name="work_experience_start" string="Start"/>
                                         <field name="work_experience_end" string="End"/>
-                                        <field name="name" string="Company Name"/>
+                                        <field name="work_company_name" string="Company Name"/>
                                         <field name="business_type_id" string="Business Type"/>
                                         <field name="work_position_id" string="Position"/>
                                         <field name="work_responsibility" string="Responsibility"/>
                                         <field name="work_salary" string="Salary"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </page>
-                        <page string="Training Course">
-                            <!--one2many-->
-                            <field name="bpe_course_ids">
-                                <tree editable="top">
-                                    <!--Sorting By User-->
-                                    <field name="sequence" widget="handle"/>
-                                    <field name="course_id" string="หลักสูตร"/>
-                                    <field name="course_institute_id" string="สถาบัน"/>
-                                    <field name="course_start" string="เริ่มหลักสูตร"/>
-                                    <field name="course_end" string="จบหลักสูตร"/>
-                                    <field name="course_price" string="ค่าอบรม"/>
-                                    <field name="course_expcert" string="วันหมดอายุCert"/>
-                                </tree>
-                                <form>
-                                    <group>
+
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="work_experience_start" string="Start"/>
+                                            <field name="work_experience_end" string="End"/>
+                                            <field name="name" string="Company Name"/>
+                                            <field name="business_type_id" string="Business Type"/>
+                                            <field name="work_position_id" string="Position"/>
+                                            <field name="work_responsibility" string="Responsibility"/>
+                                            <field name="work_salary" string="Salary"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Training Course">
+                                <!--one2many-->
+                                <field name="bpe_course_ids">
+                                    <tree editable="top">
+                                        <!--Sorting By User-->
                                         <field name="sequence" widget="handle"/>
                                         <field name="course_id" string="หลักสูตร"/>
                                         <field name="course_institute_id" string="สถาบัน"/>
@@ -158,35 +161,50 @@
                                         <field name="course_end" string="จบหลักสูตร"/>
                                         <field name="course_price" string="ค่าอบรม"/>
                                         <field name="course_expcert" string="วันหมดอายุCert"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </page>
-                        <page string="Certificate">
-                            <!--one2many-->
-                            <field name="bpe_certificate_ids">
-                                <tree editable="top">
-                                    <!--Sorting By User-->
-                                    <field name="sequence" widget="handle"/>
-                                    <field name="cert_course_id" string="หลักสูตร"/>
-                                    <field name="cert_institute_id" string="สถาบัน"/>
-                                    <field name="cert_start" string="เริ่มหลักสูตร"/>
-                                    <field name="cert_end" string="จบหลักสูตร"/>
-                                    <field name="cert_expire" string="วันหมดอายุCert"/>
-                                </tree>
-                                <form>
-                                    <group>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="course_id" string="หลักสูตร"/>
+                                            <field name="course_institute_id" string="สถาบัน"/>
+                                            <field name="course_start" string="เริ่มหลักสูตร"/>
+                                            <field name="course_end" string="จบหลักสูตร"/>
+                                            <field name="course_price" string="ค่าอบรม"/>
+                                            <field name="course_expcert" string="วันหมดอายุCert"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Certificate">
+                                <!--one2many-->
+                                <field name="bpe_certificate_ids">
+                                    <tree editable="top">
+                                        <!--Sorting By User-->
                                         <field name="sequence" widget="handle"/>
                                         <field name="cert_course_id" string="หลักสูตร"/>
                                         <field name="cert_institute_id" string="สถาบัน"/>
                                         <field name="cert_start" string="เริ่มหลักสูตร"/>
                                         <field name="cert_end" string="จบหลักสูตร"/>
                                         <field name="cert_expire" string="วันหมดอายุCert"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </page>
-                    </notebook>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="cert_course_id" string="หลักสูตร"/>
+                                            <field name="cert_institute_id" string="สถาบัน"/>
+                                            <field name="cert_start" string="เริ่มหลักสูตร"/>
+                                            <field name="cert_end" string="จบหลักสูตร"/>
+                                            <field name="cert_expire" string="วันหมดอายุCert"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -198,6 +216,7 @@
             <field name="arch" type="xml">
                 <field name="department_id" position="after">
                     <field name="bpe_name_thai"/>
+                    <field name="name"/>
                     <field name="bpe_sex"/>
                 </field>
             </field>
@@ -210,6 +229,9 @@
                 <tree string="Employee">
                     <field name="name"/>
                     <field name="bpe_name_thai"/>
+                    <field name="bpe_email"/>
+                    <field name="job_id"/>
+                    <field name="department_id"/>
                 </tree>
             </field>
         </record>

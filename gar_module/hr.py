@@ -36,9 +36,10 @@ class hr_employee(osv.osv):
     _inherit = 'hr.employee'
 
     _columns = {
-        'bpe_name_thai': fields.char(string='Name Thai', size=60, help='Please insert thai name'),
+        'bpe_employee_id':fields.integer(string='Employee No',size=15),
+        'bpe_name_thai': fields.char(string='Name Thai', size=50, help='Please insert thai name'),
         # 'ชื่อฟิลด์':fields.ประเภทฟิลด์('ชื่อที่โชว์ในERP')
-        'bpe_name_eng': fields.char(string='Name Eng', size=60, help='Please insert Eng name'),
+        'bpe_name_eng': fields.char(string='Name Eng', size=50, help='Please insert Eng name'),
         'bpe_jobtitle': fields.char(string='ตำแหน่ง', size=60, help='Please insert Job Title'),
         'bpe_department': fields.char(string='สังกัด', size=60, help='Insert Department'),
         'bpe_date_of_birth': fields.char(string='ว/ด/ป เกิด', size=12, help='ตย.31/04/2534'),
@@ -47,35 +48,34 @@ class hr_employee(osv.osv):
         'bpe_marital': fields.selection([('y', 'ผ่านการเกณฑ์'), ('n', 'ยังไม่ผ่านการเกณฑ์')], 'สถานภาพทางทหาร', ),
         'bpe_weight': fields.integer(string='น้ำหนัก', size=3),
         'bpe_height': fields.integer(string='ส่วนสูง', size=3),
-        'bpe_blood': fields.char(string='กรุ๊ปเลือด', size=5, help='กรุ๊ปเลือก'),
-        'bpe_id': fields.integer(string='เลขที่บัตร ปชช', size=5, help='กรุ๊ปเลือก'),
+        'bpe_blood': fields.selection([('a', 'Group A'), ('b', 'Group B'), ('ab', 'Group AB'), ('o', 'Group O'),], 'กรุ๊ปเลือด', ),
+        'bpe_idcard': fields.char(string='เลขที่บัตร ปชช', size=13, help='เลขที่ประจำตัวประชาชน'),
         'bpe_addresscard': fields.char(string='ที่อยู่ตามบัตรประชาชน', size=100, help='ที่อยู่ตามบัตรประชาชน'),
         'bpe_addressnow': fields.char(string='ที่อยู่ปัจจุบัน', size=100, help='อยู่ปัจจุบัน'),
-        'bpe_phone': fields.integer(string='โทรศัพท์ที่ติดต่อได้', size=15, help='โทรศัพท์ที่ติดต่อได้'),
-        'bpe_email': fields.char(string='อีเมล์(ส่วนตัว)', size=50, help='ตย.address@gmail.com'),
+        'bpe_phone': fields.char(string='โทรศัพท์ที่ติดต่อได้', size=15, help='โทรศัพท์ที่ติดต่อได้'),
+        'bpe_email': fields.char(string='Email', size=50, help='ตย.address@gmail.com'),
         'bpe_emergency_contact1': fields.char(string='บุคคลที่ติดต่อได้ฉุกเฉิน(1)', size=70),
         'bpe_emergency_relation1': fields.char(string='ความสัมพันธ์', size=30),
-        'bpe_emergency_phone1': fields.integer(string='โทรศัพท์ที่ติดต่อได้', size=15),
+        'bpe_emergency_phone1': fields.char(string='โทรศัพท์ที่ติดต่อได้', size=15),
         'bpe_emergency_contact2': fields.char(string='บุคคลที่ติดต่อได้ฉุกเฉิน(2)', size=70),
         'bpe_emergency_relation2': fields.char(string='ความสัมพันธ์', size=30),
-        'bpe_emergency_phone2': fields.integer(string='โทรศัพท์ที่ติดต่อได้', size=15),
-        'bpe_marital_status': fields.selection([('single', 'โสด'), ('married', 'แต่งงานแล้ว'), ('divorce', 'หย่าร้าง')],
-                                               'สถานะ', ),
+        'bpe_emergency_phone2': fields.char(string='โทรศัพท์ที่ติดต่อได้', size=15),
+        'bpe_marital_status': fields.selection([('single', 'โสด'), ('married', 'แต่งงานแล้ว'), ('divorce', 'หย่าร้าง')],'สถานะ', ),
         'bpe_name_spouse': fields.char(string='ชื่อ-สกุลของคู่สมรส', size=256),
         'bpe_age_spouse': fields.char(string='อายุ', size=3),
         'bpe_job_spouse': fields.char(string='อาชีพ', size=256),
-        'bpe_phone_spouse': fields.integer(string='โทรศัพท์ที่ติดต่อได้', size=15),
+        'bpe_phone_spouse': fields.char(string='โทรศัพท์ที่ติดต่อได้', size=15),
         'bpe_email_spouse': fields.char(string='อีเมล์', size=50),
         'bpe_number_child': fields.integer(string='จำนวนบุตร', size=2),
         'bpe_name_child1': fields.char(string='ชื่ออ-สกุลของบุตร(1)', size=256),
         'bpe_name_dad': fields.char(string='ชื่อ-สกุลของบิดา', size=256),
         'bpe_age_dad': fields.integer(string='อายุ', size=3),
         'bpe_job_dad': fields.char(string='อาชีพ', size=256),
-        'bpe_phone_dad': fields.integer(string='โทรศัพท์ที่ติดต่อได้', size=15),
+        'bpe_phone_dad': fields.char(string='โทรศัพท์ที่ติดต่อได้', size=15),
         'bpe_name_mom': fields.char(string='ชื่อ-สกุลของมารดา', size=256),
         'bpe_age_mom': fields.integer(string='อายุ', size=3),
         'bpe_job_mom': fields.char(string='อาชีพ', size=256),
-        'bpe_phone_mom': fields.integer(string='โทรศัพท์ที่ติดต่อได้', size=15),
+        'bpe_phone_mom': fields.char(string='โทรศัพท์ที่ติดต่อได้', size=15),
         'bpe_disease': fields.text(string='โรคประจำตัว', size=256),
         'bpe_drug': fields.text(string='ยาที่ต้องกินเป็นประจำ', size=256),
         'bpe_drugno': fields.text(string='ยาที่มีอาการแพ้', size=256),
@@ -89,27 +89,10 @@ class hr_employee(osv.osv):
         'bpe_typebusiness': fields.text(string='ประเภทธุรกิจ', size=256),
         'bpe_position_o': fields.text(string='ตำแหน่ง', size=256),
         'bpe_respondsibilities_o': fields.text(string='หน้าที่ความรับผิดชอบ', size=256),
-        'bpe_salary_o': fields.text(string='เงินเดือนสุดท้าย', size=10),
-        'bpe_startwork_o': fields.date(string='วันเริ่มงาน'),
-        'bpe_endwork_o': fields.date(string='สิ้นสุดการทำงาน'),
-        'bpe_corse1_o': fields.text(string='หลักสูตร', size=256),
-        'bpe_period1_o': fields.integer(string='ระยะเวลาอบรม', size=3),
-        'bpe_institution1_o': fields.text(string='สถาบัน', size=256),
         'bpe_position': fields.text(string='ตำแหน่ง', size=256),
         'bpe_depart': fields.text(string='สังกัด', size=100),
         'bpe_project': fields.text(string='โครงการที่ทำงานด้วย', size=256),
-        'bpe_customerproject': fields.text(string='ลูกค้าที่ทำงานด้วย', size=256),  # ชื่อลูกค้างานที่ทำ
-        'bpe_startwork': fields.date(string='วันเริ่มงาน'),
-        'bpe_endwork': fields.date(string='สิ้นสุดการทำงาน'),
-        'bpe_workdue': fields.integer(string='อายุงานในตำแหน่งนี้', size=3),
-        'bpe_workdesc': fields.text(string='รายละเอียดของงาน', size=256),
-        'bpe_respondsibilities': fields.text(string='หน้าที่ความรับผิดชอบ', size=256),
-        'bpe_corse1': fields.text(string='หลักสูตร', size=256),
-        'bpe_startcorse': fields.date(string='วันเริ่มการอบรม'),
-        'bpe_endcorse': fields.date(string='สิ้นสุดการอบรม'),
-        'bpe_institution': fields.text(string='สถาบัน', size=256),
-        'bpe_costtrain': fields.integer(string='ค่าใช้จ่าย', size=10),
-        'bpe_expcert': fields.date(string='วันหมดอายุCertificate', ),
+        'bpe_customerproject': fields.text(string='ลูกค้าที่ทำงานด้วย', size=256),  # ชื่อลูกค้างานที่ทำ,
         # many2one ด้านหลังฟิลด์จะใส่เป็น_ids
         'bpe_education_ids': fields.one2many('bpe.hr.employee.education', 'employee_id', string='Educations'),
         'bpe_course_ids': fields.one2many('bpe.hr.employee.course', 'employee_id', string='Certificate'),
@@ -237,14 +220,14 @@ class bpe_hr_employee_education(
                 _name = 'bpe.hr.business.type'  # field join
                 _description = 'Business type'
                 _columns = {
-                    'name': fields.char('Business type Name', size=64, required=True),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
+                    'name': fields.char('Business type Name', size=64, ),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
                 }
 
             class bpe_hr_work_position(osv.osv):
                 _name = 'bpe.hr.work.position'
                 _description = 'Work Position'
                 _columns = {
-                    'name': fields.char('Position Name', size=100, required=True),
+                    'name': fields.char('Position Name', size=100, ),
                 }
 
             class bpe_hr_employee_work_experience(
