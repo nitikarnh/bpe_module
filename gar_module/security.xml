@@ -56,5 +56,167 @@
 	        <field name="perm_create" eval="1"/>
 	        <field name="perm_unlink" eval="1"/>
 	    </record>
+		<record id="secure_bpe_hr_course_train_user" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_bpe_hr_course_train" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+		<record id="secure_bpe_hr_course_train_manager" model="ir.model.access">
+	        <field name="name">Manager</field>
+	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="model_id" ref="model_bpe_hr_course_train" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+		<record id="secure_bpe_hr_course_institute_user" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_bpe_hr_course_institute" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+		<record id="secure_bpe_hr_course_institute_manager" model="ir.model.access">
+	        <field name="name">Manager</field>
+	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="model_id" ref="model_bpe_hr_course_institute" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+		<record id="secure_bpe_hr_employee_cert_user" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_bpe_hr_employee_cert" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+		<record id="secure_bpe_hr_employee_cert_manager" model="ir.model.access">
+	        <field name="name">Manager</field>
+	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="model_id" ref="model_bpe_hr_employee_cert" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+		<record id="secure_bpe_hr_cert_course_user" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_bpe_hr_cert_course" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+		<record id="secure_bpe_hr_cert_course_manager" model="ir.model.access">
+	        <field name="name">Manager</field>
+	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="model_id" ref="model_bpe_hr_cert_course"/>
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+		<record id="secure_bpe_hr_cert_institute_user" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_bpe_hr_cert_institute" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+		<record id="secure_bpe_hr_cert_institute_manager" model="ir.model.access">
+	        <field name="name">Manager</field>
+	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="model_id" ref="model_bpe_hr_cert_institute"/>
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+		<record id="secure_bpe_hr_employee_cert_user" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_bpe_hr_employee_cert" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+		<record id="secure_bpe_hr_employee_cert_manager" model="ir.model.access">
+	        <field name="name">Manager</field>
+	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="model_id" ref="model_bpe_hr_employee_cert"/>
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+		<record id="secure_bpe_hr_business_type_user" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_bpe_hr_business_type" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+		<record id="secure_bpe_hr_business_type_manager" model="ir.model.access">
+	        <field name="name">Manager</field>
+	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="model_id" ref="model_bpe_hr_business_type"/>
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+		<record id="secure_bpe_hr_work_position_user" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_bpe_hr_work_position" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+		<record id="secure_bpe_hr_work_position_manager" model="ir.model.access">
+	        <field name="name">Manager</field>
+	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="model_id" ref="model_bpe_hr_work_position"/>
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
+		<record id="secure_bpe_hr_employee_work_experience_user" model="ir.model.access">
+	        <field name="name">Employees</field>
+	        <field name="group_id" ref="base.group_user" />
+	        <field name="model_id" ref="model_bpe_hr_employee_work_experience" />
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="0"/>
+	    </record>
+		<record id="secure_bpe_hr_employee_work_experience_manager" model="ir.model.access">
+	        <field name="name">Manager</field>
+	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="model_id" ref="model_bpe_hr_employee_work_experience"/>
+	        <field name="perm_read" eval="1"/>
+	        <field name="perm_write" eval="1"/>
+	        <field name="perm_create" eval="1"/>
+	        <field name="perm_unlink" eval="1"/>
+	    </record>
 	</data>
 </openerp>
