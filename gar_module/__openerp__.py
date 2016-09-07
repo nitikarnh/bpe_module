@@ -27,10 +27,10 @@
     'summary' : 'ตัวอย่างHR Module',
     'description' : """
 """,
-    'depends' : ['hr'
+    'depends' : ['base','hr'
     ],
     'data' : [
-        'hr_view.xml'
+        'hr_view.xml','security.xml'
     ],
     'installable' : True,
     'application' : False,
