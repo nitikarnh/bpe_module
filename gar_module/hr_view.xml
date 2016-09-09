@@ -149,7 +149,7 @@
                                     </form>
                                 </field>
                             </page>
-                            <page string="Training Course">
+                            <page string="Training">
                                 <!--one2many-->
                                 <field name="bpe_course_ids">
                                     <tree editable="top">
