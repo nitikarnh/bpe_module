@@ -199,6 +199,38 @@
                                     </form>
                                 </field>
                             </page>
+                            <page string="Working Data">
+                                <!--one2many-->
+                                <field name="bpe_working_data_ids">
+                                    <tree editable="top">
+                                        <!--Sorting By User-->
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="working_position_id" string="Position"/>
+                                        <field name="working_department_id" string="Department"/>
+                                        <field name="working_projectname_id" string="Project"/>
+                                        <field name="working_partner_id" string="Partner"/>
+                                        <field name="working_jobnumber_id" string="Jobnumber"/>
+                                        <field name="working_startdate" string="Start"/>
+                                        <field name="working_enddate" string="End"/>
+                                        <field name="working_detail" string="Detail"/>
+                                        <field name="working_responsibility" string="Responsibility"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="working_position_id" string="Position"/>
+                                            <field name="working_department_id" string="Department"/>
+                                            <field name="working_projectname_id" string="Project"/>
+                                            <field name="working_partner_id" string="Partner"/>
+                                            <field name="working_jobnumber_id" string="Jobnumber"/>
+                                            <field name="working_startdate" string="Start"/>
+                                            <field name="working_enddate" string="End"/>
+                                            <field name="working_detail" string="Detail"/>
+                                            <field name="working_responsibility" string="Responsibility"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
