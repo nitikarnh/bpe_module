@@ -294,7 +294,7 @@ class bpe_hr_employee_education(
                 _columns = {
                     'name': fields.char('JobNumber', size=100, ),
                 }
-
+            #Table working data
             class bpe_hr_employee_working_data(
                 osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
                 _name = 'bpe.hr.employee.working.data'
