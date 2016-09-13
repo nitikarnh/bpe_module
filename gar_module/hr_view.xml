@@ -58,7 +58,7 @@
                             </page>
                         </notebook>
 
-                        <!--ตัวอย่างการแบ่งเป็นTabต่างๆ-->
+                        <!--ตัวอย่างการแบ่งเป็นTabต่างๆๆ-->
                         <notebook colspan="4">
                             <page string="Family">
                                 <group>
