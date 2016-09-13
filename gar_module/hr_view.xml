@@ -45,11 +45,14 @@
                                 </group>
                             </page>
                             <page string="Spacial Skill">
-                                <group>
+                                <group colspan="4" cols="2">
                                     <group string="Spacial Skill">
-                                        <field name="bpe_skill_com"/>
-                                        <field name="bpe_skill_com_special"/>
                                         <field name="bpe_skill_lang_select"/>
+                                        <field name="bpe_skill_com"/>
+                                    </group>
+                                    <group></group>
+                                    <group>
+                                        <field name="bpe_skill_com_special"/>
                                     </group>
                                 </group>
                             </page>
