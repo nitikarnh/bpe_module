@@ -12,7 +12,6 @@
                             <group string="ฺHR Employee">
                                 <field name="bpe_employee_id"/>
                                 <field name="name" string="Name Thai"/>
-                                <!--<field name="bpe_name_thai"/>-->
                                 <field name="bpe_name_eng"/>
                             </group>
                             <group string="Position">
@@ -44,8 +43,8 @@
                                     <field name="bpe_email"/>
                                 </group>
                             </page>
-                            <page string="Spacial Skill">
-                                <group colspan="4" cols="2">
+                            <page string="Personal Skill">
+                                <group colspan="4" cols="3">
                                     <group string="Spacial Skill">
                                         <field name="bpe_skill_lang_select"/>
                                         <field name="bpe_skill_com"/>
