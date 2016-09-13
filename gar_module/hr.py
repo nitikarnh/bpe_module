@@ -56,7 +56,7 @@ class hr_employee(osv.osv):
         'bpe_phone': fields.char(string='โทรศัพท์ที่ติดต่อได้', size=15, help='โทรศัพท์ที่ติดต่อได้'),
         'bpe_email': fields.char(string='Email', size=50, help='ตย.address@gmail.com'),
         'bpe_skill_com': fields.selection([('0', 'Basic'), ('1', 'Medium'),('2','High')], 'ทักษะคอมพิวเตอร์พื้นฐาน MS-Office (Work,Excel,Outlook)', ),
-        'bpe_skill_com_special': fields.text(string='ทักษาพิเศษอื่นๆ',size=150),
+        'bpe_skill_com_special': fields.text(string='ทักษะพิเศษอื่นๆ',size=150),
         'bpe_skill_lang_select': fields.selection([('0', 'fair'), ('1', 'good'), ('2', 'Excellent')],'ทักษะภาษาอังกฤษ', ),
         'bpe_emergency_contact1': fields.char(string='บุคคลที่ติดต่อได้ฉุกเฉิน(1)', size=70),
         'bpe_emergency_relation1': fields.char(string='ความสัมพันธ์', size=30),
