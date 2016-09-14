@@ -122,6 +122,7 @@ class ImageController(http.Controller):
     @http.route('/image/company_logo', type='http', auth="none", cors="*")
     def company_logo(self, dbname=None, id=None, **kw):
         imgname = 'logo.png'
+        image_data = "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==".decode('base64')
         registry = openerp.modules.registry.Registry(dbname)
         with registry.cursor() as cr:
             cr.execute("""  SELECT
