@@ -24,7 +24,8 @@ import openerp
 import openerp.addons.web.http as http
 
 import qrcode
-import StringIO
+#import StringIO
+from cStringIO import StringIO
 
 
 class BarcodeController(http.Controller):
@@ -102,7 +103,7 @@ class ImageController(http.Controller):
 
 
     @http.httprequest
-    def company(self, req, dbname=None, id=None, size='2'):
+    def company(self, req, dbname=None, id=None):
         uid = openerp.SUPERUSER_ID
         image_data = "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==".decode('base64')
         if dbname and id:
@@ -113,7 +114,26 @@ class ImageController(http.Controller):
                     image_data = company.partner_id.image.decode('base64')
 
         headers = [
-            ('Content-Type', 'image/png'),
+            ('Content-Type', 'image'),
             ('Content-Length', len(image_data)),
         ]
         return req.make_response(image_data, headers)
+
+    @http.route('/image/company_logo', type='http', auth="none", cors="*")
+    def company_logo(self, dbname=None, id=None, **kw):
+        imgname = 'logo.png'
+        image_data = "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==".decode('base64')
+        registry = openerp.modules.registry.Registry(dbname)
+        with registry.cursor() as cr:
+            cr.execute("""  SELECT
+                                rp.image, rp.write_date
+                            from res_company rc
+                            join res_partner rp on rp.id = rc.partner_id
+                            where
+                                rc.id = %s
+                               """, (id,))
+            row = cr.fetchone()
+            if row and row[0]:
+                image_data = str(row[0]).decode('base64')
+            response = http.send_file(StringIO(image_data), filename=imgname, mtime=row[1])
+        return response
