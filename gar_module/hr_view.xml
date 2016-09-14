@@ -32,7 +32,11 @@
                                     </group>
                                     <group string="Status">
                                         <field name="bpe_sex"/>
+                                        <field name="bpe_nationality"/>
+                                        <field name="bpe_race"/>
+                                        <field name="bpe_religion"/>
                                         <field name="bpe_marital"/>
+
                                     </group>
 
                                 </group>
