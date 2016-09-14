@@ -99,3 +99,21 @@ class ImageController(http.Controller):
             ('Content-Length', len(image_data)),
         ]
         return req.make_response(image_data, headers)
+
+
+    @http.httprequest
+    def company(self, req, dbname=None, id=None, size='2'):
+        uid = openerp.SUPERUSER_ID
+        image_data = "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==".decode('base64')
+        if dbname and id:
+            registry = openerp.modules.registry.RegistryManager.get(dbname)
+            with registry.cursor() as cr:
+                company = registry.get('res.company').browse(cr, uid, int(id))
+                if company and company.partner_id and company.partner_id.image:
+                    image_data = company.partner_id.image.decode('base64')
+
+        headers = [
+            ('Content-Type', 'image/png'),
+            ('Content-Length', len(image_data)),
+        ]
+        return req.make_response(image_data, headers)
