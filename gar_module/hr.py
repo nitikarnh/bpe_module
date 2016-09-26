@@ -36,10 +36,10 @@ class hr_employee(osv.osv):
     _inherit = 'hr.employee'
 
     _columns = {
-        'bpe_employee_id': fields.char(string='Employee No', size=15),
-        'bpe_name_thai': fields.char(string='Name Thai', size=50, help='Please insert thai name'),
+        'bpe_employee_id': fields.char(string='EM-No.', size=15),
+        'bpe_name_thai': fields.char(string='THA-Name', size=50, help='Please insert thai name'),
         # 'ชื่อฟิลด์':fields.ประเภทฟิลด์('ชื่อที่โชว์ในERP')
-        'bpe_name_eng': fields.char(string='Name Eng', size=50, help='Please insert Eng name'),
+        'bpe_name_eng': fields.char(string='Eng-Name', size=50, help='Please insert Eng name'),
         'bpe_jobtitle': fields.char(string='ตำแหน่ง', size=60, help='Please insert Job Title'),
         'bpe_department': fields.char(string='สังกัด', size=60, help='Insert Department'),
         'bpe_date_of_birth': fields.char(string='ว/ด/ป พ.ศ.เกิด', size=12, help='ตย.31/04/2534'),
