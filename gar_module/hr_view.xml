@@ -277,7 +277,7 @@
                 <tree string="Employee">
                     <field name="bpe_employee_id"/>
                     <field name="bpe_name_eng"/>
-                    <field name="name"/>
+                    <field name="name" string="THA-Name"/>
                     <field name="bpe_email"/>
                     <field name="job_id"/>
                     <field name="department_id"/>
