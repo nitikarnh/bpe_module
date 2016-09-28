@@ -28,10 +28,20 @@ from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FO
 import openerp.addons.decimal_precision as dp
 from openerp import workflow
 
+class bpe_sale_type_project(osv.osv):
+    # Field type_project
+    _name = 'bpe.sale.type.project'
+    _description = 'Type Project'
+    _columns = {
+        'name': fields.char('Type Project Name',size=256,requied=True )
+    }
+
 
 class sale_order(osv.osv):
     _inherit = 'sale.order'
-
+    _columns = {
+        'type_project_id': fields.many2one('bpe.sale.type.project', string ='Type Project')
+    }
     def onchange_partner_id(self, cr, uid, ids, part, context=None):
         if not part:
             return {'value': {'partner_invoice_id': False, 'partner_shipping_id': False, 'payment_term': False,
@@ -59,3 +69,4 @@ class sale_order(osv.osv):
         sale_note = self.get_salenote(cr, uid, ids, part.id, context=context)
         if sale_note: val.update({'note': sale_note})
         return {'value': val}
+

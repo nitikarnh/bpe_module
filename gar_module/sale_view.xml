@@ -20,8 +20,12 @@
                 <field name="partner_id" position="before">
                         <field name="title_id"/>
                     </field>
+                <field name="partner_shipping_id" position = "after">
+                    <field name="type_project_id"/>
+                </field>
             </field>
         </record>
+
 
 
     </data>
