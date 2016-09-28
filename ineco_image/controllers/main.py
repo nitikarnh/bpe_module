@@ -22,6 +22,9 @@
 
 import openerp
 import openerp.addons.web.http as http
+from openerp.addons.web.http import Controller, route, request
+from werkzeug import exceptions, url_decode
+
 
 import qrcode
 #import StringIO
@@ -56,10 +59,30 @@ class BarcodeController(http.Controller):
         ]
         return req.make_response(buffer.read(), headers)
 
+#Use This Class
+class ImageController(Controller):
+    @route(['/image/employee', '/image/employee/<dbname>/<size>/<id>'], type='http', auth="none")
+    def employee(self, dbname, id, size):
+        uid = openerp.SUPERUSER_ID
+        image_data = "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==".decode('base64')
+        if dbname and id:
+            registry = openerp.modules.registry.RegistryManager.get(dbname)
+            with registry.cursor() as cr:
+                employee = registry.get('hr.employee').browse(cr, uid, int(id))
+                if employee and employee.image:
+                    if size == '1':
+                        image_data = employee.image.decode('base64')
+                    elif size == '2':
+                        image_data = employee.image_medium.decode('base64')
+                    else:
+                        image_data = employee.image_small.decode('base64')
 
-class ImageController(http.Controller):
+        return request.make_response(image_data, headers=[('Content-Type', 'image/png')])
 
-    _cp_path = '/image'
+
+class ImageController2(http.Controller):
+
+    _cp_path = '/image2'
 
     @http.httprequest
     def user(self, req, dbname=None, id=None):
@@ -100,7 +123,6 @@ class ImageController(http.Controller):
             ('Content-Length', len(image_data)),
         ]
         return req.make_response(image_data, headers)
-
 
     @http.httprequest
     def company(self, req, dbname=None, id=None):
