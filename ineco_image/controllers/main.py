@@ -119,21 +119,22 @@ class ImageController(http.Controller):
         ]
         return req.make_response(image_data, headers)
 
-    @http.route('/image/company_logo', type='http', auth="none", cors="*")
-    def company_logo(self, dbname=None, id=None, **kw):
-        imgname = 'logo.png'
-        image_data = "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==".decode('base64')
-        registry = openerp.modules.registry.Registry(dbname)
-        with registry.cursor() as cr:
-            cr.execute("""  SELECT
-                                rp.image, rp.write_date
-                            from res_company rc
-                            join res_partner rp on rp.id = rc.partner_id
-                            where
-                                rc.id = %s
-                               """, (id,))
-            row = cr.fetchone()
-            if row and row[0]:
-                image_data = str(row[0]).decode('base64')
-            response = http.send_file(StringIO(image_data), filename=imgname, mtime=row[1])
-        return response
+    # @http.route('/image/company_logo', type='http', auth="none", cors="*")
+    # def company_logo(self, dbname=None, id=None, **kw):
+    #     imgname = 'logo.png'
+    #     #image_data = "R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==".decode('base64')
+    #     registry = openerp.modules.registry.Registry(dbname)
+    #     print dbname
+    #     with registry.cursor() as cr:
+    #         cr.execute("""  SELECT
+    #                             rp.image, rp.write_date
+    #                         from res_company rc
+    #                         join res_partner rp on rp.id = rc.partner_id
+    #                         where
+    #                             rc.id = %s
+    #                            """, (id,))
+    #         row = cr.fetchone()
+    #         if row and row[0]:
+    #             image_data = str(row[0]).decode('base64')
+    #         response = http.send_file(StringIO(image_data), filename=imgname, mtime=row[1])
+    #     return response
