@@ -67,7 +67,7 @@ class sale_order(osv.osv):
     
     _inherit = 'sale.order'
     _columns = {
-        'ineco_shop_id': fields.many2one('ineco.sale.shop', 'Shop', required=True),
+        'ineco_shop_id': fields.many2one('ineco.sale.shop', 'Customer Code', required=True),
     }
     _defaults = {
     }
