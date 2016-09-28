@@ -20,7 +20,7 @@
 						<page string="Reference">
 							<group>
 								<group>
-									<field name="project_id" string="Project"
+									<field name="project_id" string="Job No."
 										   context="{'default_type': 'contract'}"
 										   domain="[('type','in',['view','normal','contract'])]"/>
 									<field name="rev" />
