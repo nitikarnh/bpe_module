@@ -334,6 +334,15 @@ class account_voucher(osv.osv):
             cr.execute(sql % voucher.id)
         return True
 
+    def button_clear_line_unused(self, cr, uid, ids, context=None):
+        for voucher in self.browse(cr, uid, ids):
+            sql = """
+                delete from account_voucher_line
+                where voucher_id = %s and amount = 0
+            """
+            cr.execute(sql % voucher.id)
+        return True
+
     def onchange_amount(self, cr, uid, ids, amount, rate, partner_id, journal_id, currency_id, ttype, date, payment_rate_currency_id, company_id, context=None):
         if context is None:
             context = {}
@@ -710,4 +719,9 @@ class account_voucher_line(osv.osv):
                                      readonly=1),
         'receive_no': fields.related('invoice_id','receive_no',type='char',string='Receipt No',readonly=1),
         'receive_date': fields.related('invoice_id','receive_date',type='date',string='Receipt Date',readonly=1),
+        'sequence': fields.integer('Sequence')
     }
+    _defaults = {
+        'sequence': 10,
+    }
+    _order = 'sequence'

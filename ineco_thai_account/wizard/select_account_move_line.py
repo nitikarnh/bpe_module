@@ -75,15 +75,16 @@ class wizard_select_account_move_line(osv.osv_memory):
         if active_ids:
             for data in self.browse(cr, uid, ids):
                 amount_unreconciled_total = 0.0
-                #voucher_obj.browse(cr, uid, data.id)[0]
+                line_count = 0
                 for line in data.move_line_ids:
                     amount_original = 0.0
                     amount_unreconciled = 0.0
-                    if line.currency_id:
-                        amount_original = abs(line.amount_currency)
-                        amount_unreconciled = abs(line.amount_residual_currency)
-                        amount_unreconciled_total = amount_unreconciled_total + amount_unreconciled
-                        print amount_unreconciled_total
+                    #if line.currency_id:
+                    amount_original = abs(line.amount_currency)
+                    amount_unreconciled = abs(line.amount_residual_currency)
+                    amount_unreconciled_total = amount_unreconciled_total + amount_unreconciled
+                    #print amount_unreconciled_total
+                    line_count += 1
                     line_currency_id = line.currency_id and line.currency_id.id
                     rs = {
                         'name':line.move_id.name,
@@ -97,10 +98,11 @@ class wizard_select_account_move_line(osv.osv_memory):
                         'amount_unreconciled': amount_unreconciled,
                         'currency_id': line_currency_id,
                         'voucher_id': active_ids[0],
+                        'sequence': 10 + line_count,
                     }
-                    #print active_ids, line.id
                     voucher_line_ids = voucher_line_obj.search(cr, uid, [('voucher_id','=',active_ids[0]),('move_line_id','=',line.id)])
                     if not voucher_line_ids:
                         voucher_line_obj.create(cr, uid, rs)
+                voucher_obj.write(cr, uid, active_ids[0], {'amount': amount_unreconciled_total})
                 context['move_line_ids'] = data.move_line_ids
         return {'type': 'ir.actions.act_window_close'}

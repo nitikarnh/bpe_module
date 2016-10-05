@@ -12,8 +12,8 @@
                     <field name="period_tax_id" invisible="context.get('visible', True)"/>
                 </field>
                 <field name="partner_id" position="before">
-                    <field name="bill_number" />
-                    <field name="receipt_number2" />
+                    <field name="bill_number"/>
+                    <field name="receipt_number2"/>
                 </field>
             </field>
         </record>
@@ -99,6 +99,10 @@
                        position="after">
                     <field name="receive_no" groups="ineco_thai_account.group_individual_taxinvoice"/>
                     <field name="receive_date" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@string='Payment Information']/field[@name='line_cr_ids']/tree/field[@name='move_line_id']"
+                       position="before">
+                    <field name="sequence" widget="handle" />
                 </xpath>
                 <xpath expr="//page[@string='Payment Information']/field[@name='line_cr_ids']/tree/field[@name='amount_unreconciled']"
                        position="attributes">
@@ -191,9 +195,11 @@
                 <button name="proforma_voucher" position="after">
                     <button name="button_billing_no" type="object" string="Get Billing Number"
                             attrs="{'invisible':[('bill_number','!=',False)]}"/>
-                    <button name="button_receipt_no" type="object" string="Get Invoice/Receipt No" groups="ineco_thai_account.group_individual_taxinvoice" />
+                    <button name="button_receipt_no" type="object" string="Get Invoice/Receipt No"
+                            groups="ineco_thai_account.group_individual_taxinvoice"/>
                     <button name="button_receipt2_no" type="object" string="Get Billing/Receipt No"
-                            attrs="{'invisible':[('receipt_number2','!=',False)]}" groups="ineco_thai_account.group_receipt_taxinvoice" />
+                            attrs="{'invisible':[('receipt_number2','!=',False)]}"
+                            groups="ineco_thai_account.group_receipt_taxinvoice"/>
                 </button>
             </field>
         </record>
@@ -236,8 +242,8 @@
                     <field name="reference" string="Ref #"/>
                     <field name="period_tax_id"/>
                     <field name="invoice_id"/>
-                    <field name="bill_number" />
-                    <field name="receipt_number2" />
+                    <field name="bill_number"/>
+                    <field name="receipt_number2"/>
                 </field>
             </field>
         </record>

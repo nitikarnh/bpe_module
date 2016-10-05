@@ -56,6 +56,7 @@
                 <button name="action_cancel_draft" position="after">
                     <button name="%(action_select_account_move_line)d" string="Select More" type="action" class="oe_edit_only" />
                     <button name="button_clear_line" string="Clear Lines" type="object" class="oe_edit_only" />
+                    <button name="button_clear_line_unused" string="Clear Unused" type="object" class="oe_edit_only" />
                 </button>
             </field>
         </record>
