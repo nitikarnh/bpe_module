@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<openerp
+<openerp>
     <data>
+
+        <menuitem name="Human Resources"
+            id="menu_bpe_hr_root"
+            groups="base.group_user"
+            sequence="100"/>
+        <menuitem id="menu_bpe_hr_main" parent="menu_bpe_hr_root" name="Human Resources" sequence="0"/>
+
+
         <record id="view_gar_module_employee_form" model="ir.ui.view">
             <field name="name">gar_module.hr.employee.form</field>
             <field name="model">bpe.employee</field>
@@ -62,7 +70,6 @@
                         </notebook>
 
 
-
                         <notebook colspan="4">
                             <page string="Family">
                                 <group>
@@ -77,8 +84,7 @@
                                         <field name="bpe_name_child1"/>
                                     </group>
                                     <group></group>
-                                    <group string="บิดา"><!-ชื่อหัวข้อหลัก-->
-<!--
+                                    <group string="บิดา">
                                         <field name="bpe_name_dad"/>
                                         <field name="bpe_age_dad"/>
                                         <field name="bpe_job_dad"/>
@@ -104,8 +110,7 @@
                                 </group>
                             </page>
 
-                            <Page string="Medical History"><!-ชื่อTabที่โชว์ในหน้าจอ-->
- <!--
+                            <Page string="Medical History">>
                                 <group string="ประวัติการรักษาพยาบาล">
                                     <field name="bpe_disease"/>
                                     <field name="bpe_drug"/>
@@ -118,11 +123,8 @@
                             </Page>
                             <page string="Educations">
 
-<!-
                                 <field name="bpe_education_ids">
                                     <tree editable="top">
-
-<!-
                                         <field name="sequence" widget="handle"/>
                                         <field name="education_level_id" string="ระดับการศึกษา"/>
                                         <field name="education_stitute_id" string="สถาบันการศึกษา"/>
@@ -141,13 +143,10 @@
                                     </form>
                                 </field>
                             </page>
-                            <page string="Work Experience"> <!-Tab Work Experience-->
+                            <page string="Work Experience">
                                 <!--one2many-->
-<!--
                                 <field name="bpe_work_experience_ids">
                                     <tree editable="top">
-                                        <!-Sorting By User-->
-<!--
                                         <field name="sequence" widget="handle"/>
                                         <field name="work_experience_start" string="Start"/>
                                         <field name="work_experience_end" string="End"/>
@@ -172,12 +171,8 @@
                                 </field>
                             </page>
                             <page string="Training">
-                                <!-one2many-->
-<!--
                                 <field name="bpe_course_ids">
                                     <tree editable="top">
-                                        <!-Sorting By User-->
-<!--
                                         <field name="sequence" widget="handle"/>
                                         <field name="course_id" string="หลักสูตร"/>
                                         <field name="course_institute_id" string="สถาบัน"/>
@@ -203,11 +198,8 @@
                             </page>
                             <page string="Certificate">
 
-<!-
                                 <field name="bpe_certificate_ids">
                                     <tree editable="top">
-                                        <!-Sorting By User-->
-<!--
                                         <field name="sequence" widget="handle"/>
                                         <field name="cert_course_id" string="หลักสูตร"/>
                                         <field name="cert_institute_id" string="สถาบัน"/>
@@ -228,11 +220,8 @@
                                 </field>
                             </page>
                             <page string="Working Data">
-                                <!->
-
                                 <field name="bpe_working_data_ids">
                                     <tree editable="top">
-                                        <!-
                                         <field name="sequence" widget="handle"/>
                                         <field name="working_position_id" string="Position"/>
                                         <field name="working_department_id" string="Department"/>
@@ -274,12 +263,11 @@
             <field name="name">bpe.employee.search</field>
             <field name="model">bpe.employee</field>
             <field name="arch" type="xml">
-                <field name="department_id" position="after">
+                <search string="BPE EMployee">
                     <field name="bpe_employee_id"/>
-                    <field name="bpe_name_thai"/>
                     <field name="name"/>
                     <field name="bpe_sex"/>
-                </field>
+                </search>
             </field>
         </record>
 
@@ -292,8 +280,8 @@
                     <field name="bpe_name_eng"/>
                     <field name="name" string="THA-Name"/>
                     <field name="bpe_email"/>
-                    <field name="job_id"/>
-                    <field name="department_id"/>
+                    <!--<field name="job_id"/>-->
+                    <!--<field name="department_id"/>-->
                 </tree>
             </field>
         </record>
@@ -307,7 +295,6 @@
         </record>
 
         <menuitem action="action_gar_module_employee" id="menu_gar_module_employee" sequence="3"
-                  parent="hr.menu_hr_main"/>
+                  parent="menu_bpe_hr_main"/>
     </data>
 </openerp>
-<!->

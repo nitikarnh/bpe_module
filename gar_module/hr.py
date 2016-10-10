@@ -33,7 +33,7 @@ class bpe_employee(osv.osv):
     _description = "Bio_Data"
     # _order = 'name_related'
     # _inherits = {'resource.resource': "resource_id"}
-    _inherits = {'resource.resource': "resource_id"}
+    #_inherits = {'resource.resource': "resource_id"}
     _inherit = ['mail.thread']
     #_inherit = 'hr.employee'
     def _get_image(self, cr, uid, ids, name, args, context=None):
@@ -44,9 +44,10 @@ class bpe_employee(osv.osv):
 
     def _set_image(self, cr, uid, id, name, value, args, context=None):
         return self.write(cr, uid, [id], {'image': tools.image_resize_image_big(value)}, context=context)
+
     _columns = {
         'bpe_employee_id': fields.char(string='EM-No.', size=15),
-        'bpe_name_thai': fields.char(string='THA-Name', size=50, help='Please insert thai name'),
+        'name': fields.char(string='THA-Name', size=50, help='Please insert thai name'),
         # 'ชื่อฟิลด์':fields.ประเภทฟิลด์('ชื่อที่โชว์ในERP')
         'bpe_name_eng': fields.char(string='ENG-Name', size=50, help='Please insert Eng name'),
         'bpe_jobtitle': fields.char(string='ตำแหน่ง', size=60, help='Please insert Job Title'),
@@ -116,13 +117,12 @@ class bpe_employee(osv.osv):
         'bpe_certificate_ids': fields.one2many('bpe.hr.employee.cert', 'employee_id', string='Certificate'),
         'bpe_work_experience_ids': fields.one2many('bpe.hr.employee.work.experience', 'employee_id',string='Work Experience'),
         'bpe_working_data_ids': fields.one2many('bpe.hr.employee.working.data', 'employee_id',string='Working Data'),
-
-'image': fields.binary("Photo",
+        'image': fields.binary("Photo",
             help="This field holds the image used as photo for the employee, limited to 1024x1024px."),
         'image_medium': fields.function(_get_image, fnct_inv=_set_image,
             string="Medium-sized photo", type="binary", multi="_get_image",
             store = {
-                'hr.employee': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+                'bpe.employee': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
             },
             help="Medium-sized photo of the employee. It is automatically "\
                  "resized as a 128x128px image, with aspect ratio preserved. "\
@@ -130,7 +130,7 @@ class bpe_employee(osv.osv):
         'image_small': fields.function(_get_image, fnct_inv=_set_image,
             string="Small-sized photo", type="binary", multi="_get_image",
             store = {
-                'hr.employee': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+                'bpe.employee': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
             },
             help="Small-sized photo of the employee. It is automatically "\
                  "resized as a 64x64px image, with aspect ratio preserved. "\
@@ -160,8 +160,7 @@ class bpe_hr_education_institute(osv.osv):
     }
 
 
-class bpe_hr_employee_education(
-    osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
+class bpe_hr_employee_education(osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
     _name = 'bpe.hr.employee.education'
     _description = 'Employee Education'
     _columns = {

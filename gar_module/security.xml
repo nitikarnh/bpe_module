@@ -13,7 +13,7 @@
 	    </record>
 		<record id="secure_bpe_hr_education_level_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_education_level" />
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -31,7 +31,7 @@
 	    </record>
 		<record id="secure_bpe_hr_education_institute_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_education_institute" />
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -49,7 +49,7 @@
 	    </record>
 		<record id="secure_bpe_hr_employee_education_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_employee_education" />
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -67,7 +67,7 @@
 	    </record>
 		<record id="secure_bpe_hr_course_train_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_course_train" />
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -85,7 +85,7 @@
 	    </record>
 		<record id="secure_bpe_hr_course_institute_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_course_institute" />
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -103,7 +103,7 @@
 	    </record>
 		<record id="secure_bpe_hr_employee_cert_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_employee_cert" />
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -121,7 +121,7 @@
 	    </record>
 		<record id="secure_bpe_hr_cert_course_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_cert_course"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -139,7 +139,7 @@
 	    </record>
 		<record id="secure_bpe_hr_cert_institute_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_cert_institute"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -157,7 +157,7 @@
 	    </record>
 		<record id="secure_bpe_hr_employee_cert_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_employee_cert"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -175,7 +175,7 @@
 	    </record>
 		<record id="secure_bpe_hr_business_type_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_business_type"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -193,7 +193,7 @@
 	    </record>
 		<record id="secure_bpe_hr_work_position_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_work_position"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -211,7 +211,7 @@
 	    </record>
 		<record id="secure_bpe_hr_employee_work_experience_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_employee_work_experience"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -229,7 +229,7 @@
 	    </record>
 		<record id="secure_bpe_hr_working_department_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_working_department"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -247,7 +247,7 @@
 	    </record>
 		<record id="secure_bpe_hr_working_department_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_working_department"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -265,7 +265,7 @@
 	    </record>
 		<record id="secure_bpe_hr_working_position_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_working_position"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -283,7 +283,7 @@
 	    </record>
 		<record id="secure_bpe_hr_working_partner_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_working_partner"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -301,7 +301,7 @@
 	    </record>
 		<record id="secure_bpe_hr_working_project_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_working_project"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -319,7 +319,7 @@
 	    </record>
 		<record id="secure_bpe_hr_working_jobnumber_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_working_jobnumber"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -337,7 +337,7 @@
 	    </record>
 		<record id="secure_bpe_hr_employee_working_data_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_hr_employee_working_data"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
@@ -355,7 +355,7 @@
 	    </record>
 		<record id="bpe_sale_type_project_manager" model="ir.model.access">
 	        <field name="name">Manager</field>
-	        <field name="group_id" ref="base.group_hr_manager" />
+	        <field name="group_id" ref="base.group_user" />
 	        <field name="model_id" ref="model_bpe_sale_type_project"/>
 	        <field name="perm_read" eval="1"/>
 	        <field name="perm_write" eval="1"/>
