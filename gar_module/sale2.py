@@ -42,6 +42,7 @@ class sale_order(osv.osv):
     _columns = {
         'type_project_id': fields.many2one('bpe.sale.type.project', string ='Type Project')
     }
+
     def onchange_partner_id(self, cr, uid, ids, part, context=None):
         if not part:
             return {'value': {'partner_invoice_id': False, 'partner_shipping_id': False, 'payment_term': False,
@@ -54,8 +55,8 @@ class sale_order(osv.osv):
         payment_term = invoice_part.property_payment_term and invoice_part.property_payment_term.id or False
         dedicated_salesman = part.user_id and part.user_id.id or uid
         val = {
-            'partner_invoice_id': part.parent_id and part.parent_id.id or addr['invoice'],
-            'partner_shipping_id': part.parent_id and part.parent_id.id or addr['delivery'],
+            'partner_invoice_id': addr['invoice'],
+            'partner_shipping_id': addr['delivery'],
             'payment_term': payment_term,
             'user_id': dedicated_salesman,
         }
@@ -69,4 +70,3 @@ class sale_order(osv.osv):
         sale_note = self.get_salenote(cr, uid, ids, part.id, context=context)
         if sale_note: val.update({'note': sale_note})
         return {'value': val}
-

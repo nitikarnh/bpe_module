@@ -28,13 +28,22 @@ from openerp.osv import fields, osv
 from openerp.tools.translate import _
 
 
-class hr_employee(osv.osv):
-    # _name = "hr.employee"
-    _description = "gar_Employee"
+class bpe_employee(osv.osv):
+    _name = 'bpe.employee'
+    _description = "Bio_Data"
     # _order = 'name_related'
     # _inherits = {'resource.resource': "resource_id"}
-    _inherit = 'hr.employee'
+    _inherits = {'resource.resource': "resource_id"}
+    _inherit = ['mail.thread']
+    #_inherit = 'hr.employee'
+    def _get_image(self, cr, uid, ids, name, args, context=None):
+        result = dict.fromkeys(ids, False)
+        for obj in self.browse(cr, uid, ids, context=context):
+            result[obj.id] = tools.image_get_resized_images(obj.image)
+        return result
 
+    def _set_image(self, cr, uid, id, name, value, args, context=None):
+        return self.write(cr, uid, [id], {'image': tools.image_resize_image_big(value)}, context=context)
     _columns = {
         'bpe_employee_id': fields.char(string='EM-No.', size=15),
         'bpe_name_thai': fields.char(string='THA-Name', size=50, help='Please insert thai name'),
@@ -107,8 +116,32 @@ class hr_employee(osv.osv):
         'bpe_certificate_ids': fields.one2many('bpe.hr.employee.cert', 'employee_id', string='Certificate'),
         'bpe_work_experience_ids': fields.one2many('bpe.hr.employee.work.experience', 'employee_id',string='Work Experience'),
         'bpe_working_data_ids': fields.one2many('bpe.hr.employee.working.data', 'employee_id',string='Working Data'),
-    }
 
+'image': fields.binary("Photo",
+            help="This field holds the image used as photo for the employee, limited to 1024x1024px."),
+        'image_medium': fields.function(_get_image, fnct_inv=_set_image,
+            string="Medium-sized photo", type="binary", multi="_get_image",
+            store = {
+                'hr.employee': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+            },
+            help="Medium-sized photo of the employee. It is automatically "\
+                 "resized as a 128x128px image, with aspect ratio preserved. "\
+                 "Use this field in form views or some kanban views."),
+        'image_small': fields.function(_get_image, fnct_inv=_set_image,
+            string="Small-sized photo", type="binary", multi="_get_image",
+            store = {
+                'hr.employee': (lambda self, cr, uid, ids, c={}: ids, ['image'], 10),
+            },
+            help="Small-sized photo of the employee. It is automatically "\
+                 "resized as a 64x64px image, with aspect ratio preserved. "\
+                 "Use this field anywhere a small image is required."),}
+#class bpe_hr_jobtitle(osv.osv):
+    # Field Job Title
+   # _name = 'bpe.hr.jobtitle'
+   # _description = 'Job Title'
+  #  _columns = {
+    #    'name': fields.char('Job title',size=256,requied=True )
+    #}
 
 # Create Table master automatic สำหรับทำ Selection Tab Education
 class bpe_hr_education_level(osv.osv):  # Name Table
@@ -133,7 +166,7 @@ class bpe_hr_employee_education(
     _description = 'Employee Education'
     _columns = {
         'name': fields.char('Employee Education Name', size=128, ),
-        'employee_id': fields.many2one('hr.employee', string='Employee'),
+        'employee_id': fields.many2one('bpe.employee', string='Employee'),
         'education_level_id': fields.many2one('bpe.hr.education.level', string='Education Level', requried=True),
         'education_stitute_id': fields.many2one('bpe.hr.education.institute', string='Institute', requried=True),
         'year': fields.integer('Year', required=True),
@@ -164,19 +197,20 @@ class bpe_hr_employee_education(
             'name': fields.char('Course Training Institute Name', size=256, required=True),
         }
 
-    class bpe_hr_employee_cert(
+    class bpe_hr_employee_course(
         osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
         _name = 'bpe.hr.employee.course'
         _description = 'Employee Course Trainging'
         _columns = {
             'name': fields.char('Employee Course Training Name', size=128, ),
-            'employee_id': fields.many2one('hr.employee', string='Employee'),
+            'employee_id': fields.many2one('bpe.employee', string='Employee'),
             'course_id': fields.many2one('bpe.hr.course.train', string='Course Trainging', requried=True),
             'course_institute_id': fields.many2one('bpe.hr.course.institute', string='Course Trainging Institute',
                                                    requried=True),
             'course_start': fields.date('Start course', required=True),
             'course_end': fields.date('End course', required=True),
             'course_price': fields.integer('price course', size=10),
+            'course_nocert' : fields.char('No. certificate',size=60),
             'course_expcert': fields.date('Expire Cert'),
             # Sorting Column by User Field
             'sequence': fields.integer('Sequence')
@@ -209,7 +243,7 @@ class bpe_hr_employee_education(
             _description = 'Employee Certificate'
             _columns = {
                 'name': fields.char('Employee Certificate Name', size=128, ),
-                'employee_id': fields.many2one('hr.employee', string='Employee'),
+                'employee_id': fields.many2one('bpe.employee', string='Employee'),
                 'cert_course_id': fields.many2one('bpe.hr.cert.course', string='Certificate Course', requried=True),
                 'cert_institute_id': fields.many2one('bpe.hr.cert.institute', string='Certificate Institute',
                                                      requried=True),
@@ -247,7 +281,7 @@ class bpe_hr_employee_education(
                 _description = 'Employee Work Expirence Position'
                 _columns = {
                     'name': fields.char('Work Experience Name', size=128, ),
-                    'employee_id': fields.many2one('hr.employee', string='Employee'),
+                    'employee_id': fields.many2one('bpe.employee', string='Employee'),
                     'business_type_id': fields.many2one('bpe.hr.business.type', string='Business Type', requried=True),
                     'work_position_id': fields.many2one('bpe.hr.work.position', string='Position', requried=True),
                     'work_company_name': fields.char('Company Name'),
@@ -307,7 +341,7 @@ class bpe_hr_employee_education(
                 _description = 'Employee Working Data'
                 _columns = {
                     'name': fields.char('Working Data Name', size=128, ),
-                    'employee_id': fields.many2one('hr.employee', string='Employee'),
+                    'employee_id': fields.many2one('bpe.employee', string='Employee'),
                     'working_position_id': fields.many2one('bpe.hr.working.position', string='Position', requried=True),
                     'working_department_id': fields.many2one('bpe.hr.working.department', string='Department', requried=True),
                     'working_projectname_id': fields.many2one('bpe.hr.working.project', string='Project Name', requried=True),
