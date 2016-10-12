@@ -46,6 +46,7 @@ class bpe_employee(osv.osv):
         return self.write(cr, uid, [id], {'image': tools.image_resize_image_big(value)}, context=context)
 
     _columns = {
+        'company_id': fields.many2one('res.company', 'Company'),
         'bpe_employee_id': fields.char(string='EM-No.', size=15),
         'name': fields.char(string='THA-Name', size=50, help='Please insert thai name'),
         # 'ชื่อฟิลด์':fields.ประเภทฟิลด์('ชื่อที่โชว์ในERP')
@@ -135,6 +136,10 @@ class bpe_employee(osv.osv):
             help="Small-sized photo of the employee. It is automatically "\
                  "resized as a 64x64px image, with aspect ratio preserved. "\
                  "Use this field anywhere a small image is required."),}
+    _defaults = {
+        'company_id': lambda self, cr, uid, ctx=None: self.pool.get('res.company')._company_default_get(cr, uid,
+    'hr.job',context=ctx)
+    }
 #class bpe_hr_jobtitle(osv.osv):
     # Field Job Title
    # _name = 'bpe.hr.jobtitle'
