@@ -136,7 +136,7 @@ class bpe_employee(osv.osv):
             help="Small-sized photo of the employee. It is automatically "\
                  "resized as a 64x64px image, with aspect ratio preserved. "\
                  "Use this field anywhere a small image is required."),}
-_defaults = {
+    _defaults = {
         'company_id': lambda self, cr, uid, ctx=None: self.pool.get('res.company')._company_default_get(cr, uid,
     'hr.job',context=ctx)
     }
