@@ -7,12 +7,16 @@
 	        <field name="model">res.users</field>
 	        <field name="inherit_id" ref="base.view_users_form"/>
 	        <field name="arch" type="xml">
-	            <field name="active" position="before">
+	            <!--<field name="active" position="before">
 	                <field name="department_id" readonly="1"/>
-	            </field>
+	            </field>-->
+				<field name="signature" position="after">
+					<field name="image_signature" widget="image" />
+				</field>
 	        </field>
 	    </record>
-	    
+
+        <!--
 	    <record model="ir.ui.view" id="view_bpe_user_tree">
 	        <field name="name">pbe.res.users.tree</field>
 	        <field name="model">res.users</field>
@@ -23,8 +27,7 @@
 	            </field>
 	        </field>
 	    </record>
-	    
-	    
+	    -->
 
 	</data>
 </openerp>
