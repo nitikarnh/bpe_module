@@ -31,11 +31,7 @@ from openerp.tools.translate import _
 class bpe_employee(osv.osv):
     _name = 'bpe.employee'
     _description = "Bio_Data"
-    # _order = 'name_related'
-    # _inherits = {'resource.resource': "resource_id"}
-    #_inherits = {'resource.resource': "resource_id"}
     _inherit = ['mail.thread']
-    #_inherit = 'hr.employee'
     def _get_image(self, cr, uid, ids, name, args, context=None):
         result = dict.fromkeys(ids, False)
         for obj in self.browse(cr, uid, ids, context=context):
@@ -49,10 +45,11 @@ class bpe_employee(osv.osv):
         'company_id': fields.many2one('res.company', 'Company'),
         'bpe_employee_id': fields.char(string='EM-No.', size=15),
         'name': fields.char(string='THA-Name', size=50, help='Please insert thai name'),
-        # 'ชื่อฟิลด์':fields.ประเภทฟิลด์('ชื่อที่โชว์ในERP')
         'bpe_name_eng': fields.char(string='ENG-Name', size=50, help='Please insert Eng name'),
-        'bpe_jobtitle': fields.char(string='ตำแหน่ง', size=60, help='Please insert Job Title'),
-        'bpe_department': fields.char(string='สังกัด', size=60, help='Insert Department'),
+        #'bpe_jobtitle': fields.char(string='ตำแหน่ง', size=60, help='Please insert Job Title'),
+        'bpe_jobtitle': fields.many2one('bpe.hr.jobtitle', 'Job Title'),
+        #'bpe_department': fields.char(string='สังกัด', size=60, help='Insert Department'),
+        'bpe_department': fields.many2one('bpe.hr.department', 'Department'),
         'bpe_date_of_birth': fields.char(string='ว/ด/ป พ.ศ.เกิด', size=12, help='ตย.31/04/2534'),
         'bpe_age': fields.integer(string='อายุ', size=2),
         'bpe_sex': fields.selection([('f', 'ชาย'), ('m', 'หญิง')], 'เพศ', ),
@@ -62,9 +59,12 @@ class bpe_employee(osv.osv):
         'bpe_blood': fields.selection([('a', 'Group A'), ('b', 'Group B'), ('ab', 'Group AB'), ('o', 'Group O'), ],
                                       'กรุ๊ปเลือด', ),
         'bpe_idcard': fields.char(string='เลขที่บัตร ปชช', size=13, help='เลขที่ประจำตัวประชาชน'),
-        'bpe_nationality':fields.char(string='Nationality'),
-        'bpe_race':fields.char(string='Race'),
-        'bpe_religion':fields.char(string='Religion'),
+        #'bpe_nationality':fields.char(string='Nationality'),
+        'bpe_nationality': fields.many2one('bpe.hr.nationality', 'สัญชาติ'),
+        #'bpe_race':fields.char(string='Race'),
+        'bpe_race': fields.many2one('bpe.hr.race', 'เชื้อชาติ'),
+        #'bpe_religion':fields.char(string='Religion'),
+        'bpe_religion': fields.many2one('bpe.hr.religion', 'ศาสนา'),
         'bpe_addresscard': fields.char(string='ที่อยู่ตามบัตรประชาชน', size=100, help='ที่อยู่ตามบัตรประชาชน'),
         'bpe_addressnow': fields.char(string='ที่อยู่ปัจจุบัน', size=100, help='อยู่ปัจจุบัน'),
         'bpe_phone': fields.char(string='โทรศัพท์ที่ติดต่อได้', size=15, help='โทรศัพท์ที่ติดต่อได้'),
@@ -140,13 +140,37 @@ class bpe_employee(osv.osv):
         'company_id': lambda self, cr, uid, ctx=None: self.pool.get('res.company')._company_default_get(cr, uid,
     'hr.job',context=ctx)
     }
-#class bpe_hr_jobtitle(osv.osv):
-    # Field Job Title
-   # _name = 'bpe.hr.jobtitle'
-   # _description = 'Job Title'
-  #  _columns = {
-    #    'name': fields.char('Job title',size=256,requied=True )
-    #}
+    # Field Job Title Type:many2one
+class bpe_hr_jobtitle(osv.osv):
+    _name = 'bpe.hr.jobtitle'
+    _description = 'Job Title'
+    _columns = {
+        'name': fields.char('Job title',size=256,requied=True )
+    }
+class bpe_hr_department(osv.osv):
+    _name = 'bpe.hr.department'
+    _description = 'Department'
+    _columns = {
+        'name': fields.char('Job title',size=256,requied=True )
+    }
+class bpe_hr_nationality(osv.osv):
+    _name = 'bpe.hr.nationality'
+    _description = 'Nationality'
+    _columns = {
+        'name': fields.char('Nationality',size=25)
+    }
+class bpe_hr_race(osv.osv):
+    _name = 'bpe.hr.race'
+    _description = 'Race'
+    _columns = {
+        'name': fields.char('Race',size=25)
+    }
+class bpe_hr_religion(osv.osv):
+    _name = 'bpe.hr.religion'
+    _description = 'Religion'
+    _columns = {
+        'name': fields.char('Religion',size=25)
+    }
 
 # Create Table master automatic สำหรับทำ Selection Tab Education
 class bpe_hr_education_level(osv.osv):  # Name Table
@@ -209,10 +233,9 @@ class bpe_hr_employee_education(osv.osv):  # Table Master เก็บค่า�
             'name': fields.char('Employee Course Training Name', size=128, ),
             'employee_id': fields.many2one('bpe.employee', string='Employee'),
             'course_id': fields.many2one('bpe.hr.course.train', string='Course Trainging', requried=True),
-            'course_institute_id': fields.many2one('bpe.hr.course.institute', string='Course Trainging Institute',
-                                                   requried=True),
-            'course_start': fields.date('Start course', required=True),
-            'course_end': fields.date('End course', required=True),
+            'course_institute_id': fields.many2one('bpe.hr.course.institute', string='Course Trainging Institute'),
+            'course_start': fields.date('Start course'),
+            'course_end': fields.date('End course'),
             'course_price': fields.integer('price course', size=10),
             'course_nocert' : fields.char('No. certificate',size=60),
             'course_expcert': fields.date('Expire Cert'),
@@ -289,9 +312,9 @@ class bpe_hr_employee_education(osv.osv):  # Table Master เก็บค่า�
                     'business_type_id': fields.many2one('bpe.hr.business.type', string='Business Type', requried=True),
                     'work_position_id': fields.many2one('bpe.hr.work.position', string='Position', requried=True),
                     'work_company_name': fields.char('Company Name'),
-                    'work_experience_start': fields.date('Start', required=True),
-                    'work_experience_end': fields.date('End', required=True),
-                    'work_responsibility': fields.char('Responsibility', required=True),
+                    'work_experience_start': fields.date('Start'),
+                    'work_experience_end': fields.date('End'),
+                    'work_responsibility': fields.char('Responsibility'),
                     'work_salary': fields.integer('Salary'),
                     # Sorting Column by User Field
                     'sequence': fields.integer('Sequence')
