@@ -46,7 +46,7 @@
         'sale_view.xml',
         'security.xml',
         'base.xml',
-        #'res_users_view.xml',
+        'res_users_view.xml',
     ],
     'update_xml' : [
     ],

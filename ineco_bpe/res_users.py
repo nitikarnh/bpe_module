@@ -21,6 +21,8 @@
 
 from openerp import api
 from openerp.osv import fields, osv
+from openerp import tools
+
 
 class res_users(osv.osv):
     
@@ -62,6 +64,15 @@ class res_users(osv.osv):
 
         return res
 
+    def _get_image_signature(self, cr, uid, ids, name, args, context=None):
+        result = dict.fromkeys(ids, False)
+        for obj in self.browse(cr, uid, ids, context=context):
+            result[obj.id] = tools.image_get_resized_images(obj.image_signature)
+        return result
+
+    def _set_image_signature(self, cr, uid, id, name, value, args, context=None):
+        return self.write(cr, uid, [id], {'image_signature': tools.image_resize_image_big(value)}, context=context)
+
     _inherit = 'res.users'
     _columns = {
         'department_id': fields.function(_get_department, type="many2one", 
@@ -76,7 +87,19 @@ class res_users(osv.osv):
                                     'res.users': (lambda self, cr, uid, ids, c={}: ids, [], 10),
                                 },
                                 multi='_sale_group'),
+        'image_signature': fields.binary("Digital Signature",),
+        'image_signature_medium': fields.function(_get_image_signature, fnct_inv=_set_image_signature,
+                                        string="Medium-sized photo", type="binary", multi="_get_image_signature",
+                                        store={
+                                            'res.users': (lambda self, cr, uid, ids, c={}: ids, ['image_signature_medium', 'image_signature'], 10),
+                                        }, ),
+        'image_signature_small': fields.function(_get_image_signature, fnct_inv=_set_image_signature,
+                                       string="Small-sized photo", type="binary", multi="_get_image_signature",
+                                       store={
+                                           'res.users': (lambda self, cr, uid, ids, c={}: ids, ['image_signature_medium','image_signature'], 10),
+                                       }, ),
     }
+
     _defaults = {
         'user_in_sale': False,
         'user_in_sale_manager': False,
