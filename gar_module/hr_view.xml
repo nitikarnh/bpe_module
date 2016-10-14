@@ -110,7 +110,7 @@
                                 </group>
                             </page>
 
-                            <Page string="Medical History">>
+                            <Page string="Medical History">
                                 <group string="Medical History">
                                     <field name="bpe_disease"/>
                                     <field name="bpe_drug"/>

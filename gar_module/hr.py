@@ -52,7 +52,7 @@ class bpe_employee(osv.osv):
         'bpe_department': fields.many2one('bpe.hr.department', 'Department'),
         'bpe_date_of_birth': fields.char(string='Date of Birth', size=12, help='Exam.31/04/2534'),
         'bpe_age': fields.integer(string='Age', size=2),
-        'bpe_sex': fields.selection([('f', 'male'), ('m', 'famale')], 'Sex',help='เพศ' ),
+        'bpe_sex': fields.selection([('f', 'male'), ('m', 'famale')], 'Gender',help='เพศ' ),
         'bpe_marital': fields.selection([('y', 'ผ่านการเกณฑ์'), ('n', 'ยังไม่ผ่านการเกณฑ์')], 'Military Status', ),
         'bpe_weight': fields.integer(string='Weight', size=3),
         'bpe_height': fields.integer(string='Height', size=3),
