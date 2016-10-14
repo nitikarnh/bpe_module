@@ -71,9 +71,9 @@
 
 
                         <notebook colspan="4">
-                            <page string="Family">
+                            <page string="Family Details">
                                 <group>
-                                    <group string="คู่สมรส">
+                                    <group string="Spouse">
                                         <field name="bpe_marital_status"/>
                                         <field name="bpe_name_spouse"/>
                                         <field name="bpe_age_spouse"/>
@@ -84,14 +84,14 @@
                                         <field name="bpe_name_child1"/>
                                     </group>
                                     <group></group>
-                                    <group string="บิดา">
+                                    <group string="Father">
                                         <field name="bpe_name_dad"/>
                                         <field name="bpe_age_dad"/>
                                         <field name="bpe_job_dad"/>
                                         <field name="bpe_phone_dad"/>
                                     </group>
                                     <group></group>
-                                    <group string="มารดา">
+                                    <group string="Mother">
                                         <field name="bpe_name_mom"/>
                                         <field name="bpe_age_mom"/>
                                         <field name="bpe_job_mom"/>
@@ -100,7 +100,7 @@
                                 </group>
                             </page>
                             <page string="Emergency Contact">
-                                <group string="บุคคลที่ติดต่อได้ฉุกเฉิน">
+                                <group string="Personal to contact emergency">
                                     <field name="bpe_emergency_contact1"/>
                                     <field name="bpe_emergency_relation1"/>
                                     <field name="bpe_emergency_phone1"/>
@@ -111,7 +111,7 @@
                             </page>
 
                             <Page string="Medical History">>
-                                <group string="ประวัติการรักษาพยาบาล">
+                                <group string="Medical History">
                                     <field name="bpe_disease"/>
                                     <field name="bpe_drug"/>
                                     <field name="bpe_drugno"/>
@@ -126,19 +126,19 @@
                                 <field name="bpe_education_ids">
                                     <tree editable="top">
                                         <field name="sequence" widget="handle"/>
-                                        <field name="education_level_id" string="ระดับการศึกษา"/>
-                                        <field name="education_stitute_id" string="สถาบันการศึกษา"/>
-                                        <field name="branch" string="สาขาวิชา"/>
-                                        <field name="year" string="ปี พ.ศ.ที่จบ"/>
-                                        <field name="grade" string="เกรด"/>
+                                        <field name="education_level_id" string="Level"/>
+                                        <field name="education_stitute_id" string="Name of institution"/>
+                                        <field name="branch" string="Field of study"/>
+                                        <field name="year" string="Year"/>
+                                        <field name="grade" string="GPA"/>
                                     </tree>
                                     <form>
                                         <group>
-                                            <field name="education_level_id" string="ระดับการศึกษา"/>
-                                            <field name="education_stitute_id" string="สถาบันการศึกษา"/>
-                                            <field name="branch" string="สาขาวิชา"/>
-                                            <field name="year" string="ปีที่จบ"/>
-                                            <field name="grade" string="เกรด"/>
+                                            <field name="education_level_id" string="Level"/>
+                                        <field name="education_stitute_id" string="Name of institution"/>
+                                        <field name="branch" string="Field of study"/>
+                                        <field name="year" string="Year"/>
+                                        <field name="grade" string="GPA"/>
                                         </group>
                                     </form>
                                 </field>
@@ -174,24 +174,24 @@
                                 <field name="bpe_course_ids">
                                     <tree editable="top">
                                         <field name="sequence" widget="handle"/>
-                                        <field name="course_id" string="หลักสูตร"/>
-                                        <field name="course_institute_id" string="สถาบัน"/>
-                                        <field name="course_start" string="เริ่มหลักสูตร"/>
-                                        <field name="course_end" string="จบหลักสูตร"/>
-                                        <field name="course_price" string="ค่าอบรม"/>
-                                        <field name="course_nocert" string="เลขที่ใบCertificate"/>
-                                        <field name="course_expcert" string="วันหมดอายุCert"/>
+                                        <field name="course_id" string="Name of curriculum"/>
+                                        <field name="course_institute_id" string="Institute"/>
+                                        <field name="course_start" string="From"/>
+                                        <field name="course_end" string="To"/>
+                                        <field name="course_price" string="Cost"/>
+                                        <field name="course_nocert" string="Certificate No."/>
+                                        <field name="course_expcert" string="Exp.Certificate"/>
                                     </tree>
                                     <form>
                                         <group>
-                                            <field name="sequence" widget="handle"/>
-                                            <field name="course_id" string="หลักสูตร"/>
-                                            <field name="course_institute_id" string="สถาบัน"/>
-                                            <field name="course_start" string="เริ่มหลักสูตร"/>
-                                            <field name="course_end" string="จบหลักสูตร"/>
-                                            <field name="course_price" string="ค่าอบรม"/>
-                                            <field name="course_nocert" string="เลขที่ใบCertificate"/>
-                                            <field name="course_expcert" string="วันหมดอายุCert"/>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="course_id" string="Name of curriculum"/>
+                                        <field name="course_institute_id" string="Institute"/>
+                                        <field name="course_start" string="From"/>
+                                        <field name="course_end" string="To"/>
+                                        <field name="course_price" string="Cost"/>
+                                        <field name="course_nocert" string="Certificate No."/>
+                                        <field name="course_expcert" string="Certificate Exp."/>
                                         </group>
                                     </form>
                                 </field>
@@ -201,20 +201,20 @@
                                 <field name="bpe_certificate_ids">
                                     <tree editable="top">
                                         <field name="sequence" widget="handle"/>
-                                        <field name="cert_course_id" string="หลักสูตร"/>
-                                        <field name="cert_institute_id" string="สถาบัน"/>
-                                        <field name="cert_start" string="เริ่มหลักสูตร"/>
-                                        <field name="cert_end" string="จบหลักสูตร"/>
-                                        <field name="cert_expire" string="วันหมดอายุCert"/>
+                                        <field name="cert_course_id" string="Name of curriculum"/>
+                                        <field name="cert_institute_id" string="Institute"/>
+                                        <field name="cert_start" string="From"/>
+                                        <field name="cert_end" string="To"/>
+                                        <field name="cert_expire" string="Certificate Exp."/>
                                     </tree>
                                     <form>
                                         <group>
-                                            <field name="sequence" widget="handle"/>
-                                            <field name="cert_course_id" string="หลักสูตร"/>
-                                            <field name="cert_institute_id" string="สถาบัน"/>
-                                            <field name="cert_start" string="เริ่มหลักสูตร"/>
-                                            <field name="cert_end" string="จบหลักสูตร"/>
-                                            <field name="cert_expire" string="วันหมดอายุCert"/>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="cert_course_id" string="Name of curriculum"/>
+                                        <field name="cert_institute_id" string="Institute"/>
+                                        <field name="cert_start" string="From"/>
+                                        <field name="cert_end" string="To"/>
+                                        <field name="cert_expire" string="Certificate Exp."/>
                                         </group>
                                     </form>
                                 </field>
