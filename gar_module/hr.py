@@ -43,7 +43,7 @@ class bpe_employee(osv.osv):
 
     _columns = {
         'company_id': fields.many2one('res.company', 'Company'),
-        'bpe_employee_id': fields.char(string='EM-No.', size=15),
+        'bpe_employee_id': fields.char(string='EM-No.', size=20),
         'name': fields.char(string='THA-Name', size=50, help='Please insert thai name'),
         'bpe_name_eng': fields.char(string='ENG-Name', size=50, help='Please insert Eng name'),
         #'bpe_jobtitle': fields.char(string='ตำแหน่ง', size=60, help='Please insert Job Title'),
