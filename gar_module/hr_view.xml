@@ -20,7 +20,7 @@
                             <group string="HR Employee">
                                 <field name="bpe_employee_id"/>
                                 <field name="name" string="Name Thai"/>
-                                <field name="bpe_name_eng"/>
+                                <field name="bpe_name_eng" string="Name Eng"/>
                             </group>
                             <group string="Position">
                                 <field name="bpe_jobtitle"/>
