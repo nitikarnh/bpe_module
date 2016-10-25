@@ -55,8 +55,10 @@ class sale_order(osv.osv):
         payment_term = invoice_part.property_payment_term and invoice_part.property_payment_term.id or False
         dedicated_salesman = part.user_id and part.user_id.id or uid
         val = {
-            'partner_invoice_id': addr['invoice'],
-            'partner_shipping_id': addr['delivery'],
+            'partner_invoice_id': part.parent_id and part.parent_id.id or addr['invoice'],
+            'partner_shipping_id': part.parent_id and part.parent_id.id or addr['delivery'],
+            #'partner_invoice_id': addr['invoice'],
+            #'partner_shipping_id': addr['delivery'],
             'payment_term': payment_term,
             'user_id': dedicated_salesman,
         }
