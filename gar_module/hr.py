@@ -26,12 +26,35 @@ from openerp import tools
 from openerp.modules.module import get_module_resource
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
+from datetime import datetime
 
 
 class bpe_employee(osv.osv):
     _name = 'bpe.employee'
     _description = "Bio_Data"
     _inherit = ['mail.thread']
+
+    def _get_age(self, cr, uid, ids, name, args, context=None):
+        result = {}
+        for obj in self.browse(cr, uid, ids, context=context):
+            result[obj.id] = {
+                'bpe_age_now': False,
+                }
+        if obj.bpe_date_of_birth:
+            dob = obj.bpe_date_of_birth
+            now = datetime.now()
+            try:
+                dob2 = datetime.strptime(dob, '%Y-%m-%d')
+                result[obj.id]['bpe_age_now'] = (now - dob2).days // 365
+            except:
+
+                raise osv.except_osv('Error', ('Format not validate %s' % [dob]))
+          # result[obj.id] = {
+          # 'age_now': (dob2 - now).days // 365
+          # }
+
+        return result
+
     def _get_image(self, cr, uid, ids, name, args, context=None):
         result = dict.fromkeys(ids, False)
         for obj in self.browse(cr, uid, ids, context=context):
@@ -50,7 +73,7 @@ class bpe_employee(osv.osv):
         'bpe_jobtitle': fields.many2one('bpe.hr.jobtitle', 'Job Title'),
         #'bpe_department': fields.char(string='สังกัด', size=60, help='Insert Department'),
         'bpe_department': fields.many2one('bpe.hr.department', 'Department'),
-        'bpe_date_of_birth': fields.char(string='Date of Birth', size=12, help='Exam.31/04/2534'),
+        'bpe_date_of_birth': fields.date(string='Date of Birth', size=10, help='Exam.31/04/2534'),
         'bpe_age': fields.integer(string='Age', size=2),
         'bpe_sex': fields.selection([('f', 'male'), ('m', 'famale')], 'Gender',help='เพศ' ),
         'bpe_marital': fields.selection([('y', 'ผ่านการเกณฑ์'), ('n', 'ยังไม่ผ่านการเกณฑ์')], 'Military Status', ),
@@ -127,7 +150,10 @@ class bpe_employee(osv.osv):
             },
             help="Small-sized photo of the employee. It is automatically "\
                  "resized as a 64x64px image, with aspect ratio preserved. "\
-                 "Use this field anywhere a small image is required."),}
+                 "Use this field anywhere a small image is required."),
+         'bpe_age_now': fields.function(_get_age, string="Age", type="integer", multi="_get_age",)
+    }
+
     _defaults = {
         'company_id': lambda self, cr, uid, ctx=None: self.pool.get('res.company')._company_default_get(cr, uid,
     'hr.job',context=ctx)
@@ -306,7 +332,7 @@ class bpe_hr_employee_education(osv.osv):  # Table Master เก็บค่า�
                     'work_company_name': fields.char('Company Name'),
                     'work_experience_start': fields.date('Start'),
                     'work_experience_end': fields.date('End'),
-                    'work_responsibility': fields.char('Responsibility'),
+                    'work_responsibility': fields.text('Responsibility'),
                     'work_salary': fields.integer('Salary'),
                     # Sorting Column by User Field
                     'sequence': fields.integer('Sequence')
