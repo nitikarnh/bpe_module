@@ -157,8 +157,11 @@ class InecoParser(report_sxw):
                                                 ('file_type','=','application/pdf')])
                 # print 'Attachment List', ids[0], attachment_ids
                 for attachment in attachment_obj.browse(cr, uid, attachment_ids):
-                    attachment_page = PdfFileReader(StringIO(attachment.datas.decode('base64'))).getPage(0)
-                    output.addPage(attachment_page)
+                    attachment_page = PdfFileReader(StringIO(attachment.datas.decode('base64')))
+                    numPages = attachment_page.getNumPages()
+                    for i in range(0, numPages):
+                        pageNew = attachment_page.getPage(i)
+                        output.addPage(pageNew)
 
                 buf = StringIO()
                 output.write(buf)
