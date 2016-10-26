@@ -49,6 +49,7 @@ def register_report(name, model, tmpl_path, parser=rml_parse):
         del netsvc.Service._services[name]
     InecoParser(name, model, tmpl_path, parser=parser)
 
+
 class ir_actions_report_xml(orm.Model):
 
     _inherit = 'ir.actions.report.xml'
