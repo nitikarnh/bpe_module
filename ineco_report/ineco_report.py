@@ -155,6 +155,7 @@ class InecoParser(report_sxw):
                 attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','sale.order'),
                                                 ('res_id','=',ids[0]),
                                                 ('file_type','=','application/pdf')])
+                print 'Attachment List', ids[0], attachment_ids
                 for attachment in attachment_obj.browse(cr, uid, attachment_ids):
                     attachment_page = PdfFileReader(StringIO(attachment.datas.decode('base64'))).getPage(0)
                     output.addPage(attachment_page)
