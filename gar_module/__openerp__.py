@@ -27,7 +27,7 @@
     'summary' : 'ตัวอย่างHR Module',
     'description' : """
 """,
-    'depends' : ['base','sale_stock','sale',#hr
+    'depends' : ['base','sale_stock','sale','hr'
     ],
     'data' : [
         'hr_view.xml',

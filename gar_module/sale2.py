@@ -36,11 +36,19 @@ class bpe_sale_type_project(osv.osv):
         'name': fields.char('Type Project Name',size=256,requied=True )
     }
 
+class bpe_sale_type_payment(osv.osv):
+    # Field type_of_payment
+    _name = 'bpe.sale.type.payment'
+    _description = 'Type Of Payment'
+    _columns = {
+        'name': fields.char('Type Of Payment Name',size=256,requied=True )
+    }
 
 class sale_order(osv.osv):
     _inherit = 'sale.order'
     _columns = {
-        'type_project_id': fields.many2one('bpe.sale.type.project', string ='Type Project')
+        'type_project_id': fields.many2one('bpe.sale.type.project', string ='Type Project'),
+        'type_payment_id': fields.many2one('bpe.sale.type.payment', string = 'Type Of Payment')
     }
 
     def onchange_partner_id(self, cr, uid, ids, part, context=None):
