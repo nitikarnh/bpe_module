@@ -138,6 +138,31 @@ class InecoParser(report_sxw):
                 buf = StringIO()
                 output.write(buf)
                 pdf = buf.getvalue()
+
+            if report_xml.model == 'sale.order':
+                attachment_obj = self.pool.get('ir.attachment')
+                Origin = StringIO()
+                Origin.write(a['data'])
+                origin_pdf = PdfFileReader(Origin)
+
+                output = PdfFileWriter()
+
+                numPages = origin_pdf.getNumPages()
+                for i in range(0, numPages):
+                    pageNew = origin_pdf.getPage(i)
+                    output.addPage(pageNew)
+
+                attachment_ids = attachment_obj.search(cr, uid, [('res_model','=','sale.order'),
+                                                ('res_id','=',ids[0]),
+                                                ('file_type','=','application/pdf')])
+                for attachment in attachment_obj.browse(cr, uid, attachment_ids):
+                    attachment_page = PdfFileReader(StringIO(attachment.datas.decode('base64'))).getPage(0)
+                    output.addPage(attachment_page)
+
+                buf = StringIO()
+                output.write(buf)
+                pdf = buf.getvalue()
+
         else:
             raise osv.except_osv(_('Warning !'), _('Please fill data in URL, Username, Password, Report Path and Criteria.'))
 
