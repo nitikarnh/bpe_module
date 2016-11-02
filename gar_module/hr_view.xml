@@ -154,7 +154,7 @@
                                         <field name="sequence" widget="handle"/>
                                         <field name="work_experience_start" string="Start"/>
                                         <field name="work_experience_end" string="End"/>
-                                        <field name="work_company_name" string="Company Name"/>
+                                        <field name="name" string="Company Name"/>
                                         <field name="business_type_id" string="Business Type"/>
                                         <field name="work_position_id" string="Position"/>
                                         <field name="work_responsibility" string="Responsibility"/>
@@ -323,7 +323,7 @@
         </record>
 
         <record id="action_bpe_hr_jobtitle" model="ir.actions.act_window">
-            <field name="name">JOB Title</field>
+            <field name="name">Job Title</field>
             <field name="res_model">bpe.hr.jobtitle</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
@@ -333,5 +333,68 @@
         <menuitem action="action_bpe_hr_jobtitle" id="menu_bpe_hr_jobtitle" sequence="10"
                   parent="menu_bpe_hr_configuration"/>
 
+<!-- BPE HR department -->
+        <record id="view_bpe_hr_department_tree" model="ir.ui.view">
+            <field name="name">bpe.hr.department.tree</field>
+            <field name="model">bpe.hr.department</field>
+            <field name="arch" type="xml">
+                <tree string="Department" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_bpe_hr_department_search" model="ir.ui.view">
+            <field name="name">bpe.hr.bpe_hr_department.search</field>
+            <field name="model">bpe.hr.department</field>
+            <field name="arch" type="xml">
+                <search string="Job Department">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_bpe_hr_department" model="ir.actions.act_window">
+            <field name="name">Department</field>
+            <field name="res_model">bpe.hr.department</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bpe_hr_department_tree"/>
+        </record>
+
+        <menuitem action="action_bpe_hr_department" id="menu_bpe_hr_department" sequence="20"
+                  parent="menu_bpe_hr_configuration"/>
+
+<!-- BPE HR Education level -->
+        <record id="view_bpe_hr_education_level_tree" model="ir.ui.view">
+            <field name="name">bpe.hr.education.level.tree</field>
+            <field name="model">bpe.hr.education.level</field>
+            <field name="arch" type="xml">
+                <tree string="Level Education" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_bpe_hr_education_level_search" model="ir.ui.view">
+            <field name="name">bpe.hr.education.level.search</field>
+            <field name="model">bpe.hr.education.level</field>
+            <field name="arch" type="xml">
+                <search string="Job Department">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_bpe_hr_education_level" model="ir.actions.act_window">
+            <field name="name">Level Education</field>
+            <field name="res_model">bpe.hr.education.level</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bpe_hr_education_level_tree"/>
+        </record>
+
+        <menuitem action="action_bpe_hr_education_level" id="menu_bpe_hr_education_level" sequence="20"
+                  parent="menu_bpe_hr_configuration"/>
     </data>
 </openerp>

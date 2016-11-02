@@ -94,7 +94,7 @@ class bpe_employee(osv.osv):
         'bpe_email': fields.char(string='Email', size=50, help='ตย.address@gmail.com'),
         'bpe_skill_com': fields.selection([('0', 'Basic'), ('1', 'Medium'),('2','High')], 'Skill Computer MS-Office (Work,Excel,Outlook)', ),
         'bpe_skill_com_special': fields.text(string='Other Skill',size=150),
-        'bpe_skill_lang_select': fields.selection([('0', 'Fair'), ('1', 'Good'), ('2', 'Excellent')],'Skill language', ),
+        'bpe_skill_lang_select': fields.selection([('0', 'Fair'), ('1', 'Good'), ('2', 'Excellent')],'Skill language (English)', ),
         'bpe_emergency_contact1': fields.char(string='Personal to contact emergency(1)', size=70),
         'bpe_emergency_relation1': fields.char(string='Relationship', size=30),
         'bpe_emergency_phone1': fields.char(string='Tel.', size=50),
