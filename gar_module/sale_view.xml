@@ -24,6 +24,11 @@
                     <field name="type_project_id"/>
                     <field name="type_payment_id"/>
                 </field>
+
+                <xpath expr="//form[@string='Sales Order Lines']/group/group/field[@name='price_unit']" position="after">
+                    <field name="refer_breakdown" />
+                </xpath>
+
             </field>
         </record>
 
