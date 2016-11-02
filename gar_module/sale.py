@@ -30,3 +30,6 @@ class sale_order(models.Model):
                                readonly=True, )
 
 
+class sale_order_line(models.Model):
+    _inherit = 'sale.order.line'
+    refer_breakdown=fields.Boolean(string='Refer Cost Breakdown')
