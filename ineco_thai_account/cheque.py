@@ -182,7 +182,7 @@ class ineco_cheque(osv.osv):
                                         'name': line.account_id.name,
                                         'debit': 0.0,
                                         'credit': cheque.amount,
-                                        'account_id': line.account_id.id, ##journal_id.account_id
+                                        'account_id': line.journal_id.default_debit_account_id.id,
                                         'move_id': move_id,
                                         'journal_id': line.journal_id.id,
                                         'period_id': period_id or line.period_id.id,
