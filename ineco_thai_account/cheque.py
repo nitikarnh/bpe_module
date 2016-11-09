@@ -179,7 +179,7 @@ class ineco_cheque(osv.osv):
                                 move_line_id  = move_line_pool.create(cr,uid,move_line_detail,context=context) 
                             else:
                                 move_line_detail = {
-                                        'name': line.account_id.name,
+                                        'name': line.journal_id.default_debit_account_id.name,
                                         'debit': 0.0,
                                         'credit': cheque.amount,
                                         'account_id': line.journal_id.default_debit_account_id.id,
@@ -219,10 +219,10 @@ class ineco_cheque(osv.osv):
                                 move_line_id  = move_line_pool.create(cr,uid,move_line_detail,context=context) 
                             else:
                                 move_line_detail = {
-                                        'name': line.account_id.name,
+                                        'name': line.journal_id.default_debit_account_id.name,
                                         'debit': cheque.amount,
                                         'credit': 0.0,
-                                        'account_id': line.account_id.id,
+                                        'account_id': line.journal_id.default_debit_account_id.id,
                                         'move_id': move_id,
                                         'journal_id': line.journal_id.id,
                                         'period_id': period_id or line.period_id.id,
