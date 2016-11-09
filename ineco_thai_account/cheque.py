@@ -22,7 +22,7 @@
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-
+from operator import itemgetter
 import time
 from openerp.osv import fields, osv
 import openerp.addons.decimal_precision as dp
@@ -46,7 +46,38 @@ class ineco_cheque(osv.osv):
                 partial_ids.append(line.id)
             res[id] =[x for x in partial_ids]
         return res    
-    
+
+    def _get_voucher(self, cr, uid, ids, name, arg, context=None):
+        res = {}
+        for check in self.browse(cr, uid, ids, context=context):
+            res[check.id] = False
+            sql = """
+                select distinct voucher_id from voucher_cheque_ids where cheque_id = %s
+            """ % (check.id)
+            cr.execute(sql)
+            result = cr.fetchall()
+            voucher_ids = map(lambda x: x[0], result)
+            if voucher_ids:
+                res[check.id] = voucher_ids[0]
+        return res
+
+    def _search_voucher(self, cr, uid, obj, name, args, context=None):
+        if not args:
+            return []
+        having_values = tuple(map(itemgetter(2), args))
+        res = False
+        if having_values:
+            sql = """
+                select ic.cheque_id from account_voucher av
+                left join voucher_cheque_ids ic on ic.voucher_id = av.id
+                where number like '%s'
+            """ % ('%'+having_values[0]+'%')
+            cr.execute(sql)
+            res = cr.fetchall()
+        if not res:
+            return [('id','=','0')]
+        return [('id','in', [x[0] for x in res])]
+
     _columns = {
         'name': fields.char('Cheque No.', size=32, required=True, track_visibility='onchange'),
         'cheque_date': fields.date('Date Cheque',required=True, track_visibility='onchange'), 
@@ -63,7 +94,9 @@ class ineco_cheque(osv.osv):
         'date_assigned': fields.datetime('Date Assigned',track_visibility='onchange'),
         'account_receipt_id': fields.many2one('account.account','Account'),  
         'account_pay_id': fields.many2one('account.account','Account'),
-        #'voucher_id': fields.one2many('account.voucher', 'cheque_id', 'voucher', readonly=True),
+        'voucher_id':fields.function(_get_voucher, type='many2one', relation='account.voucher', string='Voucher',
+                                     fnct_search=_search_voucher,
+                                     store=False),
         'move_id':fields.many2one('account.move', 'Account Entry'),
         'move_name': fields.related('move_id','name', type='char', string='Account Entry Name', readonly=True),
         'move_ref': fields.related('move_id','ref', type='char', string='Account Entry Ref', readonly=True),
