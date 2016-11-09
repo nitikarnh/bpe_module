@@ -180,8 +180,8 @@ class ineco_cheque(osv.osv):
                                         'journal_id': line.journal_id.id,
                                         'period_id': period_id or line.period_id.id,
                                         'partner_id': cheque.partner_id.id,
-                                        'date': cheque.cheque_date,
-                                        'date_maturity': date_reconcile
+                                        'date': date_reconcile,
+                                        'date_maturity': cheque.cheque_date
                                     }
                                 move_line_id  = move_line_pool.create(cr,uid,move_line_detail,context=context) 
                             else:
@@ -194,8 +194,8 @@ class ineco_cheque(osv.osv):
                                         'journal_id': line.journal_id.id,
                                         'period_id': period_id or line.period_id.id,
                                         'partner_id': cheque.partner_id.id,
-                                        'date': cheque.cheque_date,
-                                        'date_maturity': date_reconcile
+                                        'date': date_reconcile,
+                                        'date_maturity': cheque.cheque_date
                                     }
                                 move_line_id  = move_line_pool.create(cr,uid,move_line_detail,context=context) 
                             
