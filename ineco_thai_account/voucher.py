@@ -719,7 +719,9 @@ class account_voucher_line(osv.osv):
                                      readonly=1),
         'receive_no': fields.related('invoice_id','receive_no',type='char',string='Receipt No',readonly=1),
         'receive_date': fields.related('invoice_id','receive_date',type='date',string='Receipt Date',readonly=1),
-        'sequence': fields.integer('Sequence')
+        'sequence': fields.integer('Sequence'),
+        'supplier_invoice_number': fields.char('Supplier Invoice No', size=128),
+        'supplier_receipt_number': fields.char('Supplier Receipt No', size=64),
     }
     _defaults = {
         'sequence': 10,

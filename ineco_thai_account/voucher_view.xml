@@ -346,6 +346,11 @@
                        position="attributes">
                     <attribute name="sum">Total Unreconciled</attribute>
                 </xpath>
+                <xpath expr="//page[@string='Payment Information']/field[@name='line_dr_ids']/tree/field[@name='account_id']"
+                       position="after">
+                    <field name="supplier_invoice_number" string="Supp Invoice" />
+                    <field name="supplier_receipt_number" string="Supp Receipt" />
+                </xpath>
                 <xpath expr="//page[@string='Payment Information']" position="after">
                     <page string="General Ledger">
                         <field name="account_move_lines" readonly="1">
