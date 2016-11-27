@@ -28,6 +28,7 @@
                             <group string="Position">
                                 <field name="bpe_jobtitle"/>
                                 <field name="bpe_department"/>
+                                <field name="bpe_date_work"/>
                             </group>
                         </group>
                         <notebook colspan="4">
