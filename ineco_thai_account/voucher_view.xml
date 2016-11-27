@@ -335,6 +335,9 @@
             <field name="model">account.voucher</field>
             <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
             <field name="arch" type="xml">
+                <field name="account_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
                 <field name="date" position="after">
                     <field name="date_due"/>
                 </field>
@@ -415,6 +418,7 @@
                     </page>
                 </xpath>
                 <field name="journal_id" position="after">
+                    <field name="account_id" invisible="1"/>
                     <field name="move_id"/>
                 </field>
             </field>

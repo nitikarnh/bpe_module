@@ -711,6 +711,7 @@ class account_voucher(osv.osv):
         })
         return values
 
+
 class account_voucher_line(osv.osv):
     _inherit = 'account.voucher.line'
     _columns = {
