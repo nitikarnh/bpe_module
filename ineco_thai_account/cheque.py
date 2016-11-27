@@ -118,7 +118,7 @@ class ineco_cheque(osv.osv):
         'state': 'draft',
     }                  
     _sql_constraints = [
-        ('name_unique', 'unique (name)', 'Cheque No. must be unique !')
+        ('name_date_unique', 'unique (name, cheque_date)', 'Cheque No. must be unique !')
     ]
 
     def action_cancel_draft(self, cr, uid, ids, context=None):
