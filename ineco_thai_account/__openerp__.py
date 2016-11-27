@@ -81,6 +81,7 @@ A. Sale Module:
         'product_view.xml',
         'account_tax_view.xml',
         'wizard/select_account_move_line_view.xml',
+        'billing_view.xml',
     ],
     'update_xml': [
     ],

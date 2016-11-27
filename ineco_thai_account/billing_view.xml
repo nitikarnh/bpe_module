@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- ineco.billing -->
+        <record id="view_ineco_billing_form" model="ir.ui.view">
+            <field name="name">ineco.billing.form</field>
+            <field name="model">ineco.billing</field>
+            <field name="arch" type="xml">
+                <form string="Billing" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="customer_id" domain="[('customer','=',True)]"/>
+                                <field name="amount_residual" />
+                            </group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="date_due"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Invoices">
+                                <field name="invoice_ids" nolabel="1" colspan="4"
+                                       domain="[('state','not in',['draft','cancel','paid']),
+                                        ('partner_id','=',customer_id),
+                                        ('type','in',['out_invoice','out_refund'])]">
+                                    <tree string="Invoices">
+                                        <field name="number" />
+                                        <field name="date_invoice" />
+                                        <field name="date_due" />
+                                        <field name="origin" />
+                                        <field name="residual" />
+                                        <field name="amount_tax" />
+                                        <field name="amount_total" />
+                                        <field name="state" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Note">
+                                <field name="note" nolabel="1" colspan="4"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_billing_tree" model="ir.ui.view">
+            <field name="name">ineco.billing.tree</field>
+            <field name="model">ineco.billing</field>
+            <field name="arch" type="xml">
+                <tree string="Billing">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="date_due"/>
+                    <field name="customer_id"  />
+                    <field name="amount_residual" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_billing_search" model="ir.ui.view">
+            <field name="name">ineco.billing.search</field>
+            <field name="model">ineco.billing</field>
+            <field name="arch" type="xml">
+                <search string="Billing">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="date_due"/>
+                    <field name="customer_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ineco_billing" model="ir.actions.act_window">
+            <field name="name">Customer Billing</field>
+            <field name="res_model">ineco.billing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ineco_billing_tree"/>
+            <field name="context">{}</field>
+            <field name="domain"></field>
+            <field name="search_view_id" ref="view_ineco_billing_search"/>
+        </record>
+
+        <menuitem action="action_ineco_billing" id="menu_ineco_billing"
+                  parent="account.menu_finance_receivables" sequence="10"/>
+
+    </data>
+</openerp>
