@@ -106,8 +106,9 @@ class ineco_wht(osv.osv):
             ('cancel', 'Cancelled'),
             ('done', 'Done'),
             ], 'Status', readonly=True,),
-        'voucher_id': fields.many2one('account.voucher','Voucher'),
+        'voucher_id': fields.many2one('account.voucher', 'Voucher'),
         }
+
     _defaults = {
         'wht_type': False,
         'wht_kind': 'pp4',
