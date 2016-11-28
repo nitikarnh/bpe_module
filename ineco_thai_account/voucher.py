@@ -451,9 +451,9 @@ class account_voucher(osv.osv):
                     amount_tax = 0.0
                     if len(r) != 0:
                         amount_tax = rr[0][0]
-                    if amount_tax and amount_tax > 0:
+                    if amount_tax > -1:
                         sql3 = """
-                            select debit, credit from account_move_line
+                            select debit, credit, invoice_id from account_move_line
                             where move_id in (
                                 select am.id
                                 from account_move_line aml
@@ -468,7 +468,7 @@ class account_voucher(osv.osv):
                         if len(rrr):
                             debit = rrr[0][0]
                             credit = rrr[0][1]
-                        if debit or credit:
+                        if True: #debit or credit:
                             move_line = {
                                 'name': '...',
                                 'debit': credit,
@@ -481,7 +481,8 @@ class account_voucher(osv.osv):
                                 'currency_id': company_currency <> current_currency and current_currency or False,
                                 'amount_currency': 0.0,
                                 'date': voucher_brw.date,
-                                'date_maturity': voucher_brw.date_due
+                                'date_maturity': voucher_brw.date_due,
+                                'invoice_id': rrr[0][2],
                             }
                             move_line_pool.create(cr, uid, move_line)
                             move_line = {
@@ -496,7 +497,8 @@ class account_voucher(osv.osv):
                                 'currency_id': company_currency <> current_currency and current_currency or False,
                                 'amount_currency': 0.0,
                                 'date': voucher_brw.date,
-                                'date_maturity': voucher_brw.date_due
+                                'date_maturity': voucher_brw.date_due,
+                                'invoice_id': rrr[0][2],
                             }
                             move_line_pool.create(cr, uid, move_line)
         return True

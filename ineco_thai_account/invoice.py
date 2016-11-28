@@ -276,7 +276,7 @@ class account_invoice(models.Model):
             'product_id': line.get('product_id', False),
             'product_uom_id': line.get('uos_id', False),
             'analytic_account_id': line.get('account_analytic_id', False),
-            'invoice_id': line.get('invoice_id', False) ,
+            'invoice_id': line.get('invoice_id', False),
         }
 
 

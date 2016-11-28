@@ -236,7 +236,7 @@ class account_move(osv.osv):
         for id in ids:
             cr.execute('''
                 delete from account_move_line
-                where move_id = %s and debit = 0 and credit = 0
+                where move_id = %s and debit = 0 and credit = 0 and tax_code_id is null
             ''' % (id))
         return result
 
