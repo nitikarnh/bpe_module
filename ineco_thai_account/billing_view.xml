@@ -13,6 +13,7 @@
                             <group>
                                 <field name="customer_id" domain="[('customer','=',True)]"/>
                                 <field name="amount_residual" />
+                                <field name="amount_refund" />
                             </group>
                             <group>
                                 <field name="name"/>
@@ -57,6 +58,7 @@
                     <field name="date_due"/>
                     <field name="customer_id"  />
                     <field name="amount_residual" />
+                    <field name="amount_refund" />
                 </tree>
             </field>
         </record>

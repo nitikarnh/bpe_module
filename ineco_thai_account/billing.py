@@ -34,7 +34,19 @@ class ineco_billing(osv.osv):
         res = {}
         for billing in self.browse(cr, uid, ids, context=context):
             id = billing.id
-            res[id] = sum(invoice.residual for invoice in billing.invoice_ids)
+            out_invoice = 0.00
+            out_refund = 0.00
+            res[id] = {
+                'amount_residual': 0.0,
+                'amount_refund': 0.0
+            }
+            for invoice in billing.invoice_ids:
+                if invoice.type == 'out_invoice':
+                    out_invoice += invoice.residual
+                elif invoice.type == 'out_refund':
+                    out_refund += invoice.residual
+            res[id]['amount_residual'] = out_invoice
+            res[id]['amount_refund'] = out_refund
         return res
 
     _name = 'ineco.billing'
@@ -47,7 +59,8 @@ class ineco_billing(osv.osv):
         'note': fields.text('Note'),
         'invoice_ids': fields.many2many('account.invoice', 'billing_invoice_rel', 'billing_id', 'invoice_id',
                                         string='Invoice'),
-        'amount_residual': fields.function(_get_amount, type='float', string='Amount'),
+        'amount_residual': fields.function(_get_amount, type='float', string='Amount Residual', multi='amount'),
+        'amount_refund': fields.function(_get_amount, type='float', string='Amount Refund', multi='amount'),
     }
     _defaults = {
         'date': fields.date.context_today,
