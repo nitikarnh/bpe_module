@@ -11,7 +11,11 @@
 	      	<field name="arch" type="xml">
 	      	    <field name="parent_id" position="before">
 	      	   		<field name="name2" />
-	      	    </field>	      	    
+	      	    </field>
+                <field name="user_type" position="after">
+                    <field name="tax_sale_ok" />
+                    <field name="tax_purchase_ok" />
+                </field>
 			</field>
 		</record> 	 
 

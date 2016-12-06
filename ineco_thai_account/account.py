@@ -202,6 +202,8 @@ class account_account(osv.osv):
         'unrealized_gain_loss': fields.function(__compute, digits_compute=dp.get_precision('Account'), string='Unrealized Gain or Loss', multi='balance',
                                                 help="Value of Loss or Gain due to changes in exchange rate when doing multi-currency transactions."),
         'name2': fields.char('Other Name', required=False, copy=False),
+        'tax_sale_ok': fields.boolean('Sale Tax'),
+        'tax_purchase_ok': fields.boolean('Purchase Tax'),
     }
 
 class account_journal(osv.osv):
