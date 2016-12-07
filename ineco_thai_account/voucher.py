@@ -641,7 +641,8 @@ class account_voucher(osv.osv):
                     self.wht_move_line_create(cr, uid, voucher.id, move_id, company_currency, current_currency, context)
 
                 #Vat Reconciled
-                self.vat_reconciled_move_line_create(cr, uid, voucher.id, move_id, company_currency, current_currency, context)
+                if voucher.type not in ('sale','purchase'):
+                    self.vat_reconciled_move_line_create(cr, uid, voucher.id, move_id, company_currency, current_currency, context)
 
                 #Create Template Move Line    
                 if voucher.addline_ids and voucher.payment_option == 'without_writeoff':
@@ -667,11 +668,13 @@ class account_voucher(osv.osv):
                     elif voucher.type in {'sale','receipt'}: 
                         line_total = round(line_total,4) + round(wht_total,4)
                 
-                if voucher.payment_option == 'without_writeoff' and round(line_total,4):
+                if voucher.payment_option == 'without_writeoff' and round(line_total,4) and not voucher.type == 'purchase' :
                     raise osv.except_osv('Unreconciled', 'Please input data in template tab to balance debit and credit.')
                 
                 # Create the writeoff line if needed
-                ml_writeoff = self.writeoff_move_line_get(cr, uid, voucher.id, line_total, move_id, name, company_currency, current_currency, context)
+                ml_writeoff = False
+                if voucher.type not in ('sale','purchase'):
+                    ml_writeoff = self.writeoff_move_line_get(cr, uid, voucher.id, line_total, move_id, name, company_currency, current_currency, context)
                 if ml_writeoff:
                     move_line_pool.create(cr, uid, ml_writeoff, context)
                 # We post the voucher.

@@ -270,6 +270,9 @@
                 <xpath expr="//tree[@string='Expense Lines']/field[@name='account_id']" position="attributes">
                     <attribute name="domain">[('type','!=','view')]</attribute>
                 </xpath>
+                <field name="journal_id" position="after">
+                    <field name="period_id" />
+                </field>
                 <xpath expr="//page[@string='Bill Information']" position="after">
                     <page string="General Ledger">
                         <field name="account_move_lines" readonly="1">
