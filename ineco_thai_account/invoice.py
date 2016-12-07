@@ -114,6 +114,19 @@ class account_invoice(models.Model):
     def _get_amount_text(self):
         self.amount_text = '-'+bahttext.bahttext(self.amount_total)+'-'
     
+    @api.one
+    def _get_billing_number(self):
+        self._cr.execute(
+            """SELECT distinct ib.name FROM billing_invoice_rel bir
+            join account_invoice ai on ai.id = bir.invoice_id
+            join ineco_billing ib on ib.id = bir.billing_id
+            WHERE bir.invoice_id = %s limit 1""", (self.id,)
+        )
+        billing_number = False
+        for row in self._cr.dictfetchall():
+            billing_number = row['name']
+        self.billing_number = billing_number
+
     _inherit = "account.invoice"
 
     bill_due = fields.Date(string='Expected Billing Date', index=True)
@@ -144,6 +157,9 @@ class account_invoice(models.Model):
     #2015-11-03
     pid = fields.Char(related='partner_id.pid', store=True, readonly=True, copy=False)
     customer_code = fields.Char(related='partner_id.ref', store=True, readonly=True, copy=False)
+    #2016-12-07
+    billing_number = fields.Char('Billing No', compute='_get_billing_number')
+
     _defaults = {
         #'service': False,
         'commission_sale': 0.0,

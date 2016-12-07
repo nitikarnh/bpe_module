@@ -21,6 +21,7 @@
                 </field>
 
                 <field name="account_id" position="after">
+                    <field name="billing_number" />
                     <field name="receive_no" groups="ineco_thai_account.group_individual_taxinvoice"/>
                     <field name="receive_date" groups="ineco_thai_account.group_individual_taxinvoice"/>
                 </field>
@@ -183,6 +184,7 @@
                 <field name="date_due" position="after">
                     <field name="receipt_due"/>
                     <field name="bill_due"/>
+                    <field name="billing_number" />
                     <field name="receive_no" groups="ineco_thai_account.group_individual_taxinvoice"/>
                     <field name="receive_date" groups="ineco_thai_account.group_individual_taxinvoice"/>
                 </field>
