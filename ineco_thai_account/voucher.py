@@ -621,6 +621,8 @@ class account_voucher(osv.osv):
             # Create the account move record.
             try:
                 move_id = move_pool.create(cr, uid, self.account_move_get(cr, uid, voucher.id, context=context), context=context)
+                if voucher.period_id:
+                    move_pool.write(cr, uid, move_id, {'period_id': voucher.period_id.id})
                 # Get the name of the account_move just created
                 name = move_pool.browse(cr, uid, move_id, context=context).name
                 # Create the first line of the voucher
