@@ -63,11 +63,13 @@ class ineco_billing(osv.osv):
         'amount_refund': fields.function(_get_amount, type='float', string='Amount Refund', multi='amount'),
         'change_number': fields.boolean('Change Billing No'),
     }
+
     _defaults = {
         'date': fields.date.context_today,
         'name': '/',
         'change_number': False,
     }
+
     _sql_constraints = [
         ('name_unique', 'unique (name)', 'Billing Number must be unique !')
     ]
