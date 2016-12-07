@@ -37,3 +37,12 @@ class account_analytic_account(osv.osv):
         'project': False,
         'close': False,
     }
+
+
+class account_move_line(osv.osv):
+    _inherit = 'account.move.line'
+    _columns = {
+        'employee': fields.char('Employee', size=32),
+        'location': fields.char('Location', size=32),
+        'department': fields.char('Department', size=32),
+    }

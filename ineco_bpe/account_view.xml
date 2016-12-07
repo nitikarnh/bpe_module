@@ -8,28 +8,54 @@
             <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
             <field eval="60" name="priority"/>
             <field name="arch" type="xml">
-            	<field name="manager_id" position="after">
-            		<field name="department_id" />
-            		<field name="project" />
-            		<field name="close" />
-            	</field>
-			</field>
-		</record>
-		
+                <field name="manager_id" position="after">
+                    <field name="department_id"/>
+                    <field name="project"/>
+                    <field name="close"/>
+                </field>
+            </field>
+        </record>
+
         <record id="bpe_analytic_account_tree" model="ir.ui.view">
             <field name="name">bpe.analytic.account.tree</field>
             <field name="model">account.analytic.account</field>
             <field name="inherit_id" ref="account.view_account_analytic_account_tree"/>
             <field name="arch" type="xml">
-            	<field name="code" position="before">
-            		<field name="department_id" />
-            		<field name="project" />
-            		<field name="close" />
-            	</field>
-			</field>
-		</record>
-		
-		
-			    
-	</data>
+                <field name="code" position="before">
+                    <field name="department_id"/>
+                    <field name="project"/>
+                    <field name="close"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Account Move -->
+        <record id="view_bpe_account_move_form" model="ir.ui.view">
+            <field name="name">bpe.account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//tree[@string='Journal Items']/field[@name='debit']" position="before">
+                    <field name="employee" />
+                    <field name="department" />
+                    <field name="location" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_bpe_account_move_line_tree" model="ir.ui.view">
+            <field name="name">bpe.account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="debit" position="before">
+                    <field name="employee" />
+                    <field name="department" />
+                    <field name="location" />
+                </field>
+            </field>
+        </record>
+
+
+    </data>
 </openerp>
