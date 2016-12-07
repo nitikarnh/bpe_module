@@ -616,7 +616,8 @@ class account_voucher(osv.osv):
             context = self._sel_context(cr, uid, voucher.id, context)
             # But for the operations made by _convert_amount, we always need to give the date in the context
             ctx = context.copy()
-            ctx.update({'date': voucher.date})
+            if voucher.type not in ('sale', 'purchase'):
+                ctx.update({'date': voucher.date})
             ######
             # Create the account move record.
             try:
