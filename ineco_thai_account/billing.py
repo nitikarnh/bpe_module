@@ -52,7 +52,7 @@ class ineco_billing(osv.osv):
     _name = 'ineco.billing'
     _description = 'Billing'
     _columns = {
-        'name': fields.char('Billing No', size=32, required=True, readonly=True),
+        'name': fields.char('Billing No', size=32, required=True),
         'date': fields.date('Billing Date', required=True),
         'date_due': fields.date('Due Date', required=True),
         'customer_id': fields.many2one('res.partner', 'Customer', required=True),
@@ -61,11 +61,16 @@ class ineco_billing(osv.osv):
                                         string='Invoice'),
         'amount_residual': fields.function(_get_amount, type='float', string='Amount Residual', multi='amount'),
         'amount_refund': fields.function(_get_amount, type='float', string='Amount Refund', multi='amount'),
+        'change_number': fields.boolean('Change Billing No'),
     }
     _defaults = {
         'date': fields.date.context_today,
         'name': '/',
+        'change_number': False,
     }
+    _sql_constraints = [
+        ('name_unique', 'unique (name)', 'Billing Number must be unique !')
+    ]
 
     def create(self, cr, uid, vals, context=None):
         if context is None:

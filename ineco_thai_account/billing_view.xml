@@ -16,9 +16,10 @@
                                 <field name="amount_refund" />
                             </group>
                             <group>
-                                <field name="name"/>
+                                <field name="name" attrs="{'readonly':[('change_number', '=', False)]}"/>
                                 <field name="date"/>
                                 <field name="date_due"/>
+                                <field name="change_number" groups="base.group_erp_manager" />
                             </group>
                         </group>
                         <notebook>
