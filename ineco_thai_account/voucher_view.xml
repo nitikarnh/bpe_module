@@ -270,9 +270,9 @@
                 <xpath expr="//tree[@string='Expense Lines']/field[@name='account_id']" position="attributes">
                     <attribute name="domain">[('type','!=','view')]</attribute>
                 </xpath>
-                <spath expr="//page[@string='Journal Items']" position="attributes">
+                <xpath expr="//page[@string='Journal Items']" position="attributes">
                     <attribute name="invisible">0</attribute>
-                </spath>
+                </xpath>
                 <xpath expr="//page[@string='Bill Information']" position="after">
                     <page string="General Ledger" invisible="1">
                         <field name="account_move_lines" readonly="1">
