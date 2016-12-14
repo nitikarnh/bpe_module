@@ -245,6 +245,8 @@ class account_petty_payment(osv.osv):
         for obj in self.browse(cr,uid,ids):
             for cm in obj.cash_moves:
                 cm.action_cancel()
+            if obj.move_id:
+                obj.move_id.button_cancel()
         self.write(cr,uid,ids,{"state":"canceled"})
         return True
 
