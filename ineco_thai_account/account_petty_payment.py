@@ -102,7 +102,8 @@ class account_petty_payment(osv.osv):
         "name": lambda *a: "/",
         "state": lambda *a: "draft",
         "date": lambda *a: time.strftime("%Y-%m-%d"),
-        "company_id":lambda self,cr,uid,context: self.pool.get('res.company').get_company(cr,uid,context).id,
+        "company_id": lambda  self, cr, uid, context: self.pool.get('res.users')._get_company(cr, uid, context=context)
+        #"company_id":lambda self,cr,uid,context: self.pool.get('res.company').get_company(cr,uid,context).id,
     }
 
     def onchange_company_id(self, cr, uid, ids,company_id):

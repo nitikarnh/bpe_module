@@ -35,7 +35,8 @@ class account_journal(osv.osv):
         company_obj=self.pool.get('res.company')
         company_id = context.get('company_id',False)
         if not company_id:
-            company_id= company_obj.get_company(cr,uid,context).id
+            company_id = self.pool.get('res.users')._get_company(cr, uid, context=context)
+            #company_obj.get_company(cr,uid,context).id
 
         company=company_obj.browse(cr,uid,company_id)
 
