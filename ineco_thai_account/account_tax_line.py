@@ -53,6 +53,7 @@ class account_tax_line(osv.osv):
 
     #TODO : Think about offset tax if we need to allow 1 payment and select custoer,supplier invoice
     _columns={
+        "petty_line_id": fields.many2one("account.petty.payment.line", "Petty Line"),
         "invoice_id": fields.many2one("account.invoice","Invoice",ondelete="cascade",select=1,readonly=1),
         #"payment_id": fields.many2one("account.payment","Payment",ondelete="cascade",readonly=1,select=1),
         "petty_id": fields.many2one("account.petty.payment","Petty Cash Payment",ondelete="cascade",readonly=1,),
@@ -490,6 +491,7 @@ class account_tax_line(osv.osv):
                     val['tax_amount'] = tax['amount']
                     val['base_amount'] = tax['price_unit'] * line['quantity']
                     val["date"]=petty.date
+                    val['petty_line_id'] = line.id
                     #if tax['tax_group']=="wht":
                     #    val["wht_payee"]="wht"
 
