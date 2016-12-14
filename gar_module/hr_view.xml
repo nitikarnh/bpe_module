@@ -4,7 +4,7 @@
 
         <menuitem name="BIO DATA"
                   id="menu_bpe_hr_root"
-                  groups="base.group_user"
+                  groups="	base.group_hr_user"
                   sequence="100"/>
 
         <menuitem id="menu_bpe_hr_main" parent="menu_bpe_hr_root" name="Human Resources" sequence="0"/>
