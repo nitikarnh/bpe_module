@@ -198,9 +198,9 @@ class account_petty_payment(osv.osv):
                     "name": _('Petty Cash Payment ') + petty.employee_id.name,
                     "date": vat.date,
                     "ref": lref,
-                    #"tax_invoice_no2": vat.petty_line_id and vat.petty_line_id.partner_id and vat.petty_line_id.partner_id.id or False,
-                    #"tax_invoice_date2": vat.petty_line_id and vat.petty_line_id.date or False,
-                    #"tax_invoice_base2": vat.base_amount,
+                    "tax_invoice_no2": vat.petty_line_id and vat.petty_line_id.partner_id and vat.petty_line_id.partner_id.id or False,
+                    "tax_invoice_date2": vat.petty_line_id and vat.petty_line_id.date or False,
+                    "tax_invoice_base2": vat.base_amount,
                     "petty_line_id": vat.petty_line_id and vat.petty_line_id.id,
                 }
                 lines.append(vals)
