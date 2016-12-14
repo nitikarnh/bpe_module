@@ -619,81 +619,91 @@ class account_voucher(osv.osv):
             ctx.update({'date': voucher.date})
             ######
             # Create the account move record.
-            try:
-                move_vals = self.account_move_get(cr, uid, voucher.id, context=context)
-                move_id = move_pool.create(cr, uid, move_vals, context=context)
-                # Get the name of the account_move just created
-                name = move_pool.browse(cr, uid, move_id, context=context).name
-                # Create the first line of the voucher
-                move_line_id = move_line_pool.create(cr, uid, 
-                    self.first_move_line_get(cr,uid,voucher.id, move_id, 
-                        company_currency, current_currency, context), context)
-                move_line_brw = move_line_pool.browse(cr, uid, move_line_id, context=context)
-                
-                #WHT Tax Amount
-                wht_total = self._get_wht_total(cr, uid, voucher.id, context)
-                if voucher.type in {'sale','receipt'}:
-                    line_total = move_line_brw.debit - move_line_brw.credit + wht_total
-                elif voucher.type in {'purchase','payment'}:
-                    line_total = move_line_brw.debit - move_line_brw.credit - wht_total
-                else:
-                    line_total = move_line_brw.debit - move_line_brw.credit
-                if wht_total:
-                    self.wht_move_line_create(cr, uid, voucher.id, move_id, company_currency, current_currency, context)
+            #try:
 
-                #Vat Reconciled
-                if voucher.type not in ('sale','purchase'):
-                    self.vat_reconciled_move_line_create(cr, uid, voucher.id, move_id, company_currency, current_currency, context)
+            move_vals = self.account_move_get(cr, uid, voucher.id, context=context)
+            move_id = move_pool.create(cr, uid, move_vals, context=context)
+            # Get the name of the account_move just created
+            name = move_pool.browse(cr, uid, move_id, context=context).name
+            # Create the first line of the voucher
+            move_line_id = move_line_pool.create(cr, uid,
+                                                 self.first_move_line_get(cr, uid, voucher.id, move_id,
+                                                                          company_currency, current_currency, context),
+                                                 context)
+            move_line_brw = move_line_pool.browse(cr, uid, move_line_id, context=context)
 
-                #Create Template Move Line    
-                if voucher.addline_ids and voucher.payment_option == 'without_writeoff':
-                    self.template_move_line_create(cr, uid, voucher.id, move_id, company_currency, current_currency, context)
-                template_debit = self._get_template_debit_total(cr, uid, voucher.id, context)
-                template_credit = self._get_template_credit_total(cr, uid, voucher.id, context)
-                
-                if voucher.payment_option == 'without_writeoff':
-                    line_total = (move_line_brw.debit + template_debit) - (move_line_brw.credit + template_credit)
-                    
-                rec_list_ids = []
-                if voucher.type == 'sale':
-                    line_total = line_total - self._convert_amount(cr, uid, voucher.tax_amount, voucher.id, context=ctx)
-                elif voucher.type == 'purchase':
-                    line_total = line_total + self._convert_amount(cr, uid, voucher.tax_amount, voucher.id, context=ctx)
-                
-                # Create one move line per voucher line where amount is not 0.0
-                line_total, rec_list_ids = self.voucher_move_line_create(cr, uid, voucher.id, line_total, move_id, company_currency, current_currency, context)
-    
-                if wht_total:
-                    if voucher.type in {'purchase','payment'}:
-                        line_total = round(line_total,4) - round(wht_total,4)
-                    elif voucher.type in {'sale','receipt'}: 
-                        line_total = round(line_total,4) + round(wht_total,4)
-                
-                if voucher.payment_option == 'without_writeoff' and round(line_total,4) and not voucher.type == 'purchase' :
-                    raise osv.except_osv('Unreconciled', 'Please input data in template tab to balance debit and credit.')
-                
-                # Create the writeoff line if needed
-                ml_writeoff = False
-                if voucher.type not in ('sale','purchase'):
-                    ml_writeoff = self.writeoff_move_line_get(cr, uid, voucher.id, line_total, move_id, name, company_currency, current_currency, context)
-                if ml_writeoff:
-                    move_line_pool.create(cr, uid, ml_writeoff, context)
-                # We post the voucher.
-                self.write(cr, uid, [voucher.id], {
-                    'move_id': move_id,
-                    'state': 'posted',
-                    'number': name,
-                })
-                if voucher.journal_id.entry_posted:
-                    move_pool.post(cr, uid, [move_id], context={})
-                # We automatically reconcile the account move lines.
-                reconcile = False
-                for rec_ids in rec_list_ids:
-                    if len(rec_ids) >= 2:
-                        reconcile = move_line_pool.reconcile_partial(cr, uid, rec_ids, writeoff_acc_id=voucher.writeoff_acc_id.id, writeoff_period_id=voucher.period_id.id, writeoff_journal_id=voucher.journal_id.id)
-            except:
-                cr.rollback()
-                raise osv.except_osv('Error', 'Validation error please contact administrator.')
+            # WHT Tax Amount
+            wht_total = self._get_wht_total(cr, uid, voucher.id, context)
+            if voucher.type in {'sale', 'receipt'}:
+                line_total = move_line_brw.debit - move_line_brw.credit + wht_total
+            elif voucher.type in {'purchase', 'payment'}:
+                line_total = move_line_brw.debit - move_line_brw.credit - wht_total
+            else:
+                line_total = move_line_brw.debit - move_line_brw.credit
+            if wht_total:
+                self.wht_move_line_create(cr, uid, voucher.id, move_id, company_currency, current_currency, context)
+
+                # Vat Reconciled
+            if voucher.type not in ('sale', 'purchase'):
+                self.vat_reconciled_move_line_create(cr, uid, voucher.id, move_id, company_currency, current_currency,
+                                                     context)
+
+                # Create Template Move Line
+            if voucher.addline_ids and voucher.payment_option == 'without_writeoff':
+                self.template_move_line_create(cr, uid, voucher.id, move_id, company_currency, current_currency,
+                                               context)
+            template_debit = self._get_template_debit_total(cr, uid, voucher.id, context)
+            template_credit = self._get_template_credit_total(cr, uid, voucher.id, context)
+
+            if voucher.payment_option == 'without_writeoff':
+                line_total = (move_line_brw.debit + template_debit) - (move_line_brw.credit + template_credit)
+
+            rec_list_ids = []
+            if voucher.type == 'sale':
+                line_total = line_total - self._convert_amount(cr, uid, voucher.tax_amount, voucher.id, context=ctx)
+            elif voucher.type == 'purchase':
+                line_total = line_total + self._convert_amount(cr, uid, voucher.tax_amount, voucher.id, context=ctx)
+
+            # Create one move line per voucher line where amount is not 0.0
+            line_total, rec_list_ids = self.voucher_move_line_create(cr, uid, voucher.id, line_total, move_id,
+                                                                     company_currency, current_currency, context)
+
+            if wht_total:
+                if voucher.type in {'purchase', 'payment'}:
+                    line_total = round(line_total, 4) - round(wht_total, 4)
+                elif voucher.type in {'sale', 'receipt'}:
+                    line_total = round(line_total, 4) + round(wht_total, 4)
+
+            if voucher.payment_option == 'without_writeoff' and round(line_total, 4) and not voucher.type == 'purchase':
+                raise osv.except_osv('Unreconciled', 'Please input data in template tab to balance debit and credit.')
+
+            # Create the writeoff line if needed
+            ml_writeoff = False
+            if voucher.type not in ('sale', 'purchase'):
+                ml_writeoff = self.writeoff_move_line_get(cr, uid, voucher.id, line_total, move_id, name,
+                                                          company_currency, current_currency, context)
+            if ml_writeoff:
+                move_line_pool.create(cr, uid, ml_writeoff, context)
+            # We post the voucher.
+            self.write(cr, uid, [voucher.id], {
+                'move_id': move_id,
+                'state': 'posted',
+                'number': name,
+            })
+            if voucher.journal_id.entry_posted:
+                move_pool.post(cr, uid, [move_id], context={})
+            # We automatically reconcile the account move lines.
+            reconcile = False
+            for rec_ids in rec_list_ids:
+                if len(rec_ids) >= 2:
+                    reconcile = move_line_pool.reconcile_partial(cr, uid, rec_ids,
+                                                                 writeoff_acc_id=voucher.writeoff_acc_id.id,
+                                                                 writeoff_period_id=voucher.period_id.id,
+                                                                 writeoff_journal_id=voucher.journal_id.id)
+
+            #except:
+            #    cr.rollback()
+            #    raise osv.except_osv('Error', 'Validation error please contact administrator.')
         return True
 
     def default_get(self, cr, user, fields_list, context=None):
