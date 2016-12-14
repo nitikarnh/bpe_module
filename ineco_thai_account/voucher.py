@@ -571,7 +571,12 @@ class account_voucher(osv.osv):
         elif voucher_brw.journal_id.default_credit_account_id:
             account_id = voucher_brw.journal_id.default_credit_account_id.id
         debit = credit = 0.0
-        if voucher_brw.type in ('purchase', 'payment'):
+        if voucher_brw.type == 'purchase' :
+            credit = voucher_brw.paid_amount_in_company_currency
+            credit -= self._get_wht_total(cr, uid, voucher_id, context) or 0.0
+            credit += self._get_template_debit_total(cr, uid, voucher_id, context) or 0.0
+            account_id = voucher_brw.journal_id.default_credit_account_id.id
+        elif voucher_brw.type == 'payment':
             credit = voucher_brw.paid_amount_in_company_currency
             credit -= self._get_wht_total(cr, uid, voucher_id, context) or 0.0
             account_id = voucher_brw.journal_id.default_credit_account_id.id
@@ -619,7 +624,6 @@ class account_voucher(osv.osv):
             ctx.update({'date': voucher.date})
             ######
             # Create the account move record.
-            #try:
 
             move_vals = self.account_move_get(cr, uid, voucher.id, context=context)
             move_id = move_pool.create(cr, uid, move_vals, context=context)
@@ -700,10 +704,6 @@ class account_voucher(osv.osv):
                                                                  writeoff_acc_id=voucher.writeoff_acc_id.id,
                                                                  writeoff_period_id=voucher.period_id.id,
                                                                  writeoff_journal_id=voucher.journal_id.id)
-
-            #except:
-            #    cr.rollback()
-            #    raise osv.except_osv('Error', 'Validation error please contact administrator.')
         return True
 
     def default_get(self, cr, user, fields_list, context=None):

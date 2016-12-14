@@ -274,6 +274,24 @@
                     <attribute name="invisible">0</attribute>
                 </xpath>
                 <xpath expr="//page[@string='Bill Information']" position="after">
+                    <page string="Template">
+                        <group>
+                            <group>
+                                <field name="account_model_id"/>
+                            </group>
+                            <group>
+                                <button name="button_loadtemplate" string="Load Template" type="object"/>
+                            </group>
+                        </group>
+                        <field name="addline_ids" colspan="4">
+                            <tree string="Add Line" editable="bottom">
+                                <field name="account_id"/>
+                                <field name="account_name"/>
+                                <field name="debit"/>
+                                <field name="credit"/>
+                            </tree>
+                        </field>
+                    </page>
                     <page string="General Ledger" invisible="1">
                         <field name="account_move_lines" readonly="1">
                             <tree string="General ledgers">
