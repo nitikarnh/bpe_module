@@ -26,4 +26,5 @@ import account
 import hr
 import sale
 import product
+import petty_payment
 #import sale_bpe

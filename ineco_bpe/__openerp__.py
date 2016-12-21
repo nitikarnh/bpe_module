@@ -34,7 +34,7 @@
     search_default_filter_my_checked":uid, "search_default_filter_my_approve":uid
 """,
     'depends' : [
-        'base','web','purchase','sale','purchase_requisition','analytic',
+        'base','web','purchase','sale','purchase_requisition','analytic','ineco_thai_account',
     ],
     'data' : [
         'sequence.xml',
@@ -47,6 +47,7 @@
         'security.xml',
         'base.xml',
         'res_users_view.xml',
+        'petty_payment_view.xml',
     ],
     'update_xml' : [
     ],
