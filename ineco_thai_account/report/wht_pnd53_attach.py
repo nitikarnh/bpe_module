@@ -133,7 +133,8 @@ class report_custom(report_int):
                     "Text18.2": sup_address2.has_key(3) and sup_address2[3] or "",
                     "Text18.3": sup_address2.has_key(4) and sup_address2[4] or "",
                     "Text18.4": sup_address2.has_key(5) and sup_address2[5] or "",
-                    "Text18.5": sup_address2.has_key(6) and sup_address2[6] or "",                                               
+                    "Text18.5": sup_address2.has_key(6) and sup_address2[6] or "",
+
                     "Text19.0": wht_date.has_key(1) and wht_date[1] or "",
                     "Text25.0": wht_date.has_key(2) and wht_date[2] or "",
                     "Text36.0": wht_date.has_key(3) and wht_date[3] or "",
@@ -151,7 +152,8 @@ class report_custom(report_int):
                     "Text36.4": wht_date.has_key(15) and wht_date[15] or "",                
                     "Text19.5": wht_date.has_key(16) and wht_date[16] or "",                  
                     "Text25.5": wht_date.has_key(17) and wht_date[17] or "",      
-                    "Text36.5": wht_date.has_key(18) and wht_date[18] or "",                                          
+                    "Text36.5": wht_date.has_key(18) and wht_date[18] or "",
+
                     "Text20.0": wht_name_line.has_key(1) and wht_name_line[1] or "",
                     "Text26.0": wht_name_line.has_key(2) and wht_name_line[2] or "",
                     "Text37.0": wht_name_line.has_key(3) and wht_name_line[3] or "",
@@ -169,7 +171,8 @@ class report_custom(report_int):
                     "Text37.4": wht_name_line.has_key(15) and wht_name_line[15] or "",                    
                     "Text20.5": wht_name_line.has_key(16) and wht_name_line[16] or "", 
                     "Text26.5": wht_name_line.has_key(17) and wht_name_line[17] or "", 
-                    "Text37.5": wht_name_line.has_key(18) and wht_name_line[18] or "",                                                                     
+                    "Text37.5": wht_name_line.has_key(18) and wht_name_line[18] or "",
+
                     "Text21.0": wht_percent_line.has_key(1) and wht_percent_line[1] or "",
                     "Text27.0": wht_percent_line.has_key(2) and wht_percent_line[2] or "",
                     "Text38.0": wht_percent_line.has_key(3) and wht_percent_line[3] or "" ,
@@ -187,7 +190,8 @@ class report_custom(report_int):
                     "Text38.4": wht_percent_line.has_key(15) and wht_percent_line[15] or "" ,
                     "Text21.5": wht_percent_line.has_key(16) and wht_percent_line[16] or "" ,
                     "Text27.5": wht_percent_line.has_key(17) and wht_percent_line[17] or "" ,
-                    "Text38.5": wht_percent_line.has_key(18) and wht_percent_line[18] or "" ,      
+                    "Text38.5": wht_percent_line.has_key(18) and wht_percent_line[18] or "" ,
+
                     "Text22.0": wht_base_amount.has_key(1) and wht_base_amount[1] and lang.format("%.2f",wht_base_amount[1],grouping=True).replace("."," ") or "",
                     "Text28.0": wht_base_amount.has_key(2) and wht_base_amount[2] and lang.format("%.2f",wht_base_amount[2],grouping=True).replace("."," ") or "",
                     "Text39.0": wht_base_amount.has_key(3) and wht_base_amount[3] and lang.format("%.2f",wht_base_amount[3],grouping=True).replace("."," ") or "",
@@ -206,6 +210,7 @@ class report_custom(report_int):
                     "Text22.5": wht_base_amount.has_key(16) and wht_base_amount[16] and lang.format("%.2f",wht_base_amount[16],grouping=True).replace("."," ") or "",
                     "Text28.5": wht_base_amount.has_key(17) and wht_base_amount[17] and lang.format("%.2f",wht_base_amount[17],grouping=True).replace("."," ") or "",
                     "Text39.5": wht_base_amount.has_key(18) and wht_base_amount[18] and lang.format("%.2f",wht_base_amount[18],grouping=True).replace("."," ") or "",
+
                     "Text23.0": wht_tax_line.has_key(1) and wht_tax_line[1] and lang.format("%.2f",wht_tax_line[1],grouping=True).replace("."," ") or "",
                     "Text34.0": wht_tax_line.has_key(2) and wht_tax_line[2] and lang.format("%.2f",wht_tax_line[2],grouping=True).replace("."," ") or "",
                     "Text40.0": wht_tax_line.has_key(3) and wht_tax_line[3] and lang.format("%.2f",wht_tax_line[3],grouping=True).replace("."," ") or "",
@@ -224,6 +229,13 @@ class report_custom(report_int):
                     "Text23.5": wht_tax_line.has_key(16) and wht_tax_line[16] and lang.format("%.2f",wht_tax_line[16],grouping=True).replace("."," ") or "",
                     "Text34.5": wht_tax_line.has_key(17) and wht_tax_line[17] and lang.format("%.2f",wht_tax_line[17],grouping=True).replace("."," ") or "",
                     "Text40.5": wht_tax_line.has_key(18) and wht_tax_line[18] and lang.format("%.2f",wht_tax_line[18],grouping=True).replace("."," ") or "",
+
+                    "Text41.0": sup_name.has_key(1) and "1" or "",
+                    "Text41.3": sup_name.has_key(2) and "1" or "",
+                    "Text41.6": sup_name.has_key(3) and "1" or "",
+                    "Text41.9": sup_name.has_key(4) and "1" or "",
+                    "Text41.12": sup_name.has_key(5) and "1" or "",
+                    "Text41.15": sup_name.has_key(6) and "1" or "",
                 }
             if k == count_line:              
                 SITE_ROOT = os.path.abspath(os.path.dirname(__file__))
