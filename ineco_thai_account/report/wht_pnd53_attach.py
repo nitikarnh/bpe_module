@@ -230,12 +230,12 @@ class report_custom(report_int):
                     "Text34.5": wht_tax_line.has_key(17) and wht_tax_line[17] and lang.format("%.2f",wht_tax_line[17],grouping=True).replace("."," ") or "",
                     "Text40.5": wht_tax_line.has_key(18) and wht_tax_line[18] and lang.format("%.2f",wht_tax_line[18],grouping=True).replace("."," ") or "",
 
-                    "Text41.0": sup_name.has_key(1) and "1" or "",
-                    "Text41.3": sup_name.has_key(2) and "1" or "",
-                    "Text41.6": sup_name.has_key(3) and "1" or "",
-                    "Text41.9": sup_name.has_key(4) and "1" or "",
-                    "Text41.12": sup_name.has_key(5) and "1" or "",
-                    "Text41.15": sup_name.has_key(6) and "1" or "",
+                    "Text24.0": sup_name.has_key(1) and "1" or "",
+                    "Text24.1": sup_name.has_key(2) and "1" or "",
+                    "Text24.2": sup_name.has_key(3) and "1" or "",
+                    "Text24.3": sup_name.has_key(4) and "1" or "",
+                    "Text24.4": sup_name.has_key(5) and "1" or "",
+                    "Text24.5": sup_name.has_key(6) and "1" or "",
                 }
             if k == count_line:              
                 SITE_ROOT = os.path.abspath(os.path.dirname(__file__))
