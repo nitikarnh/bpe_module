@@ -43,6 +43,7 @@ class report_custom(report_int):
         sup_name = {}
         sup_address = {}
         sup_address2 = {}
+        branch_no = {}
         wht_date = {}
         wht_name_line = {}
         wht_percent_line = {}
@@ -62,6 +63,7 @@ class report_custom(report_int):
             province = line.partner_id.state_id and line.partner_id.state_id.name or ""
             sup_address[i]= (line.partner_id.street or "") +"  "+ (line.partner_id.street2 or "")
             sup_address2[i]= (line.partner_id.city or "")  +"  "+ (province or "")
+            branch_no[i] = line.partner_id.tax_detail or "00000"
             for wht_line in line.line_ids:
                 wht_date[j] = line.date_doc and fmt_thaidate(line.date_doc) or ""                
                 wht_name_line[j] = wht_line.note or ""
@@ -106,8 +108,14 @@ class report_custom(report_int):
                     "Text13.3": vat.has_key(4) and vat[4] or "",
                     "Text13.4": vat.has_key(5) and vat[5] or "",
                     "Text13.5": vat.has_key(6) and vat[6] or "",
+                    #Branch No
+                    "Text14.0": branch_no.has_key(1) and branch_no[1] or "",
+                    "Text14.1": branch_no.has_key(2) and branch_no[2] or "",
+                    "Text14.2": branch_no.has_key(3) and branch_no[3] or "",
+                    "Text14.3": branch_no.has_key(4) and branch_no[4] or "",
+                    "Text14.4": branch_no.has_key(5) and branch_no[5] or "",
+                    "Text14.5": branch_no.has_key(6) and branch_no[6] or "",
 
-                    "Text14.5": "12345",
                     "Text16.0": sup_name.has_key(1) and sup_name[1] or "",
                     "Text16.1": sup_name.has_key(2) and sup_name[2] or "",
                     "Text16.2": sup_name.has_key(3) and sup_name[3] or "",
