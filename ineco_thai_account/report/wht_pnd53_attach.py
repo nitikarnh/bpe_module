@@ -106,6 +106,8 @@ class report_custom(report_int):
                     "Text13.3": vat.has_key(4) and vat[4] or "",
                     "Text13.4": vat.has_key(5) and vat[5] or "",
                     "Text13.5": vat.has_key(6) and vat[6] or "",
+
+                    "Text14.5": "12345",
                     "Text16.0": sup_name.has_key(1) and sup_name[1] or "",
                     "Text16.1": sup_name.has_key(2) and sup_name[2] or "",
                     "Text16.2": sup_name.has_key(3) and sup_name[3] or "",
