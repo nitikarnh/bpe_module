@@ -11,9 +11,10 @@
 		        <tree string="Petty Cash Payments">
 		            <field name="name"/>
 		            <field name="date"/>
-		            <field name="fund_id"/>
+					<field name="journal_id"/>
+					<field name="fund_id"/>
+					<field name="desc"/>
 		            <field name="employee_id"/>
-		            <field name="desc"/>
 		            <field name="state"/>
 		            <field name="company_id" invisible="1"/>
 		        </tree>

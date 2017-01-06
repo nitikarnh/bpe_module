@@ -70,7 +70,7 @@ class account_petty_payment(osv.osv):
         return vals
 
     _columns={
-        "name": fields.char("Doc No",size=64,required=True,readonly=True,select=1),
+        "name": fields.char("Doc No",size=64,required=True,select=1),
         "date": fields.date("Doc Date", select=1, **REQUIRED),
         "fund_id": fields.many2one("account.petty.fund","Petty Cash Fund", **REQUIRED),
         "employee_id": fields.many2one("res.users", "Employee", **REQUIRED),
