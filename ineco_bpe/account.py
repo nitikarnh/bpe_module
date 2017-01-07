@@ -45,4 +45,6 @@ class account_move_line(osv.osv):
         'employee': fields.char('Employee', size=32),
         'location': fields.char('Location', size=32),
         'department': fields.char('Department', size=32),
+        'employee_id': fields.many2one('bpe.employee','Employee'),
+        'bpe_department_id': fields.related('employee_id', 'bpe_department', type='many2one', string='Department', relation='bpe.hr.department', readonly=True, store=True),
     }

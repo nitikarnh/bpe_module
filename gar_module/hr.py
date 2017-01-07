@@ -123,7 +123,7 @@ class bpe_employee(osv.osv):
         'bpe_drug': fields.text(string='Drug of personal illness', size=256),
         'bpe_drugno': fields.text(string='Drug allergy', size=256),
         'bpe_operation': fields.selection([('t', 'Yes'), ('f', 'No')], 'Operation', ),
-       'bpe_operation_stell': fields.selection([('t', 'Yes'), ('f', 'No')], 'Operation metal', ),
+        'bpe_operation_stell': fields.selection([('t', 'Yes'), ('f', 'No')], 'Operation metal', ),
         'bpe_operation_stell_des1': fields.text(string='Organ Operation', size=256),
         'bpe_operation_stell_des2': fields.text(string='Set of metal', size=256),
         'bpe_project': fields.text(string='โครงการที่ทำงานด้วย', size=256),
