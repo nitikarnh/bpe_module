@@ -107,6 +107,7 @@ class ineco_wht(osv.osv):
             ('done', 'Done'),
             ], 'Status', readonly=True,),
         'voucher_id': fields.many2one('account.voucher', 'Voucher'),
+        'move_line_id': fields.many2one('account.move.line', 'Move Line'),
         }
 
     _defaults = {

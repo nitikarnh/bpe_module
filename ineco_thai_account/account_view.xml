@@ -147,7 +147,7 @@
                     <field name="invoice_id" invisible="1" />
                     <field name="tax_invoice_no2" />
                     <field name="tax_invoice_date2" />
-                    <field name="tax_invoice_base2" invisible="1"/>
+                    <field name="tax_invoice_base2" string="Amount Untaxed"/>
                 </xpath>
                 <xpath expr="//tree[@string='Journal Items']/field[@name='reconcile_id']" position="replace">
                     <field name="reconcile_id" invisible="1" />
@@ -169,11 +169,13 @@
                 </xpath>
                 <xpath expr="//tree[@string='Journal Items']/field[@name='state']" position="replace">
                     <field name="state" invisible="1" />
+                    <field name="wht_id"
+                           context="{'default_partner_id': partner_id,'default_date_doc': tax_invoice_date2, 'default_wht_kind': 'pp7','default_account_id': account_id, 'default_move_line_id': active_id}" />
                 </xpath>
             </field>
         </record>
 
-                <!-- Account Move -->
+        <!-- Account Move -->
         <record id="view_ineco_account_move_line_tree" model="ir.ui.view">
             <field name="name">ineco.account.move.line.tree</field>
             <field name="model">account.move.line</field>
@@ -183,7 +185,9 @@
                     <field name="ref" invisible="1" />
                     <field name="tax_invoice_no2" />
                     <field name="tax_invoice_date2" />
-                    <field name="tax_invoice_base2" invisible="1"/>
+                    <field name="tax_invoice_base2" />
+                    <field name="wht_id"
+                           context="{'default_partner_id': partner_id,'default_date_doc': tax_invoice_date2, 'default_wht_kind': 'pp7','default_account_id': account_id, 'default_move_line_id': active_id}" />
                 </field>
             </field>
         </record>

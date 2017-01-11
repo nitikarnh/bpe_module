@@ -284,6 +284,7 @@ class account_move_line(osv.osv):
                                             digits_compute=dp.get_precision('Account'),
                                             multi="_get_taxinvoice"),
         'petty_line_id': fields.many2one('account.petty.payment.line', 'Petty Line'),
+        'wht_id': fields.many2one('ineco.wht', 'With Holding Tax'),
     }
     def reconcile(self, cr, uid, ids, type='auto', writeoff_acc_id=False, writeoff_period_id=False, writeoff_journal_id=False, context=None):
         account_obj = self.pool.get('account.account')

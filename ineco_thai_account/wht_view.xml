@@ -94,6 +94,7 @@
 		        	    		<field name="date_doc" />
 		        	    		<field name="company_id" />
 								<field name="voucher_id" />
+								<field name="move_line_id" />
 		        	    		<field name="seq" />
 		        	    	</group>
 		        	    	<group>
@@ -174,6 +175,7 @@
 		        	    		<field name="date_doc" />
 		        	    		<field name="company_id" />
 								<field name="voucher_id" />
+								<field name="move_line_id" />
 		        	    		<field name="seq" />
 		        	    	</group>
 		        	    	<group>
