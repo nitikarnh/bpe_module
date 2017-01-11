@@ -38,7 +38,7 @@
             	<xpath expr="//tree[@string='Journal Items']/field[@name='debit']" position="before">
                     <field name="employee_id" />
                     <field name="bpe_department_id" />
-                    <field name="location" />
+                    <field name="location_id" />
                 </xpath>
             </field>
         </record>
@@ -51,7 +51,7 @@
                 <field name="debit" position="before">
                     <field name="employee_id" />
                     <field name="bpe_department_id" />
-                    <field name="location" />
+                    <field name="location_id" />
                 </field>
             </field>
         </record>
