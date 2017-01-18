@@ -51,9 +51,9 @@
         <template id="ineco_wht_external_layout_footer">
             <div class="footer">
                 <div style="position:absolute;top:0;left:0;font-size: 12px;width:400;">หมายเหตุ เลขประจำตัวผู้เสียภาษีอากร (13 หลัก)* หมายถึง</div>
-                <div style="position:absolute;top:0;left:400;font-size: 12px;width:300;">1. กรณีบุคคลธรรมดาไทย ให้ใช้เลขประจำตัวประชาชนของกรมการปกครอง</div>
-                <div style="position:absolute;top:20;left:400;font-size: 12px;width:300;">2. กรณีนิติบุคคล ให้ใช้เลขทะเบียนนิติบุคคลของกรมพัฒนาธุรกิจการค้า</div>
-                <div style="position:absolute;top:40;left:400;font-size: 12px;width:300;">3. กรณีอื่นๆ นอกเหนือจาก 1. และ 2. ให้ใช้เลขประจำตัวผู้เสียภาษีอากร (13 หลัก) ของกรมสรรพากร</div>
+                <div style="position:absolute;top:0;left:300;font-size: 12px;width:300;">1. กรณีบุคคลธรรมดาไทย ให้ใช้เลขประจำตัวประชาชนของกรมการปกครอง</div>
+                <div style="position:absolute;top:20;left:300;font-size: 12px;width:300;">2. กรณีนิติบุคคล ให้ใช้เลขทะเบียนนิติบุคคลของกรมพัฒนาธุรกิจการค้า</div>
+                <div style="position:absolute;top:40;left:300;font-size: 12px;width:300;">3. กรณีอื่นๆ นอกเหนือจาก 1. และ 2. ให้ใช้เลขประจำตัวผู้เสียภาษีอากร (13 หลัก) ของกรมสรรพากร</div>
             </div>
         </template>
 
