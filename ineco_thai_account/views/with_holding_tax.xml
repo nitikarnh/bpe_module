@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="ineco_paper_wht" model="report.paperformat">
+            <field name="name">With Holding Tax</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">25</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">600</field>
+        </record>
+
+        <template id="ineco_wht_external_layout">
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <t t-call="ineco_thai_account.ineco_wht_external_layout_header"/>
+            <t t-raw="0"/>
+            <t t-call="ineco_thai_account.ineco_wht_external_layout_footer"/>
+        </template>
+
+        <template id="ineco_wht_external_layout_header">
+            <div class="header">
+                <div style="position:absolute;top:0;left:0;"><strong>ฉบับที่ 1</strong> (สำหรับผู้ถูกหักภาษี ณ ที่จ่าย ใช้แนบพร้อมกับแบบแสดงรายการภาษี)</div>
+                <div style="position:absolute;top:0;left:520;"><strong>ฉบับที่ 2</strong> (สำหรับผู้ถูกหักภาษี ณ ที่จ่าย เก็บไว้เป็นหลักฐาน)</div>
+                <div style="position:absolute;top:20;left:0;width:966;height:1326;
+                            background-color:transparent;
+                            font-size: 14px;
+                            border: 1px solid black;">
+                    <div style="font-size: 24px;"><center>หนังสือรับรองการหักภาษี ณ ที่จ่าย</center></div>
+                    <div style="font-size: 18px;"><center>ตามมาตรา 50 ทวิแห่งประมวลรัษฎากร</center></div>
+                    <div style="position:absolute;top:5;left:800;">เล่มที่</div>
+                    <div style="position:absolute;top:5;left:840;"></div>
+                    <div style="position:absolute;top:29;left:800;">เลขที่</div>
+                    <div style="position:absolute;top:29;left:840;"><p t-field="o.name"/></div>
+                </div>
+            </div>
+        </template>
+
+        <template id="ineco_wht_external_layout_footer">
+            <div class="footer">
+                <div style="position:absolute;top:0;left:0;font-size: 12px;">หมายเหตุ เลขประจำตัวผู้เสียภาษีอากร (13 หลัก)* หมายถึง</div>
+                <div style="position:absolute;top:0;left:400; font-size: 12px;">1. กรณีบุคคลธรรมดาไทย ให้ใช้เลขประจำตัวประชาชนของกรมการปกครอง</div>
+                <div style="position:absolute;top:20;left:400;font-size: 12px;">2. กรณีนิติบุคคล ให้ใช้เลขทะเบียนนิติบุคคลของกรมพัฒนาธุรกิจการค้า</div>
+                <div style="position:absolute;top:40;left:400;font-size: 12px;">3. กรณีอื่นๆ นอกเหนือจาก 1. และ 2. ให้ใช้เลขประจำตัวผู้เสียภาษีอากร (13 หลัก) ของกรมสรรพากร</div>
+            </div>
+        </template>
+
+        <template id="ineco_report_wht_document">
+            <t t-call="ineco_thai_account.ineco_wht_external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <!-- -->
+                    <div style="position:absolute;top:0;left:10;
+                                border-radius: 10px;
+                                border: 1px solid black;
+                                background-color:transparent;
+                                padding: 5px;
+                                width: 865px;
+                                height: 120px;">
+                        <div style="font-size: 16px;font-weight: bold;">ผู้มีหน้าที่หักภาษี ณ ที่จ่าย</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;top:6;left:400;">เลขประจำตัวผู้เสียภาษีอากร 13 หลัก</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;top:6;left:700;"><p t-field="o.company_vat_no" /></div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;top:30;">ชื่อ</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;left:50;top:30;"><p t-field="o.company_id.name" /></div>
+                        <div style="font-size: 12px;font-weight: italic;
+                                    position:absolute;left:50;top:50;">(ให้ระบุว่าเป็น บุคคล นิติบุคคล บริษัท สมาคม หรือคณะบุคคล)</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;top:78;">ที่อยู่</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;left:50;top:78;"><p t-field="o.company_full_address" /></div>
+                        <div style="font-size: 12px;font-weight: italic;
+                                    position:absolute;left:50;top:98;">(ให้ระบุ ชื่ออาคาร/หมู่บ้าน ห้องเลขที่ ชั้นที่ เลขที่ ตรอก/ซอย หมู่ที่ ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด)</div>
+
+                    </div>
+                    <!-- -->
+                    <div style="position:absolute;top:125;left:10;
+                                border-radius: 10px;
+                                border: 1px solid black;
+                                padding: 5px;
+                                width: 865px;
+                                height: 200px;">
+                        <div style="font-size: 16px;font-weight: bold;">ผู้ถูกหักภาษี ณ ที่จ่าย</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;top:6;left:400;">เลขประจำตัวผู้เสียภาษีอากร 13 หลัก</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;top:6;left:700;"><p t-field="o.partner_vat_no"/></div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;top:30;">ชื่อ</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;left:50;top:30;"><p t-field="o.partner_id.name"/></div>
+                        <div style="font-size: 12px;font-weight: italic;
+                                    position:absolute;left:50;top:50;">(ให้ระบุว่าเป็น บุคคล นิติบุคคล บริษัท สมาคม หรือคณะบุคคล)</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;top:78;">ที่อยู่</div>
+                        <div style="font-size: 14px;font-weight: bold;
+                                    position:absolute;left:50;top:78;"><p t-field="o.partner_full_address"/></div>
+                        <div style="font-size: 12px;font-weight: italic;
+                                    position:absolute;left:50;top:98;">(ให้ระบุ ชื่ออาคาร/หมู่บ้าน ห้องเลขที่ ชั้นที่ เลขที่ ตรอก/ซอย หมู่ที่ ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด)</div>
+                        <div style="font-size: 16px;font-weight: bold;
+                                    position:absolute;top:122;">ลำดับที่</div>
+                        <div style="font-size: 16px;font-weight: bold;
+                                    position:absolute;top:122;left:100;"><p t-field="o.seq" /></div>
+                        <div style="font-size: 14px;
+                                    position:absolute;left:150;top:122;">ในแบบ</div>
+                        <div style="font-size: 12px;font-weight: italic;
+                                    position:absolute;top:146;">(ให้สามารถอ้างอิงหรือสอบยันกันได้ระหว่างลำดับที</div>
+                        <div style="font-size: 12px;font-weight: italic;
+                                    position:absolute;top:166;"> ตามหนังสือรับรองฯ กับแบบยื่นรายการภาษีหักที่จ่าย)</div>
+                        <!-- -->
+                        <div style="position:absolute;left:275;top:122;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                             <p t-if="o.wht_kind == 'pp1'">X</p>
+                        </div>
+                        <div style="font-size: 14px;
+                                    width:150px;
+                                    position:absolute;left:300;top:122;">(1) ภ.ง.ด.1ก
+                        </div>
+                        <!-- -->
+                        <div style="position:absolute;left:425;top:122;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_kind == 'pp2'">X</p>
+                        </div>
+                        <div style="font-size: 14px;
+                                    position:absolute;left:450;top:122;">(2) ภ.ง.ด.1ก (พิเศษ)</div>
+                        <!-- -->
+                        <div style="position:absolute;left:595;top:122;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_kind == 'pp3'">X</p>
+                        </div>
+                        <div style="font-size: 14px;
+                                    position:absolute;left:620;top:122;">(3) ภ.ง.ด.2</div>
+                        <!-- -->
+                        <div style="position:absolute;left:725;top:122;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_kind == 'pp4'">X</p>
+                        </div>
+                        <div style="font-size: 14px;
+                                    position:absolute;left:750;top:122;">(4) ภ.ง.ด.3</div>
+                        <!-- -->
+                        <div style="position:absolute;left:275;top:146;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_kind == 'pp5'">X</p>
+                        </div>
+                        <div style="font-size: 14px;
+                                    position:absolute;left:300;top:146;">(5) ภ.ง.ด.2ก</div>
+                        <!-- -->
+                        <div style="position:absolute;left:425;top:146;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_kind == 'pp6'">X</p>
+                        </div>
+                        <div style="font-size: 14px;
+                                    position:absolute;left:450;top:146;">(6) ภ.ง.ด.3ก</div>
+                        <!-- -->
+                        <div style="position:absolute;left:595;top:146;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_kind == 'pp7'">X</p>
+                        </div>
+                        <div style="font-size: 14px;
+                                    position:absolute;left:620;top:146;">(7) ภ.ง.ด.53</div>
+                    </div>
+                    <!-- -->
+                    <div style="position:absolute;top:330;left:10;
+                                border-radius: 10px;
+                                border: 1px solid black;
+                                padding: 10px;
+                                font-size: 14px;
+                                font-weight: bold;
+                                text-align: center;
+                                width: 865px;
+                                height: 625px;">
+                        <div style="position:absolute;top:0;left:0;
+                                    width:864;height:45;
+                                    border-bottom: 1px solid black;">
+                            <div style="position:absolute;top:0;left:0;
+                                    border-right: 1px solid black;
+                                    width:414;height:100%;">ประเภทเงินได้พึงประเมินที่จ่าย</div>
+                            <div style="position:absolute;top:0;left:414;
+                                    border-right: 1px solid black;
+                                    width:150;height:100%;">วัน เดือน <br/>หรือปีภาษีที่จ่าย</div>
+                            <div style="position:absolute;top:0;left:564;
+                                    border-right: 1px solid black;
+                                    width:150;height:100%;">จำนวนเงินที่จ่าย</div>
+                            <div style="position:absolute;top:0;left:714;
+                                    width:150;height:100%;
+                                    ">ภาษีที่หัก<br/>และนำส่งไว้</div>
+                        </div>
+                        <div style="position:absolute;top:45;left:0;
+                                    font-size: 13px;
+                                    font-weight: normal;
+                                    text-align: left;
+                                    width:864;">
+                            <div style="position:absolute;left:0;width:414;">
+                                <div style="position:absolute;left:0;top:0;width:414;">1. เงินเดือน ค่าจ้าง เบี้ยเลี้ยง โบนัส ฯลฯ ตามมาตรา 40 (1)</div>
+                                <div style="position:absolute;left:0;top:20;width:414;">2. ค่าธรรมเนียม ค่านายหน้า ฯลฯ ตามมาตรา 40 (2)</div>
+                                <div style="position:absolute;left:0;top:40;width:414;">3. ค่าแห่งลิขสิทธิ์ ฯลฯ ตามมาตรา 40 (3)</div>
+                                <div style="position:absolute;left:0;top:60;width:414;">4. (ก) ดอกเบี้ย ฯลฯ ตามมาตรา 40 (4) ก</div>
+                                <div style="position:absolute;left:15;top:80;width:414;">(ข) เงินปันผล เงินส่วนแบ่งกำไร ฯลฯ ตามมาตรา 40 (4) ข</div>
+                                <div style="position:absolute;left:25;top:100;width:414;">(1) กรณีผู้ได้รับเงินปันผลได้รับเครดิตภาษี โดยจ่ายจากกำไรสุทธิ ของกิจการที่ต้องเสียภาษีเงินได้นิติบุคคลในอัตราดังนี้</div>
+                                <div style="position:absolute;left:35;top:140;width:414;">(1.1) อัตราร้อยละ 30 ของกำไรสุทธิ</div>
+                                <div style="position:absolute;left:35;top:160;width:414;">(1.2) อัตราร้อยละ 25 ของกำไรสุทธิ</div>
+                                <div style="position:absolute;left:35;top:180;width:414;">(1.3) อัตราร้อยละ 20 ของกำไรสุทธิ</div>
+                                <div style="position:absolute;left:35;top:200;width:414;">(1.4) อัตราอื่น ๆ (ระบุ) .......................... ของกำไรสุทธิ</div>
+                                <div style="position:absolute;left:25;top:220;width:414;">(2) กรณีผู้ได้รับเงินปันผลไม่ได้รับเครดิตภาษี เนื่องจากจ่ายจาก</div>
+                                <div style="position:absolute;left:35;top:240;width:414;">(2.1) กำไรสุทธิของกิจการที่ได้รับยกเว้นภาษีเงินได้นิติบุคคล</div>
+                                <div style="position:absolute;left:35;top:260;width:414;">(2.2) เงินปันผลหรือเงินส่วนแบ่งของกำไรที่ได้รับยกเว้น ไม่ต้องนำมารวมคำนวณเป็นรายได้เพื่อเสียภาษีเงินได้นิติบุคคล</div>
+                                <div style="position:absolute;left:35;top:300;width:414;">(2.3) กำไรสุทธิส่วนที่ได้หักผลขาดทุนสุทธิยกมาไม่เกิน 5 ปี ก่อนรอบระยะเวลาบัญชีปีปัจจุบัน</div>
+                                <div style="position:absolute;left:35;top:340;width:414;">(2.4) กำไรที่รับรู้ทางบัญชีโดยวิธีส่วนได้เสีย (equity method)</div>
+                                <div style="position:absolute;left:35;top:360;width:414;">(2.5) อื่นๆ (ระบุ) ......................................</div>
+                                <div style="position:absolute;left:0;top:380;width:414;">5. การจ่ายเงินได้ที่ต้องหักภาษี ณ ที่จ่ายตามคำสั่งกรมสรรพากร ที่ออกตามมาตรา 3 เตรส เช่น รางวัล ส่วนลดหรือประโยชน์ใดๆ เนื่องจากการส่งเสริมการขาย รางวัลในการประกวด การแข่งขัน การชิงโชค ค่าแสดงของนักแสดงสาธารณะ ค่าจ้างทำของ ค่าโฆษณา ค่าเช่า ค่าขนส่ง ค่าบริการ ค่าเบี้ยประกันวินาศภัย ฯลฯ</div>
+                                <div style="position:absolute;left:0;top:470;width:414;">6. อื่นๆ (ระบุ)</div>
+                                <div style="position:absolute;left:100;top:470;width:414;" t-if="o.has_number_6 == 1"><strong><p t-field="o.number6_note" /></strong>
+                                </div>
+                            </div>
+                            <div style="position:absolute;left:414;top:445;width:150;text-align: center;">
+                                <div style="position:absolute;left:0;top:0;width:150;">
+                                    <p t-if="o.has_number_5 == 1"><p t-field="o.date_doc" /></p>
+                                </div>
+                                <div style="position:absolute;left:0;top:15;width:150;">
+                                    <p t-if="o.has_number_6 == 1"><p t-field="o.date_doc" /></p>
+                                </div>
+                            </div>
+                            <div style="position:absolute;top:445;left:564;width:150;text-align: right;">
+                                <div style="position:absolute;left:0;top:0;width:150;padding-right:10px;">
+                                    <p t-if="o.has_number_5 == 1"><p t-field="o.number5_base_amount" /></p>
+                                </div>
+                                <div style="position:absolute;left:0;top:15;width:150;padding-right:10px;">
+                                    <p t-if="o.has_number_6 == 1"><p t-field="o.number6_base_amount" /></p>
+                                </div>
+                            </div>
+                            <div style="position:absolute;top:445;left:714;width:150;text-align:right;">
+                                <div style="position:absolute;left:0;top:0;width:150;padding-right:10px;">
+                                    <p t-if="o.has_number_5 == 1"><p t-field="o.number5_tax" /></p>
+                                </div>
+                                <div style="position:absolute;left:0;top:15;width:150;padding-right:10px;">
+                                    <p t-if="o.has_number_6 == 1"><p t-field="o.number6_tax" /></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="position:absolute;top:0;left:0;
+                                    width:864;height:545;
+                                    border-bottom: 1px solid black;">
+                            <div style="position:absolute;top:0;left:0;
+                                    border-right: 1px solid black;
+                                    width:414;height:100%;"></div>
+                            <div style="position:absolute;top:0;left:414;
+                                    border-right: 1px solid black;
+                                    width:150;height:100%;"></div>
+                            <div style="position:absolute;top:0;left:564;
+                                    border-right: 1px solid black;
+                                    width:150;height:100%;"></div>
+                            <div style="position:absolute;top:0;left:714;
+                                    width:150;height:100%;"></div>
+                        </div>
+                        <div style="position:absolute;top:545;left:0;
+                                    width:864;height:40;">
+                            <div style="position:absolute;top:0;left:0;
+                                    font-size: 14px;font-weight: bold;
+                                    text-align: right;
+                                    border-right: 1px solid black;
+                                    padding-top: 10;
+                                    padding-right: 20;
+                                    width:564;height:100%;">
+                                รวมเงินที่จ่ายและภาษีที่หักนำส่ง
+                            </div>
+                            <div style="position:absolute;top:0;left:564;
+                                    font-size: 16px;font-weight: bold;
+                                    text-align: right;
+                                    padding-top: 10;
+                                    padding-right: 10;
+                                    border-right: 1px solid black;
+                                    border-bottom: 1px solid black;
+                                    width:150;height:100%;">
+                                <p t-field="o.base_amount" />
+                            </div>
+                            <div style="position:absolute;top:0;left:714;
+                                    font-size: 16px;font-weight: bold;
+                                    text-align: right;
+                                    padding-top: 10;
+                                    padding-right: 10;
+                                    border-bottom: 1px solid black;
+                                    width:150;height:100%;">
+                                <p t-field="o.tax" />
+                            </div>
+                        </div>
+                        <div style="position:absolute;top:585;left:0;
+                                    width:864;height:40;">
+                            <div style="position:absolute;top:0;left:0;
+                                        font-size: 12px;
+                                        text-align: center;
+                                        padding-top: 10px;
+                                        height:100%;width:250;">รวมเงินภาษีที่หักนำส่ง (ตัวอักษร)</div>
+                            <div style="position:absolute;top:5;left:255;
+                                        height:25;width:600;
+                                        border: none;
+                                        padding-top: 5px;
+                                        text-align: center;
+                                        background-color: silver;">
+                                <p t-field="o.tax_text" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- -->
+                    <div style="position:absolute;top:960;left:10;
+                                border-radius: 10px;
+                                border: 1px solid black;
+                                padding: 5px;
+                                width: 865px;
+                                height: 35px;">
+                        <div style="font-size: 12px;">
+                           <strong>เงินที่จ่ายเข้า</strong> กบข./กสจ./กองทุนสงเคราะห์ครูโรงเรียนเอกชน.....................บาท กองทุนประกันสังคม.....................บาท กองทุนสำรองเลี้ยงชีพ.....................บาท
+                        </div>
+                    </div>
+                    <!-- -->
+                    <div style="position:absolute;top:1000;left:10;
+                                border-radius: 10px;
+                                border: 1px solid black;
+                                padding: 5px;
+                                width: 865px;
+                                height: 35px;">
+
+                        <div style="position:absolute;width:100;">ผู้จ่ายเงิน</div>
+                        <!-- -->
+                        <div style="position:absolute;left:75;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_payment == 'pm1'">X</p>
+                        </div>
+                        <div style="position:absolute;left:100;width:180;">(1) หัก ณ ที่จ่าย</div>
+                        <!-- -->
+                        <div style="position:absolute;left:255;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_payment == 'pm2'">X</p>
+                        </div>
+                        <div style="position:absolute;left:280;width:180;">(2) ออกให้ตลอดไป</div>
+                        <!-- -->
+                        <div style="position:absolute;left:435;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_payment == 'pm3'">X</p>
+                        </div>
+                        <div style="position:absolute;left:460;width:180;">(3) ออกให้ครั้งเดียว</div>
+                        <!-- -->
+                        <div style="position:absolute;left:615;width:20px;height:20px;border:1px solid black;padding-left: 5px;">
+                            <p t-if="o.wht_payment == 'pm4'">X</p>
+                        </div>
+                        <div style="position:absolute;left:640;width:215;">(4) อื่นๆ...................................</div>
+                    </div>
+                    <!-- -->
+                    <div style="position:absolute;top:1040;left:10;
+                                border-radius: 10px;
+                                border: 1px solid black;
+                                padding: 5px;
+                                width: 389px;
+                                height: 100px;">
+                        <strong>คำเตือน</strong><br/>ผู้มีหน้าที่ออกหนังสือรับรองการหักภาษี ณ ที่จ่าย ฝ่าฝืนไม่ปฏิบัติตามมาตรา 50 ทวิ แห่งประมวลรัษฎากร ต้องรับโทษทางอาญาตามมาตรา 35 แห่งประมวลรัษฎากร
+                    </div>
+                    <div style="position:absolute;top:1040;left:409;
+                                border-radius: 10px;
+                                border: 1px solid black;
+                                text-align: center;
+                                padding-top: 5px;
+                                width: 466px;
+                                height: 100px;">
+                        <div>ขอรับรองว่าข้อความและตัวเลขดังกล่าวข้างต้นถูกต้องตรงกับความจริงทุกประการ</div>
+                        <div style="position:absolute;top:50;width:100%;"><center>ลงชื่อ.........................................................ผู้จ่ายเงิน</center></div>
+                        <div style="position:absolute;top:72;width:100%;"><center><p t-field="o.date_doc"/></center></div>
+                        <div style="position:absolute;top:35;left:400;
+                                    font-size: 10px;">ประทับตรา<br/>นิติบุคคล<br/>(ถ้ามี)</div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+
+        <template id="ineco_report_wht_template">
+            <t t-call="ineco_thai_account.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'ineco_thai_account.ineco_report_wht_document')"/>
+                </t>
+            </t>
+        </template>
+
+        <report
+                string="INECO - With Holding Tax"
+                id="ineco_report_wht"
+                model="ineco.wht"
+                report_type="qweb-pdf"
+                name="ineco_thai_account.ineco_report_wht_template"
+        />
+
+        <record id="ineco_report_wht" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="ineco_thai_account.ineco_paper_wht"/>
+        </record>
+
+    </data>
+</openerp>
