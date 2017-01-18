@@ -38,12 +38,19 @@ class account_analytic_account(osv.osv):
         'close': False,
     }
 
+class account_pretty_location (osv.osv):
+    _name = 'account.hr.location'
+    _description = 'Pretty_cash_payment_location'
+    _columns = {
+        'name': fields.char('location', size=100, required=True),
+    }
 
 class account_move_line(osv.osv):
     _inherit = 'account.move.line'
     _columns = {
         'employee': fields.char('Employee', size=32),
         'location': fields.char('Location', size=32),
+        'location_id': fields.many2one('account.hr.location','Location', size=100),
         'department': fields.char('Department', size=32),
         'employee_id': fields.many2one('bpe.employee','Employee'),
         'bpe_department_id': fields.related('employee_id', 'bpe_department', type='many2one', string='Department', relation='bpe.hr.department', readonly=True, store=True),

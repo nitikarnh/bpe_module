@@ -80,7 +80,8 @@ class ineco_cheque(osv.osv):
 
     _columns = {
         'name': fields.char('Cheque No.', size=32, required=True, track_visibility='onchange'),
-        'cheque_date': fields.date('Date Cheque',required=True, track_visibility='onchange'), 
+        'cheque_date': fields.date('Date Cheque',required=True, track_visibility='onchange'),
+        'cheque_date_action': fields.date('Date Action', track_visibility='onchange'),
         'cheque_date_reconcile': fields.date('Date Reconcile', track_visibility='onchange'), 
         'bank': fields.many2one('res.bank', 'Bank', required=True, track_visibility='onchange'),        
         'partner_id': fields.many2one('res.partner', 'Pay', required=True, ondelete='cascade', track_visibility='onchange'),

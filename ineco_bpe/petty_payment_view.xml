@@ -8,9 +8,9 @@
             <field name="inherit_id" ref="ineco_thai_account.view_petty_payment_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook/page/field[@name='lines']/tree/field[@name='name']" position="after">
-                    <field name="employee" />
-                    <field name="location" />
-                    <field name="department" />
+                    <field name="employee_id" />
+                    <field name="location_id" />
+                    <field name="bpe_department_id" />
                 </xpath>
             </field>
         </record>

@@ -90,6 +90,8 @@ class account_petty_payment(osv.osv):
                     'employee': line.employee,
                     'location': line.location,
                     'department': line.department,
+                    'employee_id': line.employee_id and line.employee_id.id or False,#ถ้าEmployeeไม่ใส่ข้อมูลให้เป็นFalseถ้าใส่ให้เอาID
+                    'location_id': line.location_id and line.location_id.id or False,#ถ้าEmployeeไม่ใส่ข้อมูลให้เป็นFalseถ้าใส่ให้เอาID2
                 }
                 lines.append(vals)
 
@@ -134,4 +136,7 @@ class account_petty_payment_line(osv.osv):
         'employee': fields.char('Employee', size=32),
         'location': fields.char('Location', size=32),
         'department': fields.char('Department', size=32),
+        'location_id': fields.many2one('account.hr.location', 'Location', size=100),
+        'employee_id': fields.many2one('bpe.employee', 'Employee'),
+        'bpe_department_id': fields.related('employee_id', 'bpe_department', type='many2one', string='Department',relation='bpe.hr.department', readonly=True, store=True),
     }
