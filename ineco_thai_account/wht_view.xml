@@ -175,7 +175,7 @@
 		        	    		<field name="date_doc" />
 		        	    		<field name="company_id" />
 								<field name="voucher_id" />
-								<field name="move_line_id" />
+                                <field name="move_line_id" />
 		        	    		<field name="seq" />
 		        	    	</group>
 		        	    	<group>
@@ -240,8 +240,7 @@
       		<field name="arch" type="xml">
 		        <tree string="With holding tax">
 		        	<field name="seq" />
-		        	<field name="name" />
-					<field name="voucher_id" />
+		        	<field name="name" />		        	
 		        	<field name="date_doc" />
 		        	<field name="partner_id" />
 		        	<field name="wht_type" />
@@ -263,11 +262,10 @@
 		        	<field name="partner_id" />
 		        	<field name="wht_type" />
 		       		<field name="wht_kind" />
-                    <field name="voucher_id" />
 	        	  	<field name="base_amount" />
 	        	  	<field name="tax" />
-                    <filter string="ภงด 3" icon="terp-personal" domain="[('wht_kind','=','pp4')]" context=""/>
-                    <filter string="ภงด 53" icon="terp-personal" domain="[('wht_kind','=','pp7')]" context=""/>
+                    <filter string="PP3" icon="terp-personal" domain="[('wht_kind','=','pp4')]" context=""/>
+                    <filter string="PP53" icon="terp-personal" domain="[('wht_kind','=','pp7')]" context=""/>	
                     <group string="Group By...">
                     	<filter string="Partner" icon="terp-personal" domain="" context="{'group_by': 'partner_id'}"/>     
                     	<filter string="Date" icon="terp-personal" domain="" context="{'group_by':'date_doc'}" /> 

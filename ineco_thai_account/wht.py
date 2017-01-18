@@ -21,6 +21,7 @@
 
 from openerp.osv import fields, osv
 import openerp.addons.decimal_precision as dp
+import bahttext
 
 class ineco_wht_type(osv.osv):
     _name = "ineco.wht.type"
@@ -43,6 +44,7 @@ class ineco_wht(osv.osv):
             result[id] = {
                 'tax': 0.0,
                 'base_amount': 0.0,
+                'tax_text': False,
             }
             data = self.browse(cr, uid, [id], context=context)[0]
             val = val1 = 0.0
@@ -51,6 +53,7 @@ class ineco_wht(osv.osv):
                 val += line.tax
             result[id]['tax'] = val
             result[id]['base_amount'] = val1
+            result[id]['tax_text'] = '- '+bahttext.bahttext(val)+' -'
         return result
 
     def _get_line(self, cr, uid, ids, context=None):
@@ -59,7 +62,60 @@ class ineco_wht(osv.osv):
             if line:
                 result[line.wht_id.id] = True
         return result.keys()
-    
+
+    def _get_company_vat(self, cr, uid, ids, prop, unknow_none, context=None):
+        result = {}
+        for data in self.browse(cr, uid, ids):
+            result[data.id] = {
+                'company_vat_no': False,
+                'company_full_address': False,
+            }
+            vatno = data.company_id.partner_id.pid or False
+            if vatno:
+                result[data.id]['company_vat_no'] = '-'.join([vatno[:1],vatno[1:5],vatno[5:10],vatno[10:12],vatno[12:]])
+            result[data.id]['company_full_address'] = data.company_id.partner_id.street + ' ' + \
+                                                        data.company_id.partner_id.street2 + ' '+data.company_id.partner_id.city
+        return result
+
+    def _get_supplier_vat(self, cr, uid, ids, prop, unknow_none, context=None):
+        result = {}
+        for data in self.browse(cr, uid, ids):
+            result[data.id] = {
+                'partner_vat_no': False,
+                'partner_full_address': False,
+            }
+            vatno = data.partner_id.pid or False
+            if vatno:
+                result[data.id]['partner_vat_no'] = '-'.join([vatno[:1],vatno[1:5],vatno[5:10],vatno[10:12],vatno[12:]])
+            result[data.id]['partner_full_address'] = data.partner_id.street + ' ' + \
+                                                  data.partner_id.street2 + ' ' + data.partner_id.city
+        return result
+
+    def _get_line_value(self, cr, uid, ids, prop, unknow_none, context=None):
+        result = {}
+        ir_model_data = self.pool.get("ir.model.data")
+        number5_id = ir_model_data.get_object_reference(cr, uid, 'ineco_thai_account', 'wht_type_500')[1] or 999
+        number6_id = ir_model_data.get_object_reference(cr, uid, 'ineco_thai_account', 'wht_type_600')[1] or 999
+        for data in self.browse(cr, uid, ids):
+            result[data.id] = {
+                'has_number_5': False,
+                'has_number_6': False,
+                'number5_base_amount': 0.00,
+                'number5_tax': 0.00,
+                'number6_note': False,
+            }
+            for line in data.line_ids:
+                if line.wht_type_id.id == number5_id:
+                    result[data.id]['has_number_5'] = True
+                    result[data.id]['number5_base_amount'] = line.base_amount
+                    result[data.id]['number5_tax'] = line.tax
+                elif line.wht_type_id.id == number6_id :
+                    result[data.id]['has_number_6'] = True
+                    result[data.id]['number6_base_amount'] = line.base_amount
+                    result[data.id]['number6_tax'] = line.tax
+                    result[data.id]['number6_note'] = line.note
+        return result
+
     _name = 'ineco.wht'
     _inherit = ['mail.thread', 'ir.needaction_mixin']    
     _description = "With holding tax"
@@ -67,7 +123,15 @@ class ineco_wht(osv.osv):
         'name': fields.char('No.', size=32, required=True),
         'date_doc': fields.date('Document Date'),
         'company_id': fields.many2one('res.company','Company', required=True),
+        'company_vat_no': fields.function(_get_company_vat,
+            type='char', string='Company Vat Number', multi='_company'),
+        'company_full_address': fields.function(_get_company_vat,
+                                          type='char', string='Company Address', multi='_company'),
         'partner_id': fields.many2one('res.partner','Partner', required=True),
+        'partner_vat_no': fields.function(_get_supplier_vat,
+            type='char', string='Partner Vat Number', multi='_partner'),
+        'partner_full_address': fields.function(_get_supplier_vat,
+                                          type='char', string='Partner Address', multi='_partner'),
         'account_id': fields.many2one('account.account','Account', required=True),
         'seq': fields.integer('Sequence'),
         'wht_type': fields.selection([('sale','With holding tax (Sale)'),
@@ -101,6 +165,9 @@ class ineco_wht(osv.osv):
                     'ineco.wht': (lambda self, cr, uid, ids, c={}: ids, [], 10),
                     'ineco.wht.line': (_get_line, [], 10),
                 }, multi="sums"),
+        'tax_text': fields.function(_compute_tax,
+                               type='char', string='Tax Text',
+                               multi="sums"),
         'state': fields.selection([
             ('draft', 'Draft'),
             ('cancel', 'Cancelled'),
@@ -108,8 +175,21 @@ class ineco_wht(osv.osv):
             ], 'Status', readonly=True,),
         'voucher_id': fields.many2one('account.voucher', 'Voucher'),
         'move_line_id': fields.many2one('account.move.line', 'Move Line'),
+        'has_number_5': fields.function(_get_line_value,
+                                        type='boolean', string='Has Number 5', multi='_get_lines'),
+        'number5_base_amount': fields.function(_get_line_value,
+                                        type='float', digits_compute=dp.get_precision('Account'), string='Number 5 Base Amount', multi='_get_lines'),
+        'number5_tax': fields.function(_get_line_value,
+                                        type='float', digits_compute=dp.get_precision('Account'), string='Number 5 Tax', multi='_get_lines'),
+        'has_number_6': fields.function(_get_line_value,
+                                        type='boolean', string='Has Number 6', multi='_get_lines'),
+        'number6_base_amount': fields.function(_get_line_value,
+                                        type='float', digits_compute=dp.get_precision('Account'), string='Number 6 Base Amount', multi='_get_lines'),
+        'number6_tax': fields.function(_get_line_value,
+                                        type='float', digits_compute=dp.get_precision('Account'), string='Number 6 Tax', multi='_get_lines'),
+        'number6_note': fields.function(_get_line_value,
+                                        type='char', string='Number 6 Note', multi='_get_lines'),
         }
-
     _defaults = {
         'wht_type': False,
         'wht_kind': 'pp4',
@@ -203,7 +283,7 @@ class ineco_wht_line(osv.osv):
         #        store={'ineco.wht.line': (lambda self, cr, uid, ids, c={}: ids, [], 10),
         #              }, multi="sums"),
         'wht_id': fields.many2one('ineco.wht','WHT'),
-        'note': fields.char('Note', size=64),
+        'note': fields.char('Note', size=128),
     }
     _defaults = {
         'name': '/',
