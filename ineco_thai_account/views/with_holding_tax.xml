@@ -50,10 +50,10 @@
 
         <template id="ineco_wht_external_layout_footer">
             <div class="footer">
-                <div style="position:absolute;top:0;left:0;font-size: 12px;">หมายเหตุ เลขประจำตัวผู้เสียภาษีอากร (13 หลัก)* หมายถึง</div>
-                <div style="position:absolute;top:0;left:400; font-size: 12px;">1. กรณีบุคคลธรรมดาไทย ให้ใช้เลขประจำตัวประชาชนของกรมการปกครอง</div>
-                <div style="position:absolute;top:20;left:400;font-size: 12px;">2. กรณีนิติบุคคล ให้ใช้เลขทะเบียนนิติบุคคลของกรมพัฒนาธุรกิจการค้า</div>
-                <div style="position:absolute;top:40;left:400;font-size: 12px;">3. กรณีอื่นๆ นอกเหนือจาก 1. และ 2. ให้ใช้เลขประจำตัวผู้เสียภาษีอากร (13 หลัก) ของกรมสรรพากร</div>
+                <div style="position:absolute;top:0;left:0;font-size: 12px;width:400;">หมายเหตุ เลขประจำตัวผู้เสียภาษีอากร (13 หลัก)* หมายถึง</div>
+                <div style="position:absolute;top:0;left:300;font-size: 10px;width:300;">1. กรณีบุคคลธรรมดาไทย ให้ใช้เลขประจำตัวประชาชนของกรมการปกครอง</div>
+                <div style="position:absolute;top:20;left:300;font-size: 10px;width:300;">2. กรณีนิติบุคคล ให้ใช้เลขทะเบียนนิติบุคคลของกรมพัฒนาธุรกิจการค้า</div>
+                <div style="position:absolute;top:40;left:300;font-size: 10px;width:300;">3. กรณีอื่นๆ นอกเหนือจาก 1. และ 2. ให้ใช้เลขประจำตัวผู้เสียภาษีอากร (13 หลัก) ของกรมสรรพากร</div>
             </div>
         </template>
 
@@ -214,7 +214,7 @@
                                 <div style="position:absolute;left:35;top:260;width:414;">(2.2) เงินปันผลหรือเงินส่วนแบ่งของกำไรที่ได้รับยกเว้น ไม่ต้องนำมารวมคำนวณเป็นรายได้เพื่อเสียภาษีเงินได้นิติบุคคล</div>
                                 <div style="position:absolute;left:35;top:300;width:414;">(2.3) กำไรสุทธิส่วนที่ได้หักผลขาดทุนสุทธิยกมาไม่เกิน 5 ปี ก่อนรอบระยะเวลาบัญชีปีปัจจุบัน</div>
                                 <div style="position:absolute;left:35;top:340;width:414;">(2.4) กำไรที่รับรู้ทางบัญชีโดยวิธีส่วนได้เสีย (equity method)</div>
-                                <div style="position:absolute;left:35;top:360;width:414;">(2.5) อื่นๆ (ระบุ) ......................................</div>
+                                <div style="position:absolute;left:35;top:360;width:414;">(2.5) อื่นๆ (ระบุ) .......................................</div>
                                 <div style="position:absolute;left:0;top:380;width:414;">5. การจ่ายเงินได้ที่ต้องหักภาษี ณ ที่จ่ายตามคำสั่งกรมสรรพากร ที่ออกตามมาตรา 3 เตรส เช่น รางวัล ส่วนลดหรือประโยชน์ใดๆ เนื่องจากการส่งเสริมการขาย รางวัลในการประกวด การแข่งขัน การชิงโชค ค่าแสดงของนักแสดงสาธารณะ ค่าจ้างทำของ ค่าโฆษณา ค่าเช่า ค่าขนส่ง ค่าบริการ ค่าเบี้ยประกันวินาศภัย ฯลฯ</div>
                                 <div style="position:absolute;left:0;top:470;width:414;">6. อื่นๆ (ระบุ)</div>
                                 <div style="position:absolute;left:100;top:470;width:414;" t-if="o.has_number_6 == 1"><strong><p t-field="o.number6_note" /></strong>
