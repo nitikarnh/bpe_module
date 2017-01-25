@@ -84,7 +84,8 @@ class account_petty_payment(osv.osv):
                     "account_id": line.account_id.id,
                     "debit": line.subtotal_excl > 0.0 and line.subtotal_excl or 0.0,
                     "credit": line.subtotal_excl < 0.0 and abs(line.subtotal_excl) or 0.0,
-                    "name": _('Petty Cash Payment ') + petty.employee_id.name,
+                    #"name": _('Petty Cash Payment ') + petty.employee_id.name,
+                    "name": line.name,
                     "date": petty.date,
                     "ref": lref,
                     'employee': line.employee,
@@ -92,6 +93,7 @@ class account_petty_payment(osv.osv):
                     'department': line.department,
                     'employee_id': line.employee_id and line.employee_id.id or False,#ถ้าEmployeeไม่ใส่ข้อมูลให้เป็นFalseถ้าใส่ให้เอาID
                     'location_id': line.location_id and line.location_id.id or False,#ถ้าEmployeeไม่ใส่ข้อมูลให้เป็นFalseถ้าใส่ให้เอาID2
+                    "partner_id": line.partner_id and line.partner_id.id or False,
                 }
                 lines.append(vals)
 
@@ -100,8 +102,9 @@ class account_petty_payment(osv.osv):
                     "account_id": vat.account_id.id,
                     "debit": vat.tax_amount,
                     "credit": 0.0,
-                    "name": _('Petty Cash Payment ') + petty.employee_id.name,
-                    "date": vat.date,
+                    #"name": _('Petty Cash Payment ') + petty.employee_id.name,
+                    "name": vat.petty_line_id.name,
+                    "date": vat.petty_line_id.date,
                     "ref": lref,
                     "partner_id": vat.petty_line_id and vat.petty_line_id.partner_id and vat.petty_line_id.partner_id.id or False,
                     "tax_invoice_no2": vat.petty_line_id and vat.petty_line_id.invoice_no or False,
