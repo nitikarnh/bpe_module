@@ -320,5 +320,7 @@ class account_invoice(models.Model):
     #             total_currency -= line['amount_currency'] or line['price']
     #     return total, total_currency, invoice_move_lines
 
-
+class account_invoice_line(models.Model):
+    _inherit = 'account.invoice.line'
+    wht_percent = fields.Float(string='WHT(%)')
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

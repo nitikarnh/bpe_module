@@ -141,5 +141,6 @@ class account_petty_payment_line(osv.osv):
         'department': fields.char('Department', size=32),
         'location_id': fields.many2one('account.hr.location', 'Location', size=100),
         'employee_id': fields.many2one('bpe.employee', 'Employee'),
-        'bpe_department_id': fields.related('employee_id', 'bpe_department', type='many2one', string='Department',relation='bpe.hr.department', readonly=True, store=True),
+        'bpe_department_id': fields.many2one('bpe_department','Department'),
+        #'bpe_department_id': fields.related('employee_id', 'bpe_department', type='many2one', string='Department',relation='bpe.hr.department', readonly=True, store=True),
     }
