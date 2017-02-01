@@ -46,7 +46,7 @@ def pdf_fill(orig_pdf, vals):
     arg = arg.encode('utf-8')
     SITE_ROOT = os.path.abspath(os.path.dirname(__file__))
     #cmd = "jython %s/openerp/addons/ineco_thai_account/report/fillpdf.py %s %s %s" % (os.getcwd(), orig_pdf_abs, tmp, arg)
-    cmd = "jython %s/fillpdf.py %s %s %s" % (SITE_ROOT, orig_pdf_abs, tmp, arg)
+    cmd = "/usr/local/bin/jython %s/fillpdf.py %s %s %s" % (SITE_ROOT, orig_pdf_abs, tmp, arg)
     #print cmd
     os.system(cmd)
     pdf=file(tmp).read()
