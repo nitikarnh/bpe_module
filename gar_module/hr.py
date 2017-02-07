@@ -90,6 +90,8 @@ class bpe_employee(osv.osv):
         #'bpe_religion':fields.char(string='Religion'),
         'bpe_religion': fields.many2one('bpe.hr.religion', 'Religion'),
         'bpe_addresscard': fields.char(string='Address in the hourse registration', size=100, help='ที่อยู่ตามทะเบียนบ้าน'),
+        #เพิ่มฟิลด์สถานะการทำงาน07/02/2017
+        'bpe_employee_status': fields.many2one('bpe.employee.status','Employee Status'),
         'bpe_addressnow': fields.char(string='Present Address', size=100, help='ที่อยู่ปัจจุบัน'),
         'bpe_phone': fields.char(string='Phone', size=100),
         'bpe_email': fields.char(string='Email', size=50, help='ตย.address@gmail.com'),
@@ -170,7 +172,14 @@ class bpe_hr_department(osv.osv):
     _name = 'bpe.hr.department'
     _description = 'Department'
     _columns = {
-        'name': fields.char('Job title',size=256,requied=True )
+        'name': fields.char('Department',size=256,requied=True )
+    }
+#เพิ่มฟิลด์ status ของพนักงานในที่ทำงาน
+class bpe_hr_employee_status(osv.osv):
+    _name = 'bpe.employee.status'
+    _description = 'Employee Status'
+    _columns = {
+        'name': fields.char('Employee Status',size=100,requied=True )
     }
 class bpe_hr_nationality(osv.osv):
     _name = 'bpe.hr.nationality'
@@ -230,179 +239,176 @@ class bpe_hr_employee_education(osv.osv):  # Table Master เก็บค่า�
     _order = 'employee_id, sequence'
 
     # Tab Course Training
-    class bpe_hr_course_train(osv.osv):  # Name Table
-        _name = 'bpe.hr.course.train'  # field join
-        _description = 'Course Training'
-        _columns = {
-            'name': fields.char('Course Training Name', size=64, required=True),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้
-        }
+class bpe_hr_course_train(osv.osv):  # Name Table
+    _name = 'bpe.hr.course.train'  # field join
+    _description = 'Course Training'
+    _columns = {
+        'name': fields.char('Course Training Name', size=64, required=True),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้
+    }
 
-    class bpe_hr_course_institute(osv.osv):
-        _name = 'bpe.hr.course.institute'
-        _description = 'Course Training Institute'
-        _columns = {
-            'name': fields.char('Course Training Institute Name', size=256, required=True),
-        }
+class bpe_hr_course_institute(osv.osv):
+    _name = 'bpe.hr.course.institute'
+    _description = 'Course Training Institute'
+    _columns = {
+        'name': fields.char('Course Training Institute Name', size=256, required=True),
+    }
 
-    class bpe_hr_employee_course(
-        osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
-        _name = 'bpe.hr.employee.course'
-        _description = 'Employee Course Trainging'
-        _columns = {
-            'name': fields.char('Employee Course Training Name', size=128, ),
-            'employee_id': fields.many2one('bpe.employee', string='Employee'),
-            'course_id': fields.many2one('bpe.hr.course.train', string='Course Trainging', requried=True),
-            'course_institute_id': fields.many2one('bpe.hr.course.institute', string='Course Trainging Institute'),
-            'course_start': fields.date('Start course'),
-            'course_end': fields.date('End course'),
-            'course_price': fields.integer('price course', size=10),
-            'course_nocert' : fields.char('No. certificate',size=60),
-            'course_expcert': fields.date('Expire Cert'),
-            # Sorting Column by User Field
-            'sequence': fields.integer('Sequence')
-        }
-        # Set Default fields ไม่ได้error
-        _defaults = {
-            'sequence': 10,
-        }
-        # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
-        _order = 'employee_id, sequence'
+class bpe_hr_employee_course(osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
+    _name = 'bpe.hr.employee.course'
+    _description = 'Employee Course Trainging'
+    _columns = {
+        'name': fields.char('Employee Course Training Name', size=128, ),
+        'employee_id': fields.many2one('bpe.employee', string='Employee'),
+        'course_id': fields.many2one('bpe.hr.course.train', string='Course Trainging', requried=True),
+        'course_institute_id': fields.many2one('bpe.hr.course.institute', string='Course Trainging Institute'),
+        'course_start': fields.date('Start course'),
+        'course_end': fields.date('End course'),
+        'course_price': fields.integer('price course', size=10),
+        'course_nocert' : fields.char('No. certificate',size=60),
+        'course_expcert': fields.date('Expire Cert'),
+        # Sorting Column by User Field
+        'sequence': fields.integer('Sequence')
+    }
+    # Set Default fields ไม่ได้error
+    _defaults = {
+        'sequence': 10,
+    }
+    # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
+    _order = 'employee_id, sequence'
 
-        # Tab Certificate
-        class bpe_hr_cert_course(osv.osv):  # Name Table
-            _name = 'bpe.hr.cert.course'  # field join
-            _description = 'Course Certificate'
-            _columns = {
-                'name': fields.char('Certificate Name', size=64, required=True),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
-            }
+#Tab Certificate
+class bpe_hr_cert_course(osv.osv):  # Name Table
+    _name = 'bpe.hr.cert.course'  # field join
+    _description = 'Course Certificate'
+    _columns = {
+        'name': fields.char('Certificate Name', size=64, required=True),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
+    }
 
-        class bpe_hr_cert_institute(osv.osv):
-            _name = 'bpe.hr.cert.institute'
-            _description = 'Certificate Institute'
-            _columns = {
-                'name': fields.char('Certificate Institute Name', size=256, required=True),
-            }
+class bpe_hr_cert_institute(osv.osv):
+    _name = 'bpe.hr.cert.institute'
+    _description = 'Certificate Institute'
+    _columns = {
+        'name': fields.char('Certificate Institute Name', size=256, required=True),
+    }
 
-        class bpe_hr_employee_cert(
-            osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
-            _name = 'bpe.hr.employee.cert'
-            _description = 'Employee Certificate'
-            _columns = {
-                'name': fields.char('Employee Certificate Name', size=128, ),
-                'employee_id': fields.many2one('bpe.employee', string='Employee'),
-                'cert_course_id': fields.many2one('bpe.hr.cert.course', string='Certificate Course', requried=True),
-                'cert_institute_id': fields.many2one('bpe.hr.cert.institute', string='Certificate Institute',
-                                                     requried=True),
-                'cert_start': fields.date('Start course', required=True),
-                'cert_end': fields.date('End course', required=True),
-                'cert_expire': fields.date('Expire Cert'),
-                # Sorting Column by User Field
-                'sequence': fields.integer('Sequence')
-            }
-            # Set Default fields ไม่ได้error
-            _defaults = {
-                'sequence': 10,
-            }
-            # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
-            _order = 'employee_id, sequence'
-
-            # Tab Work Experience
-            class bpe_hr_business_type(osv.osv):  # Name Table
-                _name = 'bpe.hr.business.type'  # field join
-                _description = 'Business type'
-                _columns = {
-                    'name': fields.char('Business type Name', size=64, ),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
+class bpe_hr_employee_cert(osv.osv): # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
+    _name = 'bpe.hr.employee.cert'
+    _description = 'Employee Certificate'
+    _columns = {
+        'name': fields.char('Employee Certificate Name', size=128, ),
+        'employee_id': fields.many2one('bpe.employee', string='Employee'),
+        'cert_course_id': fields.many2one('bpe.hr.cert.course', string='Certificate Course', requried=True),
+        'cert_institute_id': fields.many2one('bpe.hr.cert.institute', string='Certificate Institute',
+                                                 requried=True),
+        'cert_start': fields.date('Start course', required=True),
+        'cert_end': fields.date('End course', required=True),
+        'cert_expire': fields.date('Expire Cert'),
+    #Sorting Column by User Field
+        'sequence': fields.integer('Sequence')
+    }
+    #Set Default fields ไม่ได้error
+    _defaults = {
+        'sequence': 10,
                 }
 
-            class bpe_hr_work_position(osv.osv):
-                _name = 'bpe.hr.work.position'
-                _description = 'Work Position'
-                _columns = {
-                    'name': fields.char('Position Name', size=100, ),
-                }
+    # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
+    _order = 'employee_id, sequence'
 
-            class bpe_hr_employee_work_experience(
-                osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
-                _name = 'bpe.hr.employee.work.experience'
-                _description = 'Employee Work Expirence Position'
-                _columns = {
-                    'name': fields.char('Work Experience Name', size=128, ),
-                    'employee_id': fields.many2one('bpe.employee', string='Employee'),
-                    'business_type_id': fields.many2one('bpe.hr.business.type', string='Business Type', requried=True),
-                    'work_position_id': fields.many2one('bpe.hr.work.position', string='Position', requried=True),
-                    'work_company_name': fields.char('Company Name'),
-                    'work_experience_start': fields.date('Start'),
-                    'work_experience_end': fields.date('End'),
-                    'work_responsibility': fields.text('Responsibility'),
-                    'work_salary': fields.integer('Salary'),
-                    # Sorting Column by User Field
-                    'sequence': fields.integer('Sequence')
-                }
-                # Set Default fields ไม่ได้error
-                _defaults = {
-                    'sequence': 10,
-                }
-                # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
-                _order = 'employee_id, sequence'
+    # Tab Work Experience
+class bpe_hr_business_type(osv.osv):  # Name Table
+    _name = 'bpe.hr.business.type'  # field join
+    _description = 'Business type'
+    _columns = {
+        'name': fields.char('Business type Name', size=64, ),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
+    }
 
-                # Tab Working Data
+class bpe_hr_work_position(osv.osv):
+    _name = 'bpe.hr.work.position'
+    _description = 'Work Position'
+    _columns = {
+        'name': fields.char('Position Name', size=100, ),
+    }
 
-            class bpe_hr_working_department(osv.osv):  # Name Table
-                _name = 'bpe.hr.working.department'  # field join
-                _description = 'Working Department'
-                _columns = {
-                    'name': fields.char('Department', size=64, ),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
-                }
+class bpe_hr_employee_work_experience(osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
+    _name = 'bpe.hr.employee.work.experience'
+    _description = 'Employee Work Expirence Position'
+    _columns = {
+        'name': fields.char('Work Experience Name', size=128, ),
+        'employee_id': fields.many2one('bpe.employee', string='Employee'),
+        'business_type_id': fields.many2one('bpe.hr.business.type', string='Business Type', requried=True),
+        'work_position_id': fields.many2one('bpe.hr.work.position', string='Position', requried=True),
+        'work_company_name': fields.char('Company Name'),
+        'work_experience_start': fields.date('Start'),
+        'work_experience_end': fields.date('End'),
+        'work_responsibility': fields.text('Responsibility'),
+        'work_salary': fields.integer('Salary'),
+    # Sorting Column by User Field
+        'sequence': fields.integer('Sequence')
+    }
+    # Set Default fields ไม่ได้error
+    _defaults = {
+        'sequence': 10,
+    }
+    # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
+    _order = 'employee_id, sequence'
 
-            class bpe_hr_working_position(osv.osv):
-                _name = 'bpe.hr.working.position'
-                _description = 'Work Position'
-                _columns = {
-                    'name': fields.char('Position', size=100, ),
-                }
+# Tab Working Data
 
-            class bpe_hr_working_partner(osv.osv):
-                _name = 'bpe.hr.working.partner'
-                _description = 'Work Partner'
-                _columns = {
-                    'name': fields.char('Partner', size=100, ),
-                }
+class bpe_hr_working_department(osv.osv):  # Name Table
+    _name = 'bpe.hr.working.department'  # field join
+    _description = 'Working Department'
+    _columns = {
+        'name': fields.char('Department', size=64, ),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
+    }
 
-            class bpe_hr_working_project(osv.osv):
-                _name = 'bpe.hr.working.project'
-                _description = 'Work Project'
-                _columns = {
-                    'name': fields.char('Project Name', size=100, ),
-                }
-            class bpe_hr_working_jobnumber(osv.osv):
-                _name = 'bpe.hr.working.jobnumber'
-                _description = 'JobNumber'
-                _columns = {
-                    'name': fields.char('JobNumber', size=100, ),
-                }
-            #Table working data
-            class bpe_hr_employee_working_data(
-                osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
-                _name = 'bpe.hr.employee.working.data'
-                _description = 'Employee Working Data'
-                _columns = {
-                    'name': fields.char('Working Data Name', size=128, ),
-                    'employee_id': fields.many2one('bpe.employee', string='Employee'),
-                    'working_position_id': fields.many2one('bpe.hr.working.position', string='Position', requried=True),
-                    'working_department_id': fields.many2one('bpe.hr.working.department', string='Department', requried=True),
-                    'working_projectname_id': fields.many2one('bpe.hr.working.project', string='Project Name', requried=True),
-                    'working_partner_id': fields.many2one('bpe.hr.working.partner', string='Partner', requried=True),
-                    'working_jobnumber_id': fields.many2one('bpe.hr.working.jobnumber', string='JobNumber', requried=True),
-                    'working_startdate':fields.date('StartWork'),
-                    'working_enddate': fields.date('EndWork'),
-                    'working_detail':fields.char('Detail'),
-                    'working_responsibility': fields.char('Responsibility', required=True),
-                    # Sorting Column by User Field
-                    'sequence': fields.integer('Sequence')
-                }
-                # Set Default fields ไม่ได้error
-                _defaults = {
-                    'sequence': 10,
-                }
-                # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
-                _order = 'employee_id, sequence'
+class bpe_hr_working_position(osv.osv):
+    _name = 'bpe.hr.working.position'
+    _description = 'Work Position'
+    _columns = {
+        'name': fields.char('Position', size=100, ),
+    }
+
+class bpe_hr_working_partner(osv.osv):
+    _name = 'bpe.hr.working.partner'
+    _description = 'Work Partner'
+    _columns = {
+        'name': fields.char('Partner', size=100, ),
+    }
+
+class bpe_hr_working_project(osv.osv):
+    _name = 'bpe.hr.working.project'
+    _description = 'Work Project'
+    _columns = {
+        'name': fields.char('Project Name', size=100, ),
+    }
+class bpe_hr_working_jobnumber(osv.osv):
+    _name = 'bpe.hr.working.jobnumber'
+    _description = 'JobNumber'
+    _columns = {
+        'name': fields.char('JobNumber', size=100, ),
+    }
+#Table working data
+class bpe_hr_employee_working_data(osv.osv):  # Table Master เก็บค่าของ class bpe_hr_education_institute และ bpe_hr_education_level
+    _name = 'bpe.hr.employee.working.data'
+    _description = 'Employee Working Data'
+    _columns = {
+        'name': fields.char('Working Data Name', size=128, ),
+        'employee_id': fields.many2one('bpe.employee', string='Employee'),
+        'working_position_id': fields.many2one('bpe.hr.working.position', string='Position', requried=True),
+        'working_department_id': fields.many2one('bpe.hr.working.department', string='Department', requried=True),
+        'working_projectname_id': fields.many2one('bpe.hr.working.project', string='Project Name', requried=True),
+        'working_partner_id': fields.many2one('bpe.hr.working.partner', string='Partner', requried=True),
+        'working_jobnumber_id': fields.many2one('bpe.hr.working.jobnumber', string='JobNumber', requried=True),
+        'working_startdate':fields.date('StartWork'),
+        'working_enddate': fields.date('EndWork'),
+        'working_detail':fields.char('Detail'),
+        'working_responsibility': fields.char('Responsibility', required=True),
+        # Sorting Column by User Field
+        'sequence': fields.integer('Sequence')
+    }
+    # Set Default fields ไม่ได้error
+    _defaults = {
+        'sequence': 10,
+    }
+    # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
+    _order = 'employee_id, sequence'
