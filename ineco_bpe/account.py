@@ -51,7 +51,16 @@ class account_move_line(osv.osv):
         'employee': fields.char('Employee', size=32),
         'location': fields.char('Location', size=32),
         'location_id': fields.many2one('account.hr.location','Location', size=100),
-        'department': fields.char('Department', size=32),
+        #'department': fields.char('Department', size=32),๒ฟิลด์เดิมที่สร้างขึ้นตอนแรกเป็นcharacterเปลี่ยนเป็นดึงมาจากBioDataแทน
         'employee_id': fields.many2one('bpe.employee','Employee'),
-        'bpe_department_id': fields.related('employee_id', 'bpe_department', type='many2one', string='Department', relation='bpe.hr.department', readonly=True, store=True),
+        'bpe_department_id': fields.many2one('bpe.hr.department', 'Department'),
+        #'bpe_department_id': fields.related('employee_id', 'bpe_department', type='many2one', string='Department', relation='bpe.hr.department', readonly=True, store=True),
     }
+
+    def onchange_employee_id(self, cr, uid, ids, employee_id, context=None):
+        val = {}
+        val['bpe_department_id']=False
+        if employee_id:
+            employee = self.pool.get('bpe.employee').browse(cr,uid,employee_id)[0]
+            val['bpe_department_id'] = employee.bpe_department.id
+        return {'value': val}

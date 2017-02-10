@@ -274,6 +274,9 @@
                     <field name="bpe_employee_id"/>
                     <field name="name"/>
                     <field name="bpe_sex"/>
+                    <field name="bpe_name_eng"/>
+                    <field name="bpe_jobtitle"/>
+                    <field name="bpe_department"/>
                 </search>
             </field>
         </record>
@@ -283,7 +286,7 @@
             <field name="model">bpe.employee</field>
             <field name="arch" type="xml">
                 <tree string="Employee">
-                    <field name="bpe_employee_id"/>
+                    <field name="bpe_employee_id" />
                     <field name="bpe_name_eng"/>
                     <field name="name" string="THA-Name"/>
                     <field name="bpe_email"/>
