@@ -90,7 +90,9 @@ class account_petty_payment(osv.osv):
                     "ref": lref,
                     'employee': line.employee,
                     'location': line.location,
-                    'department': line.bpe_department_id and line.bpe_department_id.id or False,
+                    #'department': line.bpe_department_id and line.bpe_department_id.id or False,
+                    #แก้ให้Departmentที่PrettyCashPaymentวิ่งไปในGL
+                    'bpe_department_id': line.bpe_department_id and line.bpe_department_id.id or False,
                     'employee_id': line.employee_id and line.employee_id.id or False,#ถ้าEmployeeไม่ใส่ข้อมูลให้เป็นFalseถ้าใส่ให้เอาID
                     'location_id': line.location_id and line.location_id.id or False,#ถ้าEmployeeไม่ใส่ข้อมูลให้เป็นFalseถ้าใส่ให้เอาID2
                     "partner_id": line.partner_id and line.partner_id.id or False,
