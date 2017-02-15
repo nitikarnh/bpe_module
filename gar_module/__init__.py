@@ -23,3 +23,4 @@ import hr
 import sale
 import sale2
 import analytic
+import purchase
