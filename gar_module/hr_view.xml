@@ -22,8 +22,8 @@
                         <group>
                             <group string="HR Employee">
                                 <field name="bpe_employee_id"/>
-                                <field name="name" string="Name Thai"/>
-                                <field name="bpe_name_eng" string="Name Eng"/>
+                                <field name="name" string="ชื่อ-นามสกุล"/>
+                                <field name="bpe_name_eng" string="First-Last Name"/>
                             </group>
                             <group string="Position">
                                 <field name="bpe_jobtitle"/>
@@ -42,6 +42,9 @@
                                         <field name="bpe_height"/>
                                         <field name="bpe_blood"/>
                                         <field name="bpe_idcard"/>
+                                        <field name="bpe_passport"/>
+                                        <field name="bpe_safety_passport"/>
+
                                     </group>
                                     <group string="Status">
                                         <field name="bpe_sex"/>
@@ -53,7 +56,7 @@
                                     </group>
 
                                 </group>
-                                <group string="Contact Address">
+                                <group string="Contact">
                                     <field name="bpe_addresscard"/>
                                     <field name="bpe_addressnow"/>
                                     <field name="bpe_phone"/>
@@ -105,7 +108,7 @@
                                 </group>
                             </page>
                             <page string="Emergency Contact">
-                                <group string="Personal to contact emergency">
+                                <group string="Personal to contact in case of emergency">
                                     <field name="bpe_emergency_contact1"/>
                                     <field name="bpe_emergency_relation1"/>
                                     <field name="bpe_emergency_phone1"/>
@@ -324,10 +327,12 @@
                 <tree string="Employee">
                     <field name="bpe_employee_id" />
                     <field name="bpe_name_eng"/>
-                    <field name="name" string="THA-Name"/>
+                    <field name="name"/>
+                    <field name="bpe_department"/>
                     <field name="bpe_email"/>
+                    <field name="bpe_phone"/>
                     <!--<field name="job_id"/>-->
-                    <!--<field name="department_id"/>-->
+
                 </tree>
             </field>
         </record>
