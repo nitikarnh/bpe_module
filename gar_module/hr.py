@@ -121,13 +121,13 @@ class bpe_employee(osv.osv):
         'bpe_age_mom': fields.integer(string='Age', size=3),
         'bpe_job_mom': fields.char(string='Occupation', size=256),
         'bpe_phone_mom': fields.char(string='Tel.', size=15),
-        'bpe_disease': fields.text(string='Personal illness', size=256),
-        'bpe_drug': fields.text(string='Drug of personal illness', size=256),
-        'bpe_drugno': fields.text(string='Drug allergy', size=256),
-        'bpe_operation': fields.selection([('t', 'Yes'), ('f', 'No')], 'Operation', ),
-        'bpe_operation_stell': fields.selection([('t', 'Yes'), ('f', 'No')], 'Operation metal', ),
-        'bpe_operation_stell_des1': fields.text(string='Organ Operation', size=256),
-        'bpe_operation_stell_des2': fields.text(string='Set of metal', size=256),
+        #'bpe_disease': fields.text(string='Personal illness', size=256),
+        #'bpe_drug': fields.text(string='Drug of personal illness', size=256),
+        #'bpe_drugno': fields.text(string='Drug allergy', size=256),
+        #'bpe_operation': fields.selection([('t', 'Yes'), ('f', 'No')], 'Operation', ),
+        #'bpe_operation_stell': fields.selection([('t', 'Yes'), ('f', 'No')], 'Operation metal', ),
+        #'bpe_operation_stell_des1': fields.text(string='Organ Operation', size=256),
+        #'bpe_operation_stell_des2': fields.text(string='Set of metal', size=256),
         'bpe_project': fields.text(string='โครงการที่ทำงานด้วย', size=256),
         'bpe_customerproject': fields.text(string='ลูกค้าที่ทำงานด้วย', size=256),  # ชื่อลูกค้างานที่ทำ,
         # many2one ด้านหลังฟิลด์จะใส่เป็น_ids
@@ -136,6 +136,7 @@ class bpe_employee(osv.osv):
         'bpe_certificate_ids': fields.one2many('bpe.hr.employee.cert', 'employee_id', string='Certificate'),
         'bpe_work_experience_ids': fields.one2many('bpe.hr.employee.work.experience', 'employee_id',string='Work Experience'),
         'bpe_working_data_ids': fields.one2many('bpe.hr.employee.working.data', 'employee_id',string='Working Data'),
+        'bpe_medical_check_ids': fields.one2many('bpe.hr.employee.medical.check', 'employee_id', string='Medical Check'),
         'image': fields.binary("Photo",
             help="This field holds the image used as photo for the employee, limited to 1024x1024px."),
         'image_medium': fields.function(_get_image, fnct_inv=_set_image,
@@ -404,6 +405,48 @@ class bpe_hr_employee_working_data(osv.osv):  # Table Master เก็บค่�
         'working_detail':fields.char('Detail'),
         'working_responsibility': fields.char('Responsibility', required=True),
         # Sorting Column by User Field
+        'sequence': fields.integer('Sequence')
+    }
+    # Set Default fields ไม่ได้error
+    _defaults = {
+        'sequence': 10,
+    }
+    # กำหนดให้หน้าจอเรียงตามลำดำต่อจากคำสั่ง #Sorting Column by User Field
+    _order = 'employee_id, sequence'
+
+    # Tab Madical History New 16/02/2017
+
+class bpe_hr_status_examination(osv.osv):  # Name Table
+    _name = 'bpe.hr.status.examination'  # field join
+    _description = 'Status Examination'
+    _columns = {
+        'name': fields.char('Status Examination Name', size=64, ),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
+    }
+
+class bpe_hr_hospital(osv.osv):  # Name Table
+    _name = 'bpe.hr.hospital'  # field join
+    _description = 'Hospital'
+    _columns = {
+        'name': fields.char('Hospital Name', size=64, ),  # ฟิลด์บังคับ ไม่ต้องใช้ก็ได้...
+    }
+
+class bpe_hr_medical_check(osv.osv):  # Table Master Medical History
+    _name = 'bpe.hr.employee.medical.check'
+    _description = 'Medical Check'
+    _columns = {
+        'name': fields.char('Medical Check Name', size=128, ),
+        'employee_id': fields.many2one('bpe.employee', string='Employee'),
+        'status_examination_id': fields.many2one('bpe.hr.status.examination', string='Status Examination', requried=True),
+        'hospital_id': fields.many2one('bpe.hr.hospital', string='Hospital'),
+        'medical_check_date': fields.date('Check up on'),
+        'medical_check_expire': fields.date('Date of expire'),
+        'medical_check_program': fields.text('Checkup Program'),
+        'medical_check_additional': fields.text('Checkup Additional'),
+        'medical_check_recommen': fields.text('Recommendation'),
+        'medical_check_followup': fields.text('Follow Up'),
+        'medical_check_doctor_cert': fields.char('Doctor Certificate'),
+        'medical_check_illness_status': fields.char('Illness Status Tracking'),
+    # Sorting Column by User Field
         'sequence': fields.integer('Sequence')
     }
     # Set Default fields ไม่ได้error

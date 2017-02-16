@@ -115,7 +115,7 @@
                                 </group>
                             </page>
 
-                            <Page string="Medical History">
+                            <!--<Page string="Medical History">
                                 <group string="Medical History">
                                     <field name="bpe_disease"/>
                                     <field name="bpe_drug"/>
@@ -125,9 +125,45 @@
                                     <field name="bpe_operation_stell_des1"/>
                                     <field name="bpe_operation_stell_des2"/>
                                 </group>
-                            </Page>
-                            <page string="Educations">
+                            </Page>-->
 
+                            <page string="Medical Check">
+                                <!--one2many-->
+                                <field name="bpe_medical_check_ids">
+                                    <!--editable="top"-->
+                                    <tree string="Medical Check">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="medical_check_date" string="Check up on"/>
+                                        <field name="medical_check_expire" string="Date of expire"/>
+                                        <field name="hospital_id" string="Hospital"/>
+                                        <field name="medical_check_program" string="Checkup Program"/>
+                                        <field name="medical_check_additional" string="Checkup Additional"/>
+                                        <field name="status_examination_id" string="Status Examination"/>
+                                        <field name="medical_check_recommen" string="Recommendation"/>
+                                        <field name="medical_check_followup" string="Follow Up"/>
+                                        <field name="medical_check_doctor_cert" string="Doctor Certificate"/>
+                                        <field name="medical_check_illness_status" string="Illness Status Tracking"/>
+
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="medical_check_date" string="Check up on"/>
+                                            <field name="medical_check_expire" string="Date of expire"/>
+                                            <field name="hospital_id" string="Hospital"/>
+                                            <field name="medical_check_program" string="Checkup Program"/>
+                                            <field name="medical_check_additional" string="Checkup Additional"/>
+                                            <field name="status_examination_id" string="Status Examination"/>
+                                            <field name="medical_check_recommen" string="Recommendation"/>
+                                            <field name="medical_check_followup" string="Follow Up"/>
+                                            <field name="medical_check_doctor_cert" string="Doctor Certificate"/>
+                                            <field name="medical_check_illness_status" string="Illness Status Tracking"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="Educations">
                                 <field name="bpe_education_ids">
                                     <tree editable="top">
                                         <field name="sequence" widget="handle"/>
