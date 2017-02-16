@@ -94,6 +94,9 @@ class bpe_employee(osv.osv):
         'bpe_addresscard': fields.char(string='Registration Address', size=100, help='ที่อยู่ตามทะเบียนบ้าน'),
         #เพิ่มฟิลด์สถานะการทำงาน07/02/2017
         'bpe_employee_status': fields.many2one('bpe.employee.status','Employee Status'),
+        # เพิ่มฟิลด์Section,Division 16/02/2017
+        'bpe_employee_section': fields.many2one('bpe.employee.section', 'Section'),
+        'bpe_employee_division': fields.many2one('bpe.employee.division', 'Division'),
         'bpe_addressnow': fields.char(string='Current Address', size=100, help='ที่อยู่ปัจจุบัน'),
         'bpe_phone': fields.char(string='Phone', size=100),
         'bpe_email': fields.char(string='Email Address', size=50, help='ตย.address@gmail.com'),
@@ -184,6 +187,23 @@ class bpe_hr_employee_status(osv.osv):
     _columns = {
         'name': fields.char('Employee Status',size=100,requied=True )
     }
+
+#เพิ่มฟิลด์ Section 16/02/2017
+class bpe_hr_employee_section(osv.osv):
+    _name = 'bpe.employee.section'
+    _description = 'Section'
+    _columns = {
+        'name': fields.char('Section',size=100,requied=True )
+    }
+
+#เพิ่มฟิลด์ Division 16/02/2017
+class bpe_hr_employee_division(osv.osv):
+    _name = 'bpe.employee.division'
+    _description = 'Division'
+    _columns = {
+        'name': fields.char('Division',size=100,requied=True )
+    }
+
 class bpe_hr_nationality(osv.osv):
     _name = 'bpe.hr.nationality'
     _description = 'Nationality'

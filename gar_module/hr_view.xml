@@ -9,7 +9,8 @@
 
         <menuitem id="menu_bpe_hr_main" parent="menu_bpe_hr_root" name="Human Resources" sequence="0"/>
 
-        <menuitem id="menu_bpe_hr_configuration" parent="menu_bpe_hr_root" name="Configuration" sequence="0"/>
+        <menuitem id="menu_bpe_hr_configuration" parent="menu_bpe_hr_root" name="Organization" sequence="0"/>
+
 
 
         <record id="view_gar_module_employee_form" model="ir.ui.view">
@@ -26,8 +27,10 @@
                                 <field name="bpe_name_eng" string="First-Last Name"/>
                             </group>
                             <group string="Position">
-                                <field name="bpe_jobtitle"/>
+                                <field name="bpe_employee_division"/>
                                 <field name="bpe_department"/>
+                                <field name="bpe_employee_section"/>
+                                <field name="bpe_jobtitle"/>
                                 <field name="bpe_date_work"/>
                                 <field name="bpe_employee_status"/>
                             </group>
@@ -348,37 +351,102 @@
         <menuitem action="action_gar_module_employee" id="menu_gar_module_employee" sequence="3"
                   parent="menu_bpe_hr_main"/>
 
-        <!-- BPE HR Tilte -->
-        <record id="view_bpe_hr_jobtitle_tree" model="ir.ui.view">
-            <field name="name">bpe.hr.jobtitle.tree</field>
-            <field name="model">bpe.hr.jobtitle</field>
+        <!-- Menu Employee Status -->
+        <record id="view_bpe_employee_status_tree" model="ir.ui.view">
+            <field name="name">bpe.employee.status.tree</field>
+            <field name="model">bpe.employee.status</field>
             <field name="arch" type="xml">
-                <tree string="Job Title" editable="top">
+                <tree string="Employee Status" editable="top">
                     <field name="name"/>
                 </tree>
             </field>
         </record>
 
-        <record id="view_bpe_hr_jobtitle_search" model="ir.ui.view">
-            <field name="name">bpe.hr.jobtitle.search</field>
-            <field name="model">bpe.hr.jobtitle</field>
+        <record id="view_bpe_employee_status_search" model="ir.ui.view">
+            <field name="name">bpe.employee.status.search</field>
+            <field name="model">bpe.employee.status</field>
             <field name="arch" type="xml">
-                <search string="Job Title">
+                <search string="Employee Status">
                     <field name="name"/>
                 </search>
             </field>
         </record>
 
-        <record id="action_bpe_hr_jobtitle" model="ir.actions.act_window">
-            <field name="name">Job Title</field>
-            <field name="res_model">bpe.hr.jobtitle</field>
+        <record id="action_bpe_employee_status" model="ir.actions.act_window">
+            <field name="name">Employee Status</field>
+            <field name="res_model">bpe.employee.status</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_bpe_hr_jobtitle_tree"/>
+            <field name="view_id" ref="view_bpe_employee_status_tree"/>
         </record>
 
-        <menuitem action="action_bpe_hr_jobtitle" id="menu_bpe_hr_jobtitle" sequence="10"
+        <menuitem action="action_bpe_employee_status" id="menu_bpe_employee_status" sequence="4"
+                  parent="menu_bpe_hr_main"/>
+
+        <!-- BPE HR Education level -->
+        <record id="view_bpe_hr_education_level_tree" model="ir.ui.view">
+            <field name="name">bpe.hr.education.level.tree</field>
+            <field name="model">bpe.hr.education.level</field>
+            <field name="arch" type="xml">
+                <tree string="Level Education" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_bpe_hr_education_level_search" model="ir.ui.view">
+            <field name="name">bpe.hr.education.level.search</field>
+            <field name="model">bpe.hr.education.level</field>
+            <field name="arch" type="xml">
+                <search string="Job Department">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_bpe_hr_education_level" model="ir.actions.act_window">
+            <field name="name">Level Education</field>
+            <field name="res_model">bpe.hr.education.level</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bpe_hr_education_level_tree"/>
+        </record>
+
+        <menuitem action="action_bpe_hr_education_level" id="menu_bpe_hr_education_level" sequence="5"
+                  parent="menu_bpe_hr_main"/>
+
+         <!-- Menu Deivision Update 16/02/2017-->
+        <record id="view_bpe_employee_division_tree" model="ir.ui.view">
+            <field name="name">bpe.employee.division.tree</field>
+            <field name="model">bpe.employee.division</field>
+            <field name="arch" type="xml">
+                <tree string="Division" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_bpe_employee_division_search" model="ir.ui.view">
+            <field name="name">bpe.employee.division.search</field>
+            <field name="model">bpe.employee.division</field>
+            <field name="arch" type="xml">
+                <search string="Division">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_bpe_employee_division" model="ir.actions.act_window">
+            <field name="name">Division</field>
+            <field name="res_model">bpe.employee.division</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_bpe_employee_division_tree"/>
+        </record>
+
+        <menuitem action="action_bpe_employee_division" id="menu_bpe_employee_division" sequence="20"
                   parent="menu_bpe_hr_configuration"/>
+
 
 <!-- BPE HR department -->
         <record id="view_bpe_hr_department_tree" model="ir.ui.view">
@@ -409,71 +477,72 @@
             <field name="view_id" ref="view_bpe_hr_department_tree"/>
         </record>
 
-        <menuitem action="action_bpe_hr_department" id="menu_bpe_hr_department" sequence="20"
+        <menuitem action="action_bpe_hr_department" id="menu_bpe_hr_department" sequence="21"
                   parent="menu_bpe_hr_configuration"/>
 
-<!-- BPE HR Education level -->
-        <record id="view_bpe_hr_education_level_tree" model="ir.ui.view">
-            <field name="name">bpe.hr.education.level.tree</field>
-            <field name="model">bpe.hr.education.level</field>
+        <!-- Menu Section Update 16/02/2017-->
+        <record id="view_bpe_employee_section_tree" model="ir.ui.view">
+            <field name="name">bpe.employee.section.tree</field>
+            <field name="model">bpe.employee.section</field>
             <field name="arch" type="xml">
-                <tree string="Level Education" editable="top">
+                <tree string="Section" editable="top">
                     <field name="name"/>
                 </tree>
             </field>
         </record>
 
-        <record id="view_bpe_hr_education_level_search" model="ir.ui.view">
-            <field name="name">bpe.hr.education.level.search</field>
-            <field name="model">bpe.hr.education.level</field>
+        <record id="view_bpe_employee_section_search" model="ir.ui.view">
+            <field name="name">bpe.employee.section.search</field>
+            <field name="model">bpe.employee.section</field>
             <field name="arch" type="xml">
-                <search string="Job Department">
+                <search string="Section">
                     <field name="name"/>
                 </search>
             </field>
         </record>
 
-        <record id="action_bpe_hr_education_level" model="ir.actions.act_window">
-            <field name="name">Level Education</field>
-            <field name="res_model">bpe.hr.education.level</field>
+        <record id="action_bpe_employee_section" model="ir.actions.act_window">
+            <field name="name">Section</field>
+            <field name="res_model">bpe.employee.section</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_bpe_hr_education_level_tree"/>
+            <field name="view_id" ref="view_bpe_employee_section_tree"/>
         </record>
 
-        <menuitem action="action_bpe_hr_education_level" id="menu_bpe_hr_education_level" sequence="20"
+        <menuitem action="action_bpe_employee_section" id="menu_bpe_employee_section" sequence="22"
                   parent="menu_bpe_hr_configuration"/>
 
-        <!-- Menu Employee Status -->
-        <record id="view_bpe_employee_status_tree" model="ir.ui.view">
-            <field name="name">bpe.employee.status.tree</field>
-            <field name="model">bpe.employee.status</field>
+        <!-- BPE HR Tilte -->
+        <record id="view_bpe_hr_jobtitle_tree" model="ir.ui.view">
+            <field name="name">bpe.hr.jobtitle.tree</field>
+            <field name="model">bpe.hr.jobtitle</field>
             <field name="arch" type="xml">
-                <tree string="Employee Status" editable="top">
+                <tree string="Job Title" editable="top">
                     <field name="name"/>
                 </tree>
             </field>
         </record>
 
-        <record id="view_bpe_employee_status_search" model="ir.ui.view">
-            <field name="name">bpe.employee.status.search</field>
-            <field name="model">bpe.employee.status</field>
+        <record id="view_bpe_hr_jobtitle_search" model="ir.ui.view">
+            <field name="name">bpe.hr.jobtitle.search</field>
+            <field name="model">bpe.hr.jobtitle</field>
             <field name="arch" type="xml">
-                <search string="Employee Status">
+                <search string="Job Title">
                     <field name="name"/>
                 </search>
             </field>
         </record>
 
-        <record id="action_bpe_employee_status" model="ir.actions.act_window">
-            <field name="name">Employee Status</field>
-            <field name="res_model">bpe.employee.status</field>
+        <record id="action_bpe_hr_jobtitle" model="ir.actions.act_window">
+            <field name="name">Job Title</field>
+            <field name="res_model">bpe.hr.jobtitle</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_bpe_employee_status_tree"/>
+            <field name="view_id" ref="view_bpe_hr_jobtitle_tree"/>
         </record>
 
-        <menuitem action="action_bpe_employee_status" id="menu_bpe_employee_status" sequence="20"
+        <menuitem action="action_bpe_hr_jobtitle" id="menu_bpe_hr_jobtitle" sequence="23"
                   parent="menu_bpe_hr_configuration"/>
+
     </data>
 </openerp>
