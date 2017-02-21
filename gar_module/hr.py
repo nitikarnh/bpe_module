@@ -248,7 +248,7 @@ class bpe_hr_employee_education(osv.osv):  # Table Master เก็บค่า�
         'employee_id': fields.many2one('bpe.employee', string='Employee'),
         'education_level_id': fields.many2one('bpe.hr.education.level', string='Education Level', requried=True),
         'education_stitute_id': fields.many2one('bpe.hr.education.institute', string='Institute', requried=True),
-        'year': fields.integer('Year', required=True),
+        'year': fields.char('Year', required=True),
         'grade': fields.float('Grade', required=True),
         'branch': fields.char('Field of Study', size=128),
         # Sorting Column by User Field
