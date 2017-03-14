@@ -74,7 +74,7 @@ class ineco_wht(osv.osv):
             if vatno:
                 result[data.id]['company_vat_no'] = '-'.join([vatno[:1],vatno[1:5],vatno[5:10],vatno[10:12],vatno[12:]])
             result[data.id]['company_full_address'] = data.company_id.partner_id.street + ' ' + \
-                                                        data.company_id.partner_id.street2 + ' '+data.company_id.partner_id.city
+                                                        data.company_id.partner_id.street2 + ' '+data.company_id.partner_id.city+ ' '+data.company_id.zip
         return result
 
     def _get_supplier_vat(self, cr, uid, ids, prop, unknow_none, context=None):
@@ -88,7 +88,7 @@ class ineco_wht(osv.osv):
             if vatno:
                 result[data.id]['partner_vat_no'] = '-'.join([vatno[:1],vatno[1:5],vatno[5:10],vatno[10:12],vatno[12:]])
             result[data.id]['partner_full_address'] = data.partner_id.street + ' ' + \
-                                                  data.partner_id.street2 + ' ' + data.partner_id.city
+                                                  data.partner_id.street2 + ' ' + data.partner_id.city+ ' '+data.partner_id.zip
         return result
 
     def _get_line_value(self, cr, uid, ids, prop, unknow_none, context=None):
