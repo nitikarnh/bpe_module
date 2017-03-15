@@ -44,7 +44,7 @@ class ProductTemplate(models.Model):
             self.last_date = purchase_line.date_approve
 
     last_price = fields.Float(string='Last Price',
-            digits=dp.get_precision('Account'),
+            digits=(12,4),
                 readonly=True,
                 compute='_get_last_action',
                 default=False)
