@@ -49,6 +49,9 @@ class sale_order(osv.osv):
     _description = "BPE Sales Order"
 
     _columns = {
+        'name': fields.char('Order Reference', required=True, copy=False,
+                            readonly=False, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
+                            select=True,track_visibility='onchange'),
         'origin': fields.text('Source Document', help="Reference of the document that generated this sales order request."),
         'rev': fields.char('Revision', size=32, required=True),
         'subject': fields.char('Subject', size=254, required=True),
