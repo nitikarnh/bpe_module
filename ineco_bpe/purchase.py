@@ -86,6 +86,10 @@ class purchase_order(osv.osv):
         for po in self.browse(cr,uid,ids):
             po.write({'user_approve_id': uid,'date_approve': time.strftime('%Y-%m-%d %H:%M:%S')})
 
+    def wkf_approve_order(self, cr, uid, ids, context=None):
+        self.write(cr, uid, ids, {'state': 'approved', 'date_approve': time.strftime('%Y-%m-%d %H:%M:%S')})
+        return True
+
     def action_cancel_draft(self, cr, uid, ids, context=None):
         if not len(ids):
             return False
