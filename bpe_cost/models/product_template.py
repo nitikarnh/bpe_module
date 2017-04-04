@@ -31,7 +31,7 @@ class ProductTemplate(models.Model):
 
     _inherit = 'product.template'
 
-    special = fields.Boolean(string='Special Price', default=False)
+    special = fields.Boolean(string='Special', default=False)
 
     @api.one
     def _get_last_action(self):
