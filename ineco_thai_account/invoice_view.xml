@@ -57,9 +57,9 @@
                     </page>
                     <page string="Receipts" groups="base.group_erp_manager">
                         <field name="receipt_ids">
-                            <tree string="Receipt">
+                            <tree string="Receipt" editable="top">
                                 <field name="name" />
-                                <field name="date_receipt" />
+                                <field name="date_receipt" readonly="1" />
                                 <field name="amount" />
                             </tree>
                         </field>
@@ -200,8 +200,8 @@
                     <field name="receipt_due"/>
                     <field name="bill_due"/>
                     <field name="billing_number" />
-                    <field name="receive_no" groups="ineco_thai_account.group_individual_taxinvoice"/>
-                    <field name="receive_date" groups="ineco_thai_account.group_individual_taxinvoice"/>
+                    <field name="receive_no" invisible="1" groups="ineco_thai_account.group_individual_taxinvoice"/>
+                    <field name="receive_date" invisible="1" groups="ineco_thai_account.group_individual_taxinvoice"/>
                 </field>
                 <field name="amount_untaxed" position="replace">
                     <field name="amount_untaxed" invisible="1" sum="Untaxed Amount"/>
