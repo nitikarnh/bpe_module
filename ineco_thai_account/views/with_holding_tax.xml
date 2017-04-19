@@ -107,9 +107,9 @@
                         <div style="font-size: 12px;font-weight: italic;
                                     position:absolute;left:50;top:50;">(ให้ระบุว่าเป็น บุคคล นิติบุคคล บริษัท สมาคม หรือคณะบุคคล)</div>
                         <div style="font-size: 14px;font-weight: bold;
-                                    position:absolute;top:78;">ที่อยู่</div>
+                                    position:absolute;top:65;">ที่อยู่</div>
                         <div style="font-size: 14px;font-weight: bold;
-                                    position:absolute;left:50;top:78;"><p t-field="o.partner_full_address"/></div>
+                                    position:absolute;left:50;top:65;"><p t-field="o.partner_full_address"/></div>
                         <div style="font-size: 12px;font-weight: italic;
                                     position:absolute;left:50;top:98;">(ให้ระบุ ชื่ออาคาร/หมู่บ้าน ห้องเลขที่ ชั้นที่ เลขที่ ตรอก/ซอย หมู่ที่ ถนน ตำบล/แขวง อำเภอ/เขต จังหวัด)</div>
                         <div style="font-size: 16px;font-weight: bold;
