@@ -18,12 +18,15 @@
                 <field name="fiscal_position" position="after">
                     <field name="partner_delivery_id"/>
                     <field name="warehouse_id" />
+                    <field name="internal_number" />
                 </field>
 
                 <field name="account_id" position="after">
                     <field name="billing_number" />
+                    <!--
                     <field name="receive_no" groups="ineco_thai_account.group_individual_taxinvoice"/>
                     <field name="receive_date" groups="ineco_thai_account.group_individual_taxinvoice"/>
+                    -->
                 </field>
 
                 <xpath expr="//page[@string='Payments']" position="before">
@@ -51,6 +54,15 @@
                                 <field name="commission_other"/>
                             </group>
                         </group>
+                    </page>
+                    <page string="Receipts" groups="base.group_erp_manager">
+                        <field name="receipt_ids">
+                            <tree string="Receipt">
+                                <field name="name" />
+                                <field name="date_receipt" />
+                                <field name="amount" />
+                            </tree>
+                        </field>
                     </page>
                 </xpath>
                 <field name="move_id" position="after">

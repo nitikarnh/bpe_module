@@ -97,8 +97,9 @@
                 </field>
                 <xpath expr="//page[@string='Payment Information']/field[@name='line_cr_ids']/tree/field[@name='date_due']"
                        position="after">
-                    <field name="receive_no" groups="ineco_thai_account.group_individual_taxinvoice"/>
+                    <field name="receive_no" invisible="1" groups="ineco_thai_account.group_individual_taxinvoice"/>
                     <field name="receive_date" invisible="1"/>
+                    <field name="receipt_no2" groups="ineco_thai_account.group_individual_taxinvoice" />
                 </xpath>
                 <xpath expr="//page[@string='Payment Information']/field[@name='line_cr_ids']/tree/field[@name='move_line_id']"
                        position="before">

@@ -312,12 +312,21 @@ class account_voucher(osv.osv):
                     raise osv.except_osv('Error', 'Please input Receipt Date.')
                 if line.invoice_id and line.invoice_id.journal_id and not line.invoice_id.journal_id.receipt_journal_id:
                     raise osv.except_osv('Error', 'Receipt Journal ID in [ %s ] not found.' % (line.invoice_id.journal_id.name))
-                if not line.invoice_id.receive_no:
+                #if not line.invoice_id.receive_no:
+                if not line.receipt_no2:
                     next_no = line.invoice_id.journal_id.sequence_id.next_by_id(line.invoice_id.journal_id.receipt_journal_id.sequence_id.id)
-                    line.invoice_id.write({
-                        'receive_no': next_no,
-                        'receive_date': data.receipt_date
-                    })
+                    receipt_obj = self.pool.get('account.invoice.receipt')
+                    new_data = {
+                        'name': next_no,
+                        'date_receipt': data.receipt_date,
+                        'amount': line.amount,
+                        'invoice_id': line.invoice_id.id,
+                    }
+                    receipt_obj.create(cr, uid, new_data)
+                    #line.invoice_id.write({
+                    #    'receive_no': next_no,
+                    #    'receive_date': data.receipt_date
+                    #})
         return True
 
     def button_receipt2_no(self, cr, uid, ids, context=None):
@@ -729,6 +738,25 @@ class account_voucher(osv.osv):
 
 
 class account_voucher_line(osv.osv):
+
+    def _get_receipts(self, cr, uid, ids, field_name, args, context=None):
+        res = {}
+        for line in self.browse(cr, uid, ids, context=context):
+            res[line.id] = {
+                'receipt_no2': False,
+                'receipt_date2': False,
+            }
+            receipt_obj = self.pool.get("account.invoice.receipt")
+            if line.invoice_id and line.voucher_id.receipt_date:
+                receipt_ids = receipt_obj.search(cr, uid, [('invoice_id','=',line.invoice_id.id),('date_receipt','=',line.voucher_id.receipt_date)])
+                if receipt_ids:
+                    receipts = receipt_obj.browse(cr, uid, receipt_ids)[0]
+                    res[line.id] = {
+                        'receipt_no2': receipts.name,
+                        'receipt_date2': receipts.date_receipt,
+                    }
+        return res
+
     _inherit = 'account.voucher.line'
     _columns = {
         'invoice_id': fields.related('move_line_id','invoice', type='many2one',
@@ -739,8 +767,13 @@ class account_voucher_line(osv.osv):
         'sequence': fields.integer('Sequence'),
         'supplier_invoice_number': fields.char('Supplier Invoice No', size=128),
         'supplier_receipt_number': fields.char('Supplier Receipt No', size=64),
+        'receipt_no2': fields.function(_get_receipts, type='char', string='Receipt No', multi='_receipts'),
+        'receipt_date2': fields.function(_get_receipts, type='date', string='Receipt Date', multi='_receipts'),
+
     }
+
     _defaults = {
         'sequence': 10,
     }
+
     _order = 'sequence'

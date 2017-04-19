@@ -159,6 +159,12 @@ class account_invoice(models.Model):
     customer_code = fields.Char(related='partner_id.ref', store=True, readonly=True, copy=False)
     #2016-12-07
     billing_number = fields.Char('Billing No', compute='_get_billing_number')
+    #2017-04-19
+    internal_number = fields.Char(string='Reserved No.', readonly=False,
+        default=False, copy=False,
+        help="Unique number of the invoice, computed automatically when the invoice is created.")
+    receipt_ids = fields.One2many('account.invoice.receipt','invoice_id',string='Receipts')
+
 
     _defaults = {
         #'service': False,
@@ -323,4 +329,14 @@ class account_invoice(models.Model):
 class account_invoice_line(models.Model):
     _inherit = 'account.invoice.line'
     wht_percent = fields.Float(string='WHT(%)')
+
+
+class account_invoice_receipt(models.Model):
+    _name = 'account.invoice.receipt'
+
+    name = fields.Char(string='Receipt No')
+    date_receipt = fields.Date(string='Receipt Date')
+    amount = fields.Float(string='Amount')
+    invoice_id = fields.Many2one('account.invoice', string='Invoice')
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
