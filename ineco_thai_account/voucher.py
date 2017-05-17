@@ -444,6 +444,10 @@ class account_voucher(osv.osv):
                 r = cr.fetchall()
                 tax_id = False
                 tax_reconciled_id = False
+                #ratio vat when patial received
+                ratio = 100.00
+                if line.amount_unreconciled and line.amount:
+                    ratio = line.amount * 100.00 / line.amount_unreconciled
                 if len(r) != 0:
                     tax_id = r[0][0]
                     tax_reconciled_id = r[0][1]
@@ -477,6 +481,11 @@ class account_voucher(osv.osv):
                         if len(rrr):
                             debit = rrr[0][0]
                             credit = rrr[0][1]
+                        #ratio vat when parien receive
+                        if debit:
+                            debit = debit * ratio / 100.00
+                        if credit:
+                            credit = credit * ratio / 100.00
                         if True: #debit or credit:
                             move_line = {
                                 'name': '...',
