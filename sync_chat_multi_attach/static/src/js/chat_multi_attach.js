@@ -250,6 +250,7 @@ openerp.sync_chat_multi_attach = function (instance) {
             self.attachment_ids = [];
             _.each(files, function(file){
                 var querydata = new FormData();
+
                 querydata.append('callback', 'oe_fileupload_temp2');
                 querydata.append('ufile',file);
                 querydata.append('model', 'im_chat.message');
