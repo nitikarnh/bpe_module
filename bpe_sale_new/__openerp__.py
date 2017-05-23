@@ -27,10 +27,10 @@
     'summary': 'Module Sale New',
     'description': """
 """,
-    'depends': ['sale', 'sale_stock'
+    'depends': ['base','sale', 'sale_stock'
                 ],
     'data': [
-
+        'salenew_view.xml'
     ],
     'installable': True,
     'application': False,

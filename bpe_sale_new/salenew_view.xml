@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        	<menuitem name="Marketing"
+                  id="menu_bpe_sale_new_main"
+                  groups="base.group_hr_user"
+                  sequence="105"/>
+
+        <menuitem id="menu_bpe_draft_job" parent="menu_bpe_sale_new_main" name="Sale Order" sequence="0"/>
+
+        <record id="view_sale_new_form" model="ir.ui.view">
+            <field name="name">sale.new.form</field>
+	      	<field name="model">sale.order.new</field>
+	      	<field name="arch" type="xml">
+                <form string="Draft JobNumber" colspan="3" version="7">
+                    <sheet>
+                        <field name="name" string="Draft Job No."/>
+                        <group>
+                            <group>
+                                <field name="sale_partner_id"/>
+                                <field name="type_project_id_new"/>
+                                <field name="type_payment_id_new"/>
+                            </group>
+                            <group>
+                                <field name="sale_date_order_new"/>
+                                <field name="sale_date_delivery_new"/>
+                                <field name="sale_description_new"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Quotation Line">
+                                <field name="sale_order_line_new_ids">
+                                    <tree editable="top">
+                                        <field name="name" string="Quotation No."/>
+                                        <field name="sale_ref_invoice1" string="SR/WO"/>
+                                        <field name="sale_ref_invoice2" string="WA/Contact"/>
+                                        <field name="sale_totalprice_new" string="TotalPrice"/>
+                                        <field name="sale_remark_new" string="Remark"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                         <field name="name" string="Quotation No."/>
+                                        <field name="sale_ref_invoice1" string="SR/WO"/>
+                                        <field name="sale_ref_invoice2" string="WA/Contact"/>
+                                        <field name="sale_totalprice_new" string="TotalPrice"/>
+                                        <field name="sale_remark_new" string="Remark"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sale_new_tree" model="ir.ui.view">
+            <field name="name">sale.new.tree</field>
+            <field name="model">sale.order.new</field>
+            <field name="arch" type="xml">
+                <tree string="Draft JobNumber" editable="top">
+                    <field name="name" string="Job Number"/>
+                    <field name="sale_partner_id"/>
+                    <field name="sale_description_new"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_bpe_sale_new" model="ir.actions.act_window">
+            <field name="name">Draft JobNumber</field>
+            <field name="res_model">sale.order.new</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sale_new_tree"/>
+        </record>
+
+        <menuitem action="action_bpe_sale_new" id="menu_bpe_sale_new" sequence="5"
+                  parent="menu_bpe_draft_job"/>
+    </data>
+</openerp>

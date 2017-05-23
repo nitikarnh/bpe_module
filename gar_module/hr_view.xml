@@ -335,7 +335,6 @@
                     <field name="bpe_email"/>
                     <field name="bpe_phone"/>
                     <!--<field name="job_id"/>-->
-
                 </tree>
             </field>
         </record>
