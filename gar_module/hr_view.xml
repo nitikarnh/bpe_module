@@ -334,6 +334,7 @@
                     <field name="bpe_department"/>
                     <field name="bpe_email"/>
                     <field name="bpe_phone"/>
+                    <field name="bpe_employee_status"/>
                     <!--<field name="job_id"/>-->
                 </tree>
             </field>
