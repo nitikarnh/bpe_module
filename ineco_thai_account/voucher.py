@@ -446,8 +446,8 @@ class account_voucher(osv.osv):
                 tax_reconciled_id = False
                 #ratio vat when patial received
                 ratio = 100.00
-                if line.amount_unreconciled and line.amount:
-                    ratio = line.amount * 100.00 / line.amount_unreconciled
+                if line.amount_original and line.amount:
+                    ratio = line.amount * 100.00 / line.amount_original
                 if len(r) != 0:
                     tax_id = r[0][0]
                     tax_reconciled_id = r[0][1]
