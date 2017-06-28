@@ -52,7 +52,7 @@ class InecoAccountInvoiceCreate(osv.osv_memory):
                 'date_invoice': data.date_invoice or False,
                 'date_due': data.date_due or False,
                 'partner_id': record.order_id.partner_invoice_id and record.order_id.partner_invoice_id.id or False,
-                'payment_term': record.order_id.payment_type_id and record.order_id.payment_type_id.id or False,
+                #'payment_term': record.order_id.payment_type_id and record.order_id.payment_type_id.id or False,
                 'origin': record.other_no,
                 'jobline_id': record.id,
                 'user_id': uid,
