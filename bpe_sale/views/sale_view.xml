@@ -163,7 +163,7 @@
                                         <field name="amount_residual"/>
                                         <field name="state"/>
                                         <button name="%(action_ineco_account_invoice_create)d" string="Create Invoice"
-                                                type="action"/>
+                                                type="action" states="draft,inprogress,invoice,paid"/>
                                     </tree>
                                     <form string="Order Line">
                                         <header>
