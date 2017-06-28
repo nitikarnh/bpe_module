@@ -73,7 +73,7 @@
                                     </tree>
                                     <form string="Order Line">
                                         <header>
-                                            <button name="button_cancel" string="Cancel" type="object" states="'draft"/>
+                                            <button name="button_cancel" string="Cancel" type="object" states="draft"/>
                                             <!--<button name="button_create_invoice" string="Create Invoice" type="object"/>-->
                                             <field name="state" widget="statusbar" nolabel="1"
                                                    statusbar_visible="draft,inprogress,invoice,paid,cancel"/>
