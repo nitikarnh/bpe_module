@@ -29,6 +29,7 @@
 """,
     'depends': ['base','sale','account'],
     'data': [
+        'data/data.xml',
         'wizard/wizard_invoice_create_view.xml',
         'views/sale_view.xml'
     ],

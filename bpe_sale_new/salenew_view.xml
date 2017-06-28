@@ -7,7 +7,7 @@
                   groups="base.group_hr_user"
                   sequence="105"/>
 
-        <menuitem id="menu_bpe_draft_job" parent="menu_bpe_sale_new_main" name="Sale Order" sequence="0"/>
+        <menuitem id="menu_bpe_draft_job" parent="menu_bpe_sale_new_main" name="Sale Order" sequence="10"/>
 
         <record id="view_sale_new_form" model="ir.ui.view">
             <field name="name">sale.new.form</field>
@@ -59,7 +59,7 @@
             <field name="name">sale.new.tree</field>
             <field name="model">sale.order.new</field>
             <field name="arch" type="xml">
-                <tree string="Draft JobNumber" editable="top">
+                <tree string="Draft JobNumber">
                     <field name="name" string="Job Number"/>
                     <field name="sale_partner_id"/>
                     <field name="sale_description_new"/>

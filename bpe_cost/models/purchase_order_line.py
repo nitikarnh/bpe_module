@@ -28,7 +28,9 @@ from openerp.tools import float_compare
 import openerp.addons.decimal_precision as dp
 
 class PurchaseOrderLine(models.Model):
+
     _inherit = 'purchase.order.line'
+
     date_approve = fields.Datetime(string='Date Approve',
                                    related='order_id.date_approve',
                                    readonly=True,

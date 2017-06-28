@@ -8,9 +8,11 @@
             <field name="arch" type="xml">
                 <form string="Invoice Create">
                     <group>
-                        <field name="amount_total" />
-                        <field name="date_invoice" />
-                        <field name="date_due" />
+                        <field name="amount_total"/>
+                        <field name="date_invoice"/>
+                        <field name="date_due"/>
+                        <field name="file_name" invisible="1"/>
+                        <field name="attachment" filename="file_name"/>
                     </group>
                     <footer>
                         <button string="Create New Invoice" name="invoice_create" type="object" class="oe_highlight"/>

@@ -32,6 +32,8 @@ class InecoAccountInvoiceCreate(osv.osv_memory):
         'amount_total': fields.float(string='Invoice Amount', required=True, digits=(12,2)),
         'date_due': fields.date(string='Due Date', required=True),
         'date_invoice': fields.date(string='Date invoice', required=True),
+        'file_name' : fields.char(string='File Name'),
+        'attachment' : fields.binary(string='Other Files', required=True),
     }
 
     def invoice_create(self, cr, uid, ids, context=None):
@@ -70,6 +72,18 @@ class InecoAccountInvoiceCreate(osv.osv_memory):
                 'db_datas': record.attachment
             }
             attachment.create(cr, uid, new_attachment)
+            new_attachment2 = {
+                'name': data.file_name,
+                'datas_fname': data.file_name,
+                'store_fname': False,
+                'res_model': 'account.invoice',
+                'res_name': False,
+                'type': 'binary',
+                'res_id': invoice_id,
+                'user_id': uid,
+                'db_datas': data.attachment
+            }
+            attachment.create(cr, uid, new_attachment2)
             new_line = {
                 'invoice_id': invoice_id,
                 'name': record.name,

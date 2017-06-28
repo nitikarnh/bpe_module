@@ -44,7 +44,7 @@ class InecoSaleOrder(models.Model):
 
     name = fields.Char(string='Job Number', size=32, required=True, copy=False, default='/')
     partner_id = fields.Many2one('res.partner', string='Customer', required=True, )
-    partner_contact_id = fields.Many2one('res.partner', string='Invoice', required=True)
+    partner_contact_id = fields.Many2one('res.partner', string='Contact', required=True)
     partner_invoice_id = fields.Many2one('res.partner', string='Invoice', required=True)
     partner_delivery_id = fields.Many2one('res.partner', string='Delivery', required=True)
     project_type_id = fields.Many2one('ineco.project.type', string='Type of Project', required=True)
@@ -53,6 +53,27 @@ class InecoSaleOrder(models.Model):
     date_delivery = fields.Date(string='Date Delivery', required=True, copy=False)
     description = fields.Char(string='Description')
     line_ids = fields.One2many('ineco.sale.order.line', 'order_id', string='Order Lines', copy=False)
+    state = fields.Selection([('draft','Draft'),('award','Award'),('cancel','Cancel')], string='State', copy=False, default='draft')
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name',False) == '/':
+            obj_sequence = self.env['ir.sequence'].search([('code','=','bpe.job.order')])
+            vals['name'] = obj_sequence._next()
+        new_record = super(InecoSaleOrder, self).create(vals)
+        return new_record
+
+    @api.multi
+    def button_award(self):
+        self.state = 'award'
+
+    @api.multi
+    def button_cancel(self):
+        self.state = 'cancel'
+
+    @api.multi
+    def button_draft(self):
+        self.state = 'draft'
 
 
 class InecoSaleOrderLine(models.Model):
@@ -64,8 +85,8 @@ class InecoSaleOrderLine(models.Model):
     order_id = fields.Many2one('ineco.sale.order', string='Sale Order')
     partner_id = fields.Many2one(related='order_id.partner_id', relation='res.partner', string='Customer',
                                  readonly=True, store=True, copy=False)
-    srso = fields.Char(string='SR/SO', required=True, copy=False)
-    other_no = fields.Char(string='WA/Contract/MA No', required=True, copy=False)
+    srso = fields.Char(string='SR/SO', copy=False)
+    other_no = fields.Char(string='WA/Contract/MA No', copy=False)
     amount_total = fields.Float(string='Total Price', digits=(12, 2), required=True, copy=False)
     amount_residual = fields.Float(string='Balance', digits=(12, 2), readonly=True)
     state = fields.Selection(
@@ -73,12 +94,24 @@ class InecoSaleOrderLine(models.Model):
          ('cancel', 'Cancel')], string='Status',
         default='draft', copy=False)
     file_name = fields.Char(string='File Name')
-    attachment = fields.Binary(string='Attachment', copy=False)
+    attachment = fields.Binary(string='Quotation', copy=False)
     invoice_ids = fields.One2many('account.invoice','jobline_id',string='Job Number', copy=False)
 
     @api.one
     def button_create_invoice(self):
         return True
+
+    @api.multi
+    def button_inprogress(self):
+        self.state = 'inprogress'
+
+    @api.multi
+    def button_invoice(self):
+        self.state = 'invoice'
+
+    @api.multi
+    def button_cancel(self):
+        self.state = 'cancel'
 
 
 class AccountInvoice(models.Model):
