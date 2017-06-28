@@ -19,20 +19,20 @@
 #
 ##############################################################################
 
-import itertools
-from lxml import etree
-
 from openerp import models, fields, api, _
-from openerp.osv import osv
 from datetime import datetime
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp.tools import float_compare
-import openerp.addons.decimal_precision as dp
 
 
 class InecoProjectType(models.Model):
     _name = 'ineco.project.type'
     _description = 'Type of Product'
+
+    name = fields.Char('Description', size=128, required=True, copy=False)
+
+
+class InecoProjectType(models.Model):
+    _name = 'ineco.payment.type'
+    _description = 'Type of Payment'
 
     name = fields.Char('Description', size=128, required=True, copy=False)
 
@@ -48,7 +48,8 @@ class InecoSaleOrder(models.Model):
     partner_invoice_id = fields.Many2one('res.partner', string='Invoice', required=True)
     partner_delivery_id = fields.Many2one('res.partner', string='Delivery', required=True)
     project_type_id = fields.Many2one('ineco.project.type', string='Type of Project', required=True)
-    payment_type_id = fields.Many2one('account.payment.term', string='Type of Payment', required=True)
+    #payment_type_id = fields.Many2one('account.payment.term', string='Type of Payment', required=True)
+    payment_type_id = fields.Many2one('ineco.payment.type', string='Type of Payment', required=True)
     date_order = fields.Date(string='Date Order', required=True, default=datetime.now().strftime('%Y-%m-%d'))
     date_delivery = fields.Date(string='Date Delivery', required=True, copy=False)
     description = fields.Char(string='Description')
