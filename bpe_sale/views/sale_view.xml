@@ -73,6 +73,7 @@
                                     </tree>
                                     <form string="Order Line">
                                         <header>
+                                            <button name="button_cancel" string="Cancel" type="object" states="'draft"/>
                                             <!--<button name="button_create_invoice" string="Create Invoice" type="object"/>-->
                                             <field name="state" widget="statusbar" nolabel="1"
                                                    statusbar_visible="draft,inprogress,invoice,paid,cancel"/>
@@ -166,9 +167,9 @@
                                     </tree>
                                     <form string="Order Line">
                                         <header>
-                                            <button name="button_inprogress" string="In Progress" type="object" />
-                                            <button name="button_invoice" string="Invoice" type="object" />
-                                            <button name="button_cancel" string="Cancel" type="object" />
+                                            <button name="button_inprogress" string="In Progress" type="object"/>
+                                            <button name="button_invoice" string="Invoice" type="object"/>
+                                            <button name="button_cancel" string="Cancel" type="object" states="draft"/>
                                             <!--<button name="button_create_invoice" string="Create Invoice" type="object"/>-->
                                             <field name="state" widget="statusbar" nolabel="1"
                                                    statusbar_visible="draft,inprogress,invoice,paid,cancel"/>
