@@ -30,7 +30,7 @@ class InecoProjectType(models.Model):
     name = fields.Char('Description', size=128, required=True, copy=False)
 
 
-class InecoProjectType(models.Model):
+class InecoPaymentType(models.Model):
     _name = 'ineco.payment.type'
     _description = 'Type of Payment'
 
@@ -42,14 +42,14 @@ class InecoSaleOrder(models.Model):
     _name = 'ineco.sale.order'
     _description = 'Sale Order for BPE / LSE'
 
-    name = fields.Char(string='Job Number', size=32, required=True, copy=False, default='/')
+    name = fields.Char(string='Job Number', size=64, required=True, copy=False, default='/')
     partner_id = fields.Many2one('res.partner', string='Customer', required=True, )
     partner_contact_id = fields.Many2one('res.partner', string='Contact', required=True)
     partner_invoice_id = fields.Many2one('res.partner', string='Invoice', required=True)
     partner_delivery_id = fields.Many2one('res.partner', string='Delivery', required=True)
     project_type_id = fields.Many2one('ineco.project.type', string='Type of Project', required=True)
     #payment_type_id = fields.Many2one('account.payment.term', string='Type of Payment', required=True)
-    payment_type_id = fields.Many2one('ineco.payment.type', string='Type of Payment', required=True)
+    payments_type_id = fields.Many2one('ineco.payment.type', string='Type of Payment', )
     date_order = fields.Date(string='Date Order', required=True, default=datetime.now().strftime('%Y-%m-%d'))
     date_delivery = fields.Date(string='Date Delivery', required=True, copy=False)
     description = fields.Char(string='Description')
