@@ -58,6 +58,7 @@ class InecoAccountInvoiceCreate(osv.osv_memory):
                 'user_id': uid,
                 'type': 'out_invoice',
                 'account_id': record.order_id.partner_invoice_id.property_account_receivable.id,
+                'currency_id': record.currency_id and record.currency_id.id or False,
             }
             invoice_id = invoice.create(cr, uid, new_invoice)
             new_attachment = {

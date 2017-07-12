@@ -157,6 +157,7 @@
                                 <field name="line_ids">
                                     <tree string="Order Lines">
                                         <field name="name"/>
+                                        <field name="quotation_date"/>
                                         <field name="srso"/>
                                         <field name="other_no"/>
                                         <field name="amount_total"/>
@@ -177,12 +178,14 @@
                                         <group>
                                             <group>
                                                 <field name="name"/>
+                                                <field name="quotation_date"/>
                                                 <field name="srso"/>
                                                 <field name="other_no"/>
                                             </group>
                                             <group>
                                                 <field name="amount_total"/>
                                                 <field name="amount_residual"/>
+                                                <field name="currency_id"/>
                                                 <field name="file_name" invisible="1"/>
                                                 <field name="attachment" filename="file_name"/>
                                             </group>
