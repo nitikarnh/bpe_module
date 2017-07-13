@@ -91,7 +91,7 @@ class InecoSaleOrderLine(models.Model):
     quotation_date = fields.Date(string='Date Quotation', copy=False)
     other_no = fields.Char(string='Reference', copy=False)
     amount_total = fields.Float(string='Total Price', digits=(12, 2), required=True, copy=False)
-    amount_residual = fields.Float(string='Balance', digits=(12, 2), readonly=True)
+    amount_residual = fields.Float(string='Balance', compute='get_residual', digits=(12, 2), readonly=True)
     state = fields.Selection(
         [('draft', 'New'), ('inprogress', 'In Progress'), ('invoice', 'Invoiced'), ('paid', 'Paid'),
          ('cancel', 'Cancel')], string='Status',
@@ -99,6 +99,12 @@ class InecoSaleOrderLine(models.Model):
     file_name = fields.Char(string='File Name')
     attachment = fields.Binary(string='Quotation', copy=False)
     invoice_ids = fields.One2many('account.invoice','jobline_id',string='Job Number', copy=False)
+
+    @api.one
+    @api.depends('invoice_ids.residual')
+    def get_residual(self):
+        for invoice in self.invoice_ids:
+            self.amount_residual += invoice.residual
 
     @api.one
     def button_create_invoice(self):
