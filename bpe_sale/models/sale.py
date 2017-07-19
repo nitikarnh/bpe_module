@@ -55,6 +55,7 @@ class InecoSaleOrder(models.Model):
     description = fields.Char(string='Description')
     line_ids = fields.One2many('ineco.sale.order.line', 'order_id', string='Order Lines', copy=False)
     state = fields.Selection([('draft','Draft'),('award','Award'),('cancel','Cancel')], string='State', copy=False, default='draft')
+    account_analytic_id = fields.Many2one('account.analytic.account', string='Next Job Number')
 
     @api.model
     def create(self, vals):
@@ -82,7 +83,7 @@ class InecoSaleOrderLine(models.Model):
     _name = 'ineco.sale.order.line'
     _description = 'Sale Order Line for BPE / LSE'
 
-    name = fields.Char(string='Quotation No', required=True, copy=False)
+    name = fields.Char(string='Quotation No', copy=False)
     order_id = fields.Many2one('ineco.sale.order', string='Sale Order')
     partner_id = fields.Many2one(related='order_id.partner_id', relation='res.partner', string='Customer',
                                  readonly=True, store=True, copy=False)
@@ -101,10 +102,12 @@ class InecoSaleOrderLine(models.Model):
     invoice_ids = fields.One2many('account.invoice','jobline_id',string='Job Number', copy=False)
 
     @api.one
-    @api.depends('invoice_ids.residual')
+    @api.depends('invoice_ids.amount_untaxed')
     def get_residual(self):
         for invoice in self.invoice_ids:
-            self.amount_residual += invoice.residual
+            if invoice.state not in ('cancel'):
+                self.amount_residual += invoice.amount_untaxed
+        self.amount_residual = self.amount_total - self.amount_residual
 
     @api.one
     def button_create_invoice(self):

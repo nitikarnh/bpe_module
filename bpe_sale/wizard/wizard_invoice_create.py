@@ -34,6 +34,7 @@ class InecoAccountInvoiceCreate(osv.osv_memory):
         'date_invoice': fields.date(string='Date invoice', required=True),
         'file_name' : fields.char(string='File Name'),
         'attachment' : fields.binary(string='Other Files', required=True),
+        #'analytic_account_id': fields.many2one('account.analytic.account', string='Job Number'),
     }
 
     def invoice_create(self, cr, uid, ids, context=None):
@@ -91,6 +92,8 @@ class InecoAccountInvoiceCreate(osv.osv_memory):
                 'price_unit': data.amount_total,
                 'quantity': 1.0,
                 'account_id': account_id or False,
+                'account_analytic_id': record.order_id.account_analytic_id and record.order_id.account_analytic_id.id or False,
             }
-            invoice_line.create(cr, uid, new_line)
+            #print new_line
+            new_line_id = invoice_line.create(cr, uid, new_line)
         return {'type': 'ir.actions.act_window_close'}

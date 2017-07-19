@@ -11,6 +11,7 @@
                         <field name="amount_total"/>
                         <field name="date_invoice"/>
                         <field name="date_due"/>
+                        <!--<field name="analytic_account_id" required="True" />-->
                         <field name="file_name" invisible="1"/>
                         <field name="attachment" filename="file_name"/>
                     </group>
