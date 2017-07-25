@@ -63,7 +63,7 @@ class InecoAccountInvoiceCreate(osv.osv_memory):
             }
             invoice_id = invoice.create(cr, uid, new_invoice)
             new_attachment = {
-                'name': record.name,
+                'name': record.name or '_',
                 'datas_fname': record.file_name,
                 'store_fname': False,
                 'res_model': 'account.invoice',
@@ -88,7 +88,7 @@ class InecoAccountInvoiceCreate(osv.osv_memory):
             attachment.create(cr, uid, new_attachment2)
             new_line = {
                 'invoice_id': invoice_id,
-                'name': record.name,
+                'name': record.name or ' ',
                 'price_unit': data.amount_total,
                 'quantity': 1.0,
                 'account_id': account_id or False,
