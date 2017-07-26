@@ -165,6 +165,7 @@
                                         <field name="quotation_date"/>
                                         <field name="srso"/>
                                         <field name="other_no"/>
+                                        <field name="desc_line"/>
                                         <field name="amount_total"/>
                                         <field name="amount_residual"/>
                                         <field name="state"/>
@@ -186,6 +187,7 @@
                                                 <field name="quotation_date"/>
                                                 <field name="srso" required="True"/>
                                                 <field name="other_no" require="Treu"/>
+                                                <field name="desc_line"/>
                                             </group>
                                             <group>
                                                 <field name="amount_total"/>

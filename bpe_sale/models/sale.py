@@ -93,6 +93,7 @@ class InecoSaleOrderLine(models.Model):
     other_no = fields.Char(string='Reference', copy=False)
     amount_total = fields.Float(string='Total Price', digits=(12, 2), required=True, copy=False)
     amount_residual = fields.Float(string='Balance', compute='get_residual', digits=(12, 2), readonly=True)
+    desc_line = fields.Text(string='Sale Note', copy=False)
     state = fields.Selection(
         [('draft', 'New'), ('inprogress', 'In Progress'), ('invoice', 'Invoiced'), ('paid', 'Paid'),
          ('cancel', 'Cancel')], string='Status',
