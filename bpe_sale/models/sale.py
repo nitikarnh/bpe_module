@@ -51,7 +51,7 @@ class InecoSaleOrder(models.Model):
     #payment_type_id = fields.Many2one('account.payment.term', string='Type of Payment', required=True)
     payments_type_id = fields.Many2one('ineco.payment.type', string='Type of Payment', )
     date_order = fields.Date(string='Date Order', required=True, default=datetime.now().strftime('%Y-%m-%d'))
-    date_delivery = fields.Date(string='Date Award', required=True, copy=False)
+    date_delivery = fields.Date(string='Date Award', copy=False)
     description = fields.Char(string='Description')
     line_ids = fields.One2many('ineco.sale.order.line', 'order_id', string='Order Lines', copy=False)
     state = fields.Selection([('draft','Draft'),('award','Award'),('cancel','Cancel')], string='State', copy=False, default='draft')
