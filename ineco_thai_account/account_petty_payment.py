@@ -312,7 +312,7 @@ class account_petty_payment_line(osv.osv):
     _columns={
         "petty_id": fields.many2one("account.petty.payment","Payment",ondelete="cascade"),
         "product_id": fields.many2one("product.product","Product"),
-        "name": fields.char("Description",size=64,required=True),
+        "name": fields.char("Description",size=256,required=True),
         "account_id": fields.many2one("account.account","Account",required=True),
         "price_unit": fields.float("Unit Price",required=True),
         "quantity": fields.float("Quantity",required=True),
