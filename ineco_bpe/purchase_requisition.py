@@ -197,7 +197,7 @@ class purchase_requisition(osv.osv):
                 raise osv.except_osv('Warning!', 'You not have any RFQ or Purchase Order.')                
         return self.write(cr, uid, ids, {'state': 'open'}, context=context)
 
-    def onchange_user_id(self, cr, uid, ids, user_id, context=None):
+    def onchange_user_id_old(self, cr, uid, ids, user_id, context=None):
         """ Changes UoM and name if product_id changes.
         @param user_id: User
         @return:  Dictionary of changed values
@@ -219,6 +219,36 @@ class purchase_requisition(osv.osv):
                                                    ('parent_id.department_id','=', employee.department_id.id),
                                                    ('project','=',True),('close','=',False)],
                           'user_approve_id': [('id','in',domain_approve_ids)]}
+        return {'value': value, 'domain': domain}
+
+    def onchange_user_id(self, cr, uid, ids, user_id, context=None):
+        """ Changes UoM and name if product_id changes.
+        @param user_id: User
+        @return:  Dictionary of changed values
+        """
+        value = {'user_approve_id': False,'user_checked_id': False}
+        group = self.pool.get('res.groups').browse(cr, uid, [54])
+        domain_approve_ids = [x.id for x in group.users]
+        domain_approve_ids.remove(1)
+        domain_check_ids = []
+        domain = {}
+        if user_id:
+            emp_ids = self.pool.get('hr.employee').search(cr, uid, [('user_id','=',user_id)])
+            employee = self.pool.get('hr.employee').browse(cr, uid, emp_ids)
+            domain_approve_ids = []
+            if employee.parent_id and employee.parent_id.user_id :
+                value.update({'user_approve_id': employee.parent_id.user_id.id })
+                domain_approve_ids.append(employee.parent_id.user_id.id)
+                domain_check_ids.append(employee.parent_id.user_id.id)
+            if employee.coach_id and employee.coach_id.user_id :
+                value.update({'user_checked_id': employee.coach_id.user_id.id })
+                domain_check_ids.append(employee.coach_id.user_id.id)
+            if employee.department_id:
+                domain = {'account_analytic_id': ['|','&','&',('department_id', '=', employee.department_id.id),('project','=',True),('close','=',False),
+                                                  '&','&',('department_id', '=', False),('project','=',True),('close','=',False)] ,
+                          'user_approve_id': [('id','in',domain_approve_ids)],
+                          'user_checked_id': [('id','in',domain_check_ids)],
+                }
         return {'value': value, 'domain': domain}
 
     def generate_po(self, cr, uid, ids, context=None):
