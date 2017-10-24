@@ -96,6 +96,7 @@ class account_petty_payment(osv.osv):
                     'employee_id': line.employee_id and line.employee_id.id or False,#ถ้าEmployeeไม่ใส่ข้อมูลให้เป็นFalseถ้าใส่ให้เอาID
                     'location_id': line.location_id and line.location_id.id or False,#ถ้าEmployeeไม่ใส่ข้อมูลให้เป็นFalseถ้าใส่ให้เอาID2
                     "partner_id": line.partner_id and line.partner_id.id or False,
+                    'analytic_account_id': line.analytic_account_id and line.analytic_account_id.id or False,
                 }
                 lines.append(vals)
 
@@ -145,6 +146,7 @@ class account_petty_payment_line(osv.osv):
         'employee_id': fields.many2one('bpe.employee', 'Employee'),
         'bpe_department_id': fields.many2one('bpe.hr.department','Department'),
         #'bpe_department_id': fields.related('employee_id', 'bpe_department', type='many2one', string='Department',relation='bpe.hr.department', readonly=True, store=True),
+        'analytic_account_id' : fields.many2one("account.analytic.account","Analytic Account"),
     }
 
     def onchange_employee_id(self, cr, uid, ids, employee_id, context=None):

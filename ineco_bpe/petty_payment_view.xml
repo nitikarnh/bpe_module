@@ -11,6 +11,7 @@
                     <field name="employee_id" on_change="onchange_employee_id(employee_id)" />
                     <field name="location_id" />
                     <field name="bpe_department_id" />
+                    <field name="analytic_account_id" />
                 </xpath>
             </field>
         </record>
